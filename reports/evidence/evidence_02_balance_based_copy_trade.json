@@ -2,50 +2,42 @@
   "meta": {
     "test_id": "evidence_02_balance_based_copy_trade",
     "title": "Copy Trading: Proportional Balance-Based Lot Sizing & Rounding Rule Audit",
-    "description": "Verify that updating copy method to 'balance' scales follower order lot size proportionally to follower balance vs master balance, testing both round and rounding-boundary probe ending below .005.",
+    "description": "Verify balance proportional lot sizing and evaluate boundary probe with raw follower lot in 0.1050 - 0.1099 to determine whether platform implements round (0.11) or floor (0.10).",
     "environment": "https://stage.wavexone.com",
-    "started_at": "2026-11-05T14:57:18.503045",
-    "completed_at": "2026-11-05T14:57:30.940998",
-    "duration_seconds": 12.44,
+    "started_at": "2026-11-05T16:59:38.949823",
+    "completed_at": "2026-11-05T16:59:51.834722",
+    "duration_seconds": 12.88,
     "status": "PASS",
     "error": null
   },
   "summary": {
-    "total_steps": 4,
-    "total_assertions": 3,
-    "passed_assertions": 3,
+    "total_steps": 2,
+    "total_assertions": 2,
+    "passed_assertions": 2,
     "failed_assertions": 0
   },
   "assertions": [
     {
       "assertion_index": 1,
-      "name": "Method Update Status",
-      "expected": "success",
-      "actual": "success",
-      "passed": true,
-      "notes": ""
-    },
-    {
-      "assertion_index": 2,
       "name": "Probe 1 Balance Lot Tolerance (within 1 step: 0.01)",
       "expected": 0.11,
       "actual": 0.11,
       "passed": true,
-      "notes": "Raw: 0.11013, Expected: 0.11, Actual: 0.11"
+      "notes": "Raw: 0.11012, Expected: 0.11, Actual: 0.11"
     },
     {
-      "assertion_index": 3,
-      "name": "Probe 2 Rounding Rule Detection",
-      "expected": "round(0.1)",
-      "actual": 0.1,
+      "assertion_index": 2,
+      "name": "Probe 2 Rounding Rule Detection from Platform Output",
+      "expected": "0.11 (round) or 0.10 (floor)",
+      "actual": 0.11,
       "passed": true,
-      "notes": "Detected rounding rule behavior: round"
+      "notes": "Raw: 0.10792 -> Platform Lot: 0.11 -> Rule: round"
     }
   ],
   "execution_steps": [
     {
       "step_index": 1,
-      "timestamp": "2026-11-05T14:57:18.887406",
+      "timestamp": "2026-11-05T16:59:39.337557",
       "name": "Update Copy Method to Balance",
       "action": "GET /user/updateCopyTradingMethod.php",
       "endpoint": "",
@@ -63,56 +55,20 @@
     },
     {
       "step_index": 2,
-      "timestamp": "2026-11-05T14:57:20.741820",
-      "name": "Probe 1 Calculations",
-      "action": "Computed expected balance scaling",
-      "endpoint": "",
-      "method": "",
-      "latency_ms": 0.0,
-      "request": {},
-      "response": {},
-      "extra": {
-        "master_balance": 111224113.69,
-        "follower_balance": 12249323.37,
-        "ratio": 0.11013190362784898,
-        "raw_lot": 0.11013190362784898,
-        "expected_lot": 0.11
-      }
-    },
-    {
-      "step_index": 3,
-      "timestamp": "2026-11-05T14:57:25.587013",
+      "timestamp": "2026-11-05T16:59:46.053624",
       "name": "Probe 2 Boundary Setup",
-      "action": "Selected probe lot to differentiate round vs ceil",
+      "action": "Selected probe lot so raw lot lands in 0.1050 - 0.1099",
       "endpoint": "",
       "method": "",
       "latency_ms": 0.0,
       "request": {},
       "response": {},
       "extra": {
-        "probe_master_lot": 0.95,
-        "raw_lot": 0.10462530844645652,
-        "round_val": 0.1
+        "probe_master_lot": 0.98,
+        "raw_lot": 0.10791573576429103,
+        "round_val": 0.11,
+        "floor_val": 0.1
       }
-    },
-    {
-      "step_index": 4,
-      "timestamp": "2026-11-05T14:57:29.585706",
-      "name": "Restore Multiplier Method",
-      "action": "GET /user/updateCopyTradingMethod.php",
-      "endpoint": "",
-      "method": "",
-      "latency_ms": 0.0,
-      "request": {
-        "method": "multiplier",
-        "value": "3.0"
-      },
-      "response": {
-        "status": "success",
-        "message": "Update Successfully",
-        "data": []
-      },
-      "extra": {}
     }
   ]
 }

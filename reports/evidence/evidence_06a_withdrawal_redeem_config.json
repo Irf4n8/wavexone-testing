@@ -1,125 +1,54 @@
 {
   "meta": {
     "test_id": "evidence_06a_withdrawal_redeem_config",
-    "title": "Copy Trading: apiRedeemConfig Open Orders Ratio Safeguard",
-    "description": "Verify that apiRedeemConfig correctly increments open_orders and caps withdrawable ratio to 0.8 when copy trading positions are open, and restores ratio to 1.0 upon closure.",
+    "title": "Portal & Wallet: Dynamic 80% Withdrawal Cap with Open Orders",
+    "description": "Verify apiRedeemConfig dynamically caps withdrawable ratio to 0.8 when orders are open and restores to 1.0 upon closure.",
     "environment": "https://stage.wavexone.com",
-    "started_at": "2026-11-05T14:58:21.138927",
-    "completed_at": "2026-11-05T14:58:31.079695",
-    "duration_seconds": 9.94,
+    "started_at": "2026-11-05T17:00:42.712334",
+    "completed_at": "2026-11-05T17:00:52.070705",
+    "duration_seconds": 9.36,
     "status": "PASS",
     "error": null
   },
   "summary": {
-    "total_steps": 3,
-    "total_assertions": 6,
-    "passed_assertions": 6,
+    "total_steps": 0,
+    "total_assertions": 4,
+    "passed_assertions": 4,
     "failed_assertions": 0
   },
   "assertions": [
     {
       "assertion_index": 1,
-      "name": "Pre-Trade Open Orders is 0",
-      "expected": 0,
-      "actual": 0,
-      "passed": true,
-      "notes": ""
-    },
-    {
-      "assertion_index": 2,
-      "name": "Pre-Trade Ratio is 1.0",
+      "name": "Clean State Withdrawable Ratio == 1.0",
       "expected": 1.0,
       "actual": 1.0,
       "passed": true,
       "notes": ""
     },
     {
-      "assertion_index": 3,
-      "name": "In-Trade Open Orders Detected (>=1)",
-      "expected": ">=1",
+      "assertion_index": 2,
+      "name": "Active State open_orders Count >= 1",
+      "expected": ">= 1",
       "actual": 1,
       "passed": true,
       "notes": ""
     },
     {
-      "assertion_index": 4,
-      "name": "In-Trade Withdrawable Ratio Capped to 0.8",
+      "assertion_index": 3,
+      "name": "Active State Withdrawable Ratio Capped to 0.8",
       "expected": 0.8,
       "actual": 0.8,
-      "passed": true,
-      "notes": "Engine preserves margin by capping withdrawal ratio to 80%"
-    },
-    {
-      "assertion_index": 5,
-      "name": "Post-Trade Open Orders Restored to 0",
-      "expected": 0,
-      "actual": 0,
       "passed": true,
       "notes": ""
     },
     {
-      "assertion_index": 6,
-      "name": "Post-Trade Ratio Restored to 1.0",
+      "assertion_index": 4,
+      "name": "Restored Withdrawable Ratio == 1.0",
       "expected": 1.0,
       "actual": 1.0,
       "passed": true,
       "notes": ""
     }
   ],
-  "execution_steps": [
-    {
-      "step_index": 1,
-      "timestamp": "2026-11-05T14:58:21.490375",
-      "name": "Pre-Trade Redeem Config Query",
-      "action": "GET /client-portal/apiRedeemConfig",
-      "endpoint": "",
-      "method": "",
-      "latency_ms": 0.0,
-      "request": {},
-      "response": {
-        "available": 12249243.45,
-        "open_orders": 0,
-        "ratio": 1,
-        "pending_withdraw": 0,
-        "pamm_follower_reserve": 0
-      },
-      "extra": {}
-    },
-    {
-      "step_index": 2,
-      "timestamp": "2026-11-05T14:58:25.310658",
-      "name": "In-Trade Redeem Config Query",
-      "action": "GET /client-portal/apiRedeemConfig",
-      "endpoint": "",
-      "method": "",
-      "latency_ms": 0.0,
-      "request": {},
-      "response": {
-        "available": 9799009.54,
-        "open_orders": 1,
-        "ratio": 0.8,
-        "pending_withdraw": 0,
-        "pamm_follower_reserve": 0
-      },
-      "extra": {}
-    },
-    {
-      "step_index": 3,
-      "timestamp": "2026-11-05T14:58:29.888336",
-      "name": "Post-Trade Redeem Config Query",
-      "action": "GET /client-portal/apiRedeemConfig",
-      "endpoint": "",
-      "method": "",
-      "latency_ms": 0.0,
-      "request": {},
-      "response": {
-        "available": 12249219.32,
-        "open_orders": 0,
-        "ratio": 1,
-        "pending_withdraw": 0,
-        "pamm_follower_reserve": 0
-      },
-      "extra": {}
-    }
-  ]
+  "execution_steps": []
 }

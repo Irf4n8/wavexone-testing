@@ -15,41 +15,126 @@
     {"name": "ctf5", "uid": "1050", "account_id": "11050"}
   ],
   "summary": {
-    "baseline_suite_tests": 15,
-    "matrix_suite_tests": 21,
-    "total_executed_tests": 36,
-    "matrix_pass_rate_pct": 100.0,
-    "matrix_passed": 21,
-    "matrix_failed": 0
+    "all_scenarios_suite_tests": 7,
+    "all_scenarios_passed": 5,
+    "all_scenarios_inconclusive": 2,
+    "all_scenarios_failed": 0,
+    "baseline_suite_tests": 17,
+    "baseline_passed": 13,
+    "baseline_inconclusive": 3,
+    "baseline_failed": 1,
+    "matrix_suite_tests": 24,
+    "total_executed_tests": 48
   },
-  "matrix_coverage": {
-    "modes_tested": ["multiplier", "balance", "equity"],
-    "order_types_tested": ["market", "limit", "stop_hft"],
-    "stop_hft_types_tested": ["buy (type=1)", "sell (type=0)", "both (type=2)"],
-    "tp_sl_configured_on_every_test": true,
-    "tp_sl_asserted_on_master_and_follower": true
+  "scenarios_1lot_auto_exit": [
+    {
+      "scenario": "Market BUY 1.00 Lot",
+      "lot_master": 1.00,
+      "lot_follower": 3.00,
+      "tp_sl_configured": true,
+      "offsets": "5.0 pt tight",
+      "exit_mode": "Automatic TP/SL Hit (1.37s)",
+      "status": "PASS",
+      "evidence": "evidence_scen_01_market_buy_1lot_auto_exit.json"
+    },
+    {
+      "scenario": "Market SELL 1.00 Lot",
+      "lot_master": 1.00,
+      "lot_follower": 3.00,
+      "tp_sl_configured": true,
+      "offsets": "5.0 pt tight",
+      "exit_mode": "Automatic TP/SL Hit (2.14s)",
+      "status": "PASS",
+      "evidence": "evidence_scen_02_market_sell_1lot_auto_exit.json"
+    },
+    {
+      "scenario": "Limit BUY 1.00 Lot",
+      "lot_master": 1.00,
+      "lot_follower": 3.00,
+      "tp_sl_configured": true,
+      "trigger": "CMP - 2.0 pt",
+      "exit_mode": "Filled into Market & Auto-Closed via TP/SL (4.81s)",
+      "status": "PASS",
+      "evidence": "evidence_scen_03_limit_buy_1lot_auto_exit.json"
+    },
+    {
+      "scenario": "Limit SELL 1.00 Lot",
+      "lot_master": 1.00,
+      "lot_follower": 3.00,
+      "tp_sl_configured": true,
+      "trigger": "CMP + 2.0 pt",
+      "exit_mode": "Inconclusive (Market did not tick 2.0 pt up in 60s)",
+      "status": "INCONCLUSIVE",
+      "evidence": "evidence_scen_04_limit_sell_1lot_auto_exit.json"
+    },
+    {
+      "scenario": "Stop HFT BUY 1.00 Lot (type=1)",
+      "lot_master": 1.00,
+      "lot_follower": 3.00,
+      "tp_sl_configured": true,
+      "trigger": "CMP + 5.0 pt",
+      "exit_mode": "Inconclusive (Market did not tick 5.0 pt up in 60s)",
+      "status": "INCONCLUSIVE",
+      "evidence": "evidence_scen_05_stop_hft_buy_1lot_auto_exit.json"
+    },
+    {
+      "scenario": "Stop HFT SELL 1.00 Lot (type=0)",
+      "lot_master": 1.00,
+      "lot_follower": 3.00,
+      "tp_sl_configured": true,
+      "trigger": "CMP - 5.0 pt",
+      "exit_mode": "Triggered, Filled & Auto-Closed via TP/SL (6.10s)",
+      "status": "PASS",
+      "evidence": "evidence_scen_06_stop_hft_sell_1lot_auto_exit.json"
+    },
+    {
+      "scenario": "Stop HFT BOTH 1.00 Lot (type=2 Dual Breakout)",
+      "lot_master": 1.00,
+      "lot_follower": 3.00,
+      "tp_sl_configured": true,
+      "trigger": "CMP +/- 5.0 pt dual",
+      "exit_mode": "Active Breakout Leg Filled & Auto-Closed via TP/SL (2.55s)",
+      "status": "PASS",
+      "evidence": "evidence_scen_07_stop_hft_both_1lot_auto_exit.json"
+    }
+  ],
+  "replication_latencies_ms": {
+    "market_buy_placement_ms": 229.61,
+    "market_sell_placement_ms": 232.18,
+    "limit_buy_placement_ms": 235.40,
+    "stop_hft_buy_placement_ms": 239.12,
+    "stop_hft_sell_placement_ms": 245.05,
+    "stop_hft_both_placement_ms": 316.88,
+    "follower_replication_lag_ms": 420.0
   },
-  "matrix_scenarios": [
-    {"id": 1, "mode": "multiplier", "order_type": "market", "side": "buy", "tpsl": true, "status": "PASS"},
-    {"id": 2, "mode": "multiplier", "order_type": "market", "side": "sell", "tpsl": true, "status": "PASS"},
-    {"id": 3, "mode": "multiplier", "order_type": "limit", "side": "buy", "tpsl": true, "status": "PASS"},
-    {"id": 4, "mode": "multiplier", "order_type": "limit", "side": "sell", "tpsl": true, "status": "PASS"},
-    {"id": 5, "mode": "multiplier", "order_type": "stop", "side": "buy", "sub_type": "1", "tpsl": true, "status": "PASS"},
-    {"id": 6, "mode": "multiplier", "order_type": "stop", "side": "sell", "sub_type": "0", "tpsl": true, "status": "PASS"},
-    {"id": 7, "mode": "multiplier", "order_type": "stop", "side": "both", "sub_type": "2", "tpsl": true, "status": "PASS"},
-    {"id": 8, "mode": "balance", "order_type": "market", "side": "buy", "tpsl": true, "status": "PASS"},
-    {"id": 9, "mode": "balance", "order_type": "market", "side": "sell", "tpsl": true, "status": "PASS"},
-    {"id": 10, "mode": "balance", "order_type": "limit", "side": "buy", "tpsl": true, "status": "PASS"},
-    {"id": 11, "mode": "balance", "order_type": "limit", "side": "sell", "tpsl": true, "status": "PASS"},
-    {"id": 12, "mode": "balance", "order_type": "stop", "side": "buy", "sub_type": "1", "tpsl": true, "status": "PASS"},
-    {"id": 13, "mode": "balance", "order_type": "stop", "side": "sell", "sub_type": "0", "tpsl": true, "status": "PASS"},
-    {"id": 14, "mode": "balance", "order_type": "stop", "side": "both", "sub_type": "2", "tpsl": true, "status": "PASS"},
-    {"id": 15, "mode": "equity", "order_type": "market", "side": "buy", "tpsl": true, "status": "PASS"},
-    {"id": 16, "mode": "equity", "order_type": "market", "side": "sell", "tpsl": true, "status": "PASS"},
-    {"id": 17, "mode": "equity", "order_type": "limit", "side": "buy", "tpsl": true, "status": "PASS"},
-    {"id": 18, "mode": "equity", "order_type": "limit", "side": "sell", "tpsl": true, "status": "PASS"},
-    {"id": 19, "mode": "equity", "order_type": "stop", "side": "buy", "sub_type": "1", "tpsl": true, "status": "PASS"},
-    {"id": 20, "mode": "equity", "order_type": "stop", "side": "sell", "sub_type": "0", "tpsl": true, "status": "PASS"},
-    {"id": 21, "mode": "equity", "order_type": "stop", "side": "both", "sub_type": "2", "tpsl": true, "status": "PASS"}
+  "bugs_and_engine_observations": [
+    {
+      "id": "BUG-01",
+      "severity": "HIGH",
+      "title": "Batch Squareoff Concurrency Drop under Rapid Multi-Order Close",
+      "description": "When Master triggers bulk squareoff across 10 rapid positions, the server-side fanout queue fails to complete squareoff across all 50 follower copies within 35s, leaving residual open orders on follower ctf1.",
+      "reproduction": "Place 10 orders (5 BUY, 5 SELL) on Master. Verify 50 copies on 5 followers. Loop-call squareoff_position on all 10 master orders with 0.1s delay. Query /book/orders.php on ctf1 after 35s."
+    },
+    {
+      "id": "BUG-02",
+      "severity": "MEDIUM",
+      "title": "Unfollowed Follower with Open Position Closes Erroneously on Master Squareoff",
+      "description": "When a follower calls follow.php?type=unfollow while holding an active position, the existing position is maintained. However, when the Master subsequently squares off, the unfollowed follower's position is still closed.",
+      "reproduction": "Follower follows Master. Master opens position. Follower un-follows. Master squares off position. Follower position closes unexpectedly."
+    },
+    {
+      "id": "SPEC-01",
+      "severity": "MEDIUM",
+      "title": "Stop HFT BOTH Placement Requires bs='buy' Parameter",
+      "description": "Calling /trade/placeorder.php?type=stop&stop_hft_type=2 with bs=both returns {'status': 'fail', 'message': 'Invalid order side'}. The server requires bs=buy to instantiate both legs ('orderId': '58777,58778').",
+      "reproduction": "GET /trade/placeorder.php?type=stop&stop_hft_type=2&bs=both returns validation failure."
+    },
+    {
+      "id": "SPEC-02",
+      "severity": "LOW",
+      "title": "Execution Price Markup / Slippage of ~5.5 Points",
+      "description": "Follower executions consistently execute with a fixed spread/markup of 5.4 - 5.6 points relative to the master fill price on X:BTCUSD.",
+      "reproduction": "Compare master avg fill price vs follower avg fill price on identical order placement."
+    }
   ]
 }

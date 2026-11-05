@@ -1,0 +1,101 @@
+{
+  "meta": {
+    "test_id": "evidence_scen_01_market_buy_1lot_auto_exit",
+    "title": "Copy Trading: Market BUY 1.00 Lot with Easy-to-Hit TP/SL & Automatic Exit",
+    "description": "Master places 1.00 whole lot Market BUY with tight 5.0 pt TP/SL offsets. Follower replicates exactly 3.00 lots. Test exits ONLY when TP or SL is triggered automatically.",
+    "environment": "https://stage.wavexone.com",
+    "started_at": "2026-11-05T17:14:48.356619",
+    "completed_at": "2026-11-05T17:14:54.636805",
+    "duration_seconds": 6.28,
+    "status": "PASS",
+    "error": null
+  },
+  "summary": {
+    "total_steps": 1,
+    "total_assertions": 6,
+    "passed_assertions": 6,
+    "failed_assertions": 0
+  },
+  "assertions": [
+    {
+      "assertion_index": 1,
+      "name": "Master Placed 1.00 Whole Lot (No Decimals)",
+      "expected": 1.0,
+      "actual": 1.0,
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 2,
+      "name": "Follower Replicated 3.00 Lots (3.0x Multiplier)",
+      "expected": 3.0,
+      "actual": 3.0,
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 3,
+      "name": "Follower SL (80268.81) Propagated",
+      "expected": "80268.81",
+      "actual": "80268.81",
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 4,
+      "name": "Follower TP (80278.81) Propagated",
+      "expected": "80278.81",
+      "actual": "80278.81",
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 5,
+      "name": "Master Automatic Exit via TP/SL Hit",
+      "expected": true,
+      "actual": true,
+      "passed": true,
+      "notes": "Order auto-closed in 1.37s without manual close."
+    },
+    {
+      "assertion_index": 6,
+      "name": "Follower Synchronous Automatic Exit via TP/SL Hit",
+      "expected": true,
+      "actual": true,
+      "passed": true,
+      "notes": "Follower must auto-close when Master position is terminated by TP/SL hit."
+    }
+  ],
+  "execution_steps": [
+    {
+      "step_index": 1,
+      "timestamp": "2026-11-05T17:14:49.351234",
+      "name": "Master Market BUY Placement (1.00 Lot)",
+      "action": "POST /trade/placeorder.php",
+      "endpoint": "",
+      "method": "",
+      "latency_ms": 0.0,
+      "request": {
+        "lot": 1.0,
+        "sl": "80268.81",
+        "tp": "80278.81"
+      },
+      "response": {
+        "status": "success",
+        "message": "Order accepted for processing",
+        "data": {
+          "orderId": "58709",
+          "intentId": "7c70ba15d1226777ac90c9922b3d6f95",
+          "executionStatus": "queued",
+          "fanoutJobId": 6783,
+          "fanoutStatus": "queued",
+          "requestId": "legacy_36bc599230203cdd7304c48984b05f79",
+          "placementReplayProtected": true
+        },
+        "_duration_ms": 229.61,
+        "_request_url": "https://stage.wavexone.com/trade/placeorder.php?type=market&bs=buy&lot=1.00&sl=80268.81&target=80278.81&symbol=X:BTCUSD&token=UHZIKS5BXD&clicked=yes&fingerprint=060d191b0e0707726a777e74726273641f45415621_1223"
+      },
+      "extra": {}
+    }
+  ]
+}

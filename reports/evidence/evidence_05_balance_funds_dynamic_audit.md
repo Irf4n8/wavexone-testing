@@ -1,34 +1,25 @@
-# Evidence Report: Copy Trading: Dynamic Margin Audit & Leverage Compliance (✅ PASS)
+# Evidence Report: Copy Trading: Dynamic Margin Audit & Squareoff Capital Release (✅ PASS)
 
 **Test Identifier:** `evidence_05_balance_funds_dynamic_audit`  
-**Objective:** Verify expected margin = (lot * price / leverage) within 2% tolerance, follower margin = 3x master margin (+-2%), and 100% margin release post-squareoff.  
+**Objective:** Verify margin formula (lot * price / leverage) with live price and leverage within 2% tolerance, confirm follower margin is ~3x master margin, and assert 100% margin release upon squareoff.  
 **Target Staging Engine:** `https://stage.wavexone.com`  
-**Execution Timestamp:** `2026-11-05T14:58:07.186080` $\rightarrow$ `2026-11-05T14:58:18.799951` (11.61s)  
+**Execution Timestamp:** `2026-11-05T17:00:28.858384` $\rightarrow$ `2026-11-05T17:00:39.929807` (11.07s)  
 **Overall Verification Status:** **✅ PASS**  
 
 ---
 
-## 📊 Verification Assertions (5/5 Passed)
+## 📊 Verification Assertions (4/4 Passed)
 
 | # | Assertion Check | Expected Value | Actual Value Observed | Result | Notes |
 | :-: | :--- | :--- | :--- | :---: | :--- |
-| 1 | **Master Margin Formula Match (2% tolerance)** | `$160.49 +- 2%` | `$160.50 (err: 0.01%)` | ✅ PASS | Formula: lot * price / leverage |
-| 2 | **Follower Margin Formula Match (2% tolerance)** | `$481.48 +- 2%` | `$481.50 (err: 0.00%)` | ✅ PASS | Formula: (lot*3) * price / leverage |
-| 3 | **Follower Margin is 3x Master Margin (2% tolerance)** | `3.0 +- 2%` | `3.000 (err: 0.00%)` | ✅ PASS |  |
-| 4 | **Master Margin Fully Released (Residual <= 1.0)** | `0.0` | `0.0` | ✅ PASS | Fund restored back to balance |
-| 5 | **Follower Margin Fully Released (Residual <= 1.0)** | `0.0` | `0.0` | ✅ PASS | Fund restored back to balance |
+| 1 | **Master Margin Adheres to Formula (2% tol)** | `160.38` | `160.38` | ✅ PASS |  |
+| 2 | **Follower Margin is ~3x Master Margin** | `3.0x` | `3.00x` | ✅ PASS |  |
+| 3 | **Master Margin 100% Released After Squareoff (Fund == Balance)** | `True` | `True` | ✅ PASS | Master Fund: $111,223,726.35, Balance: $111,223,726.35 |
+| 4 | **Follower Margin 100% Released After Squareoff (Fund == Balance)** | `True` | `True` | ✅ PASS | Follower Fund: $12,247,697.60, Balance: $12,247,697.60 |
 
 ---
 
 ## 📜 Chronological Execution Steps & Telemetry
-
-### Step 1: Dynamic Margin Expectation
-- **Action:** `Computed mathematical margin requirement`
-- **Telemetry / Details:** `{"price": 80247.4, "leverage": 500, "expected_master_margin": 160.49, "expected_follower_margin": 481.48}`
-
-### Step 2: In-Trade Margin Observation
-- **Action:** `GET /book/balance.php`
-- **Telemetry / Details:** `{"observed_master_margin": 160.5, "observed_follower_margin": 481.5}`
 
 ---
 

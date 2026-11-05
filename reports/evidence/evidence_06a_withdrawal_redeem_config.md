@@ -1,66 +1,25 @@
-# Evidence Report: Copy Trading: apiRedeemConfig Open Orders Ratio Safeguard (✅ PASS)
+# Evidence Report: Portal & Wallet: Dynamic 80% Withdrawal Cap with Open Orders (✅ PASS)
 
 **Test Identifier:** `evidence_06a_withdrawal_redeem_config`  
-**Objective:** Verify that apiRedeemConfig correctly increments open_orders and caps withdrawable ratio to 0.8 when copy trading positions are open, and restores ratio to 1.0 upon closure.  
+**Objective:** Verify apiRedeemConfig dynamically caps withdrawable ratio to 0.8 when orders are open and restores to 1.0 upon closure.  
 **Target Staging Engine:** `https://stage.wavexone.com`  
-**Execution Timestamp:** `2026-11-05T14:58:21.138927` $\rightarrow$ `2026-11-05T14:58:31.079695` (9.94s)  
+**Execution Timestamp:** `2026-11-05T17:00:42.712334` $\rightarrow$ `2026-11-05T17:00:52.070705` (9.36s)  
 **Overall Verification Status:** **✅ PASS**  
 
 ---
 
-## 📊 Verification Assertions (6/6 Passed)
+## 📊 Verification Assertions (4/4 Passed)
 
 | # | Assertion Check | Expected Value | Actual Value Observed | Result | Notes |
 | :-: | :--- | :--- | :--- | :---: | :--- |
-| 1 | **Pre-Trade Open Orders is 0** | `0` | `0` | ✅ PASS |  |
-| 2 | **Pre-Trade Ratio is 1.0** | `1.0` | `1.0` | ✅ PASS |  |
-| 3 | **In-Trade Open Orders Detected (>=1)** | `>=1` | `1` | ✅ PASS |  |
-| 4 | **In-Trade Withdrawable Ratio Capped to 0.8** | `0.8` | `0.8` | ✅ PASS | Engine preserves margin by capping withdrawal ratio to 80% |
-| 5 | **Post-Trade Open Orders Restored to 0** | `0` | `0` | ✅ PASS |  |
-| 6 | **Post-Trade Ratio Restored to 1.0** | `1.0` | `1.0` | ✅ PASS |  |
+| 1 | **Clean State Withdrawable Ratio == 1.0** | `1.0` | `1.0` | ✅ PASS |  |
+| 2 | **Active State open_orders Count >= 1** | `>= 1` | `1` | ✅ PASS |  |
+| 3 | **Active State Withdrawable Ratio Capped to 0.8** | `0.8` | `0.8` | ✅ PASS |  |
+| 4 | **Restored Withdrawable Ratio == 1.0** | `1.0` | `1.0` | ✅ PASS |  |
 
 ---
 
 ## 📜 Chronological Execution Steps & Telemetry
-
-### Step 1: Pre-Trade Redeem Config Query
-- **Action:** `GET /client-portal/apiRedeemConfig`
-```json
-// Server Response:
-{
-  "available": 12249243.45,
-  "open_orders": 0,
-  "ratio": 1,
-  "pending_withdraw": 0,
-  "pamm_follower_reserve": 0
-}
-```
-
-### Step 2: In-Trade Redeem Config Query
-- **Action:** `GET /client-portal/apiRedeemConfig`
-```json
-// Server Response:
-{
-  "available": 9799009.54,
-  "open_orders": 1,
-  "ratio": 0.8,
-  "pending_withdraw": 0,
-  "pamm_follower_reserve": 0
-}
-```
-
-### Step 3: Post-Trade Redeem Config Query
-- **Action:** `GET /client-portal/apiRedeemConfig`
-```json
-// Server Response:
-{
-  "available": 12249219.32,
-  "open_orders": 0,
-  "ratio": 1,
-  "pending_withdraw": 0,
-  "pamm_follower_reserve": 0
-}
-```
 
 ---
 

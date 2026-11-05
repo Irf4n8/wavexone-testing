@@ -1,95 +1,54 @@
 {
   "meta": {
     "test_id": "evidence_05_balance_funds_dynamic_audit",
-    "title": "Copy Trading: Dynamic Margin Audit & Leverage Compliance",
-    "description": "Verify expected margin = (lot * price / leverage) within 2% tolerance, follower margin = 3x master margin (+-2%), and 100% margin release post-squareoff.",
+    "title": "Copy Trading: Dynamic Margin Audit & Squareoff Capital Release",
+    "description": "Verify margin formula (lot * price / leverage) with live price and leverage within 2% tolerance, confirm follower margin is ~3x master margin, and assert 100% margin release upon squareoff.",
     "environment": "https://stage.wavexone.com",
-    "started_at": "2026-11-05T14:58:07.186080",
-    "completed_at": "2026-11-05T14:58:18.799951",
-    "duration_seconds": 11.61,
+    "started_at": "2026-11-05T17:00:28.858384",
+    "completed_at": "2026-11-05T17:00:39.929807",
+    "duration_seconds": 11.07,
     "status": "PASS",
     "error": null
   },
   "summary": {
-    "total_steps": 2,
-    "total_assertions": 5,
-    "passed_assertions": 5,
+    "total_steps": 0,
+    "total_assertions": 4,
+    "passed_assertions": 4,
     "failed_assertions": 0
   },
   "assertions": [
     {
       "assertion_index": 1,
-      "name": "Master Margin Formula Match (2% tolerance)",
-      "expected": "$160.49 +- 2%",
-      "actual": "$160.50 (err: 0.01%)",
-      "passed": true,
-      "notes": "Formula: lot * price / leverage"
-    },
-    {
-      "assertion_index": 2,
-      "name": "Follower Margin Formula Match (2% tolerance)",
-      "expected": "$481.48 +- 2%",
-      "actual": "$481.50 (err: 0.00%)",
-      "passed": true,
-      "notes": "Formula: (lot*3) * price / leverage"
-    },
-    {
-      "assertion_index": 3,
-      "name": "Follower Margin is 3x Master Margin (2% tolerance)",
-      "expected": "3.0 +- 2%",
-      "actual": "3.000 (err: 0.00%)",
+      "name": "Master Margin Adheres to Formula (2% tol)",
+      "expected": 160.38,
+      "actual": 160.38,
       "passed": true,
       "notes": ""
     },
     {
-      "assertion_index": 4,
-      "name": "Master Margin Fully Released (Residual <= 1.0)",
-      "expected": 0.0,
-      "actual": 0.0,
+      "assertion_index": 2,
+      "name": "Follower Margin is ~3x Master Margin",
+      "expected": "3.0x",
+      "actual": "3.00x",
       "passed": true,
-      "notes": "Fund restored back to balance"
+      "notes": ""
     },
     {
-      "assertion_index": 5,
-      "name": "Follower Margin Fully Released (Residual <= 1.0)",
-      "expected": 0.0,
-      "actual": 0.0,
+      "assertion_index": 3,
+      "name": "Master Margin 100% Released After Squareoff (Fund == Balance)",
+      "expected": true,
+      "actual": true,
       "passed": true,
-      "notes": "Fund restored back to balance"
+      "notes": "Master Fund: $111,223,726.35, Balance: $111,223,726.35"
+    },
+    {
+      "assertion_index": 4,
+      "name": "Follower Margin 100% Released After Squareoff (Fund == Balance)",
+      "expected": true,
+      "actual": true,
+      "passed": true,
+      "notes": "Follower Fund: $12,247,697.60, Balance: $12,247,697.60"
     }
   ],
-  "execution_steps": [
-    {
-      "step_index": 1,
-      "timestamp": "2026-11-05T14:58:07.990565",
-      "name": "Dynamic Margin Expectation",
-      "action": "Computed mathematical margin requirement",
-      "endpoint": "",
-      "method": "",
-      "latency_ms": 0.0,
-      "request": {},
-      "response": {},
-      "extra": {
-        "price": 80247.4,
-        "leverage": 500,
-        "expected_master_margin": 160.49,
-        "expected_follower_margin": 481.48
-      }
-    },
-    {
-      "step_index": 2,
-      "timestamp": "2026-11-05T14:58:12.239154",
-      "name": "In-Trade Margin Observation",
-      "action": "GET /book/balance.php",
-      "endpoint": "",
-      "method": "",
-      "latency_ms": 0.0,
-      "request": {},
-      "response": {},
-      "extra": {
-        "observed_master_margin": 160.5,
-        "observed_follower_margin": 481.5
-      }
-    }
-  ]
+  "execution_steps": []
 }

@@ -4,11 +4,11 @@
     "title": "Copy Trading: Proportional Equity-Based Lot Sizing with Floating P&L",
     "description": "Verify that updating copy method to 'equity' scales follower order lot size proportionally to live equity vs master live equity with active floating P&L. If equity==balance or difference < 1 lot step, marks INCONCLUSIVE.",
     "environment": "https://stage.wavexone.com",
-    "started_at": "2026-11-05T15:06:29.191154",
-    "completed_at": "2026-11-05T15:06:41.801940",
-    "duration_seconds": 12.61,
-    "status": "INCONCLUSIVE",
-    "error": "Floating P&L divergence insufficient: lot_diff=0.0"
+    "started_at": "2026-11-05T16:59:54.113493",
+    "completed_at": "2026-11-05T17:00:01.423385",
+    "duration_seconds": 7.31,
+    "status": "FAIL",
+    "error": null
   },
   "summary": {
     "total_steps": 3,
@@ -19,17 +19,17 @@
   "assertions": [
     {
       "assertion_index": 1,
-      "name": "Equity Differs From Balance by >= 1 Lot Step",
-      "expected": ">= 0.01",
-      "actual": 0.0,
+      "name": "Equity vs Balance Lot Differentiation Guard (>= 0.01 lot)",
+      "expected": ">= 0.01 lot difference",
+      "actual": "Delta=0.0 (EqLot=1.1, BalLot=1.1)",
       "passed": false,
-      "notes": "Marked INCONCLUSIVE per spec: insufficient equity divergence"
+      "notes": "INCONCLUSIVE: Floating P&L did not produce >= 1 lot-step difference. EquityLot=1.1, BalanceLot=1.1, Delta=0.0. MasterFloatingP&L=$0.00. Marking INCONCLUSIVE per spec."
     }
   ],
   "execution_steps": [
     {
       "step_index": 1,
-      "timestamp": "2026-11-05T15:06:29.623741",
+      "timestamp": "2026-11-05T16:59:54.495903",
       "name": "Update Copy Method to Equity",
       "action": "GET /user/updateCopyTradingMethod.php",
       "endpoint": "",
@@ -47,7 +47,21 @@
     },
     {
       "step_index": 2,
-      "timestamp": "2026-11-05T15:06:40.259927",
+      "timestamp": "2026-11-05T16:59:56.836406",
+      "name": "Floating P&L Position Opened",
+      "action": "50.0 Lots BTCUSD placed on Master",
+      "endpoint": "",
+      "method": "",
+      "latency_ms": 0.0,
+      "request": {},
+      "response": {},
+      "extra": {
+        "order_id": "58431"
+      }
+    },
+    {
+      "step_index": 3,
+      "timestamp": "2026-11-05T16:59:59.709013",
       "name": "Live Balance & Equity Probe",
       "action": "GET /book/balance.php",
       "endpoint": "",
@@ -56,28 +70,11 @@
       "request": {},
       "response": {},
       "extra": {
-        "master_balance": 111223988.87,
-        "master_equity": 111223988.87,
+        "master_balance": 111223744.87,
+        "master_equity": 111223744.87,
         "master_floating_pnl": 0.0,
-        "follower_balance": 12248902.03,
-        "follower_equity": 12248902.03
-      }
-    },
-    {
-      "step_index": 3,
-      "timestamp": "2026-11-05T15:06:40.259927",
-      "name": "Lot Scaling Computation",
-      "action": "Calculated equity vs balance expected lots",
-      "endpoint": "",
-      "method": "",
-      "latency_ms": 0.0,
-      "request": {},
-      "response": {},
-      "extra": {
-        "test_order_lot": 5.0,
-        "expected_equity_lot": 0.55,
-        "expected_balance_lot": 0.55,
-        "lot_difference": 0.0
+        "follower_balance": 12247746.43,
+        "follower_equity": 12247746.43
       }
     }
   ]

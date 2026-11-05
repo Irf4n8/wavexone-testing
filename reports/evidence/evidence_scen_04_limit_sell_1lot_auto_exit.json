@@ -1,0 +1,64 @@
+{
+  "meta": {
+    "test_id": "evidence_scen_04_limit_sell_1lot_auto_exit",
+    "title": "Copy Trading: Limit SELL 1.00 Lot with Easy-to-Hit Trigger, TP/SL & Automatic Exit",
+    "description": "Master places 1.00 whole lot Limit SELL with trigger 2.0 pts above CMP. Follower replicates 3.00 lots pending. When filled, auto-exits via TP/SL.",
+    "environment": "https://stage.wavexone.com",
+    "started_at": "2026-11-05T17:15:20.972483",
+    "completed_at": "2026-11-05T17:16:25.742832",
+    "duration_seconds": 64.77,
+    "status": "FAIL",
+    "error": null
+  },
+  "summary": {
+    "total_steps": 1,
+    "total_assertions": 2,
+    "passed_assertions": 2,
+    "failed_assertions": 0
+  },
+  "assertions": [
+    {
+      "assertion_index": 1,
+      "name": "Follower Replicated 3.00 Lots Pending Limit SELL",
+      "expected": 3.0,
+      "actual": 3.0,
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 2,
+      "name": "Follower Trigger (80303.94) Replicated",
+      "expected": "80303.94",
+      "actual": "80303.94",
+      "passed": true,
+      "notes": ""
+    }
+  ],
+  "execution_steps": [
+    {
+      "step_index": 1,
+      "timestamp": "2026-11-05T17:15:22.021465",
+      "name": "Master Limit SELL Placement (1.00 Lot)",
+      "action": "POST /trade/placeorder.php?type=limit",
+      "endpoint": "",
+      "method": "",
+      "latency_ms": 0.0,
+      "request": {
+        "trigger": "80303.94",
+        "sl": "80308.94",
+        "tp": "80296.94"
+      },
+      "response": {
+        "status": "success",
+        "message": "Order Placed Successfully",
+        "data": {
+          "orderId": 58738,
+          "time": 0.09723782539367676
+        },
+        "_duration_ms": 284.7,
+        "_request_url": "https://stage.wavexone.com/trade/placeorder.php?type=limit&bs=sell&lot=1.00&sl=80308.94&target=80296.94&trigger=80303.94&symbol=X:BTCUSD&token=UHZIKS5BXD&clicked=yes&fingerprint=060d191b0e0707726a777e74726273641f45415621_1232"
+      },
+      "extra": {}
+    }
+  ]
+}

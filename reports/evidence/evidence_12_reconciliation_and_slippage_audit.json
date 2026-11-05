@@ -1,89 +1,203 @@
 {
   "meta": {
     "test_id": "evidence_12_reconciliation_and_slippage_audit",
-    "title": "Copy Trading: Cross-Account Reconciliation & Slippage Audit",
-    "description": "Verify exact alignment of side, symbol, and lot scaling, and measure price slippage across master and all 5 followers against configurable slippage tolerance threshold.",
+    "title": "Copy Trading: Execution Reconciliation & Real Slippage Audit",
+    "description": "Audit order attributes across Master and all 5 Followers. Verify symbol, side, lot scaling, and assert entry price slippage is within configured tolerance.",
     "environment": "https://stage.wavexone.com",
-    "started_at": "2026-11-05T15:00:06.986203",
-    "completed_at": "2026-11-05T15:00:16.154846",
-    "duration_seconds": 9.17,
+    "started_at": "2026-11-05T16:52:46.258075",
+    "completed_at": "2026-11-05T16:52:54.963551",
+    "duration_seconds": 8.71,
     "status": "PASS",
     "error": null
   },
   "summary": {
     "total_steps": 1,
-    "total_assertions": 6,
-    "passed_assertions": 6,
+    "total_assertions": 20,
+    "passed_assertions": 20,
     "failed_assertions": 0
   },
   "assertions": [
     {
       "assertion_index": 1,
-      "name": "Follower ctf1 Reconciliation Match",
-      "expected": "BUY 3.00 lots (+-10.0 pts)",
-      "actual": "BUY 3.0 lots (slip: 3.4 pts)",
+      "name": "Follower ctf1 Symbol Match",
+      "expected": "X:BTCUSD",
+      "actual": "X:BTCUSD",
       "passed": true,
-      "notes": "Order ID: 55971, Slippage: 3.4 pts"
+      "notes": ""
     },
     {
       "assertion_index": 2,
-      "name": "Follower ctf2 Reconciliation Match",
-      "expected": "BUY 3.00 lots (+-10.0 pts)",
-      "actual": "BUY 3.0 lots (slip: 3.4 pts)",
+      "name": "Follower ctf1 Side Match",
+      "expected": "buy",
+      "actual": "buy",
       "passed": true,
-      "notes": "Order ID: 55970, Slippage: 3.4 pts"
+      "notes": ""
     },
     {
       "assertion_index": 3,
-      "name": "Follower ctf3 Reconciliation Match",
-      "expected": "BUY 3.00 lots (+-10.0 pts)",
-      "actual": "BUY 3.0 lots (slip: 3.4 pts)",
+      "name": "Follower ctf1 Lot Match",
+      "expected": 3.0,
+      "actual": 3.0,
       "passed": true,
-      "notes": "Order ID: 55969, Slippage: 3.4 pts"
+      "notes": ""
     },
     {
       "assertion_index": 4,
-      "name": "Follower ctf4 Reconciliation Match",
-      "expected": "BUY 3.00 lots (+-10.0 pts)",
-      "actual": "BUY 3.0 lots (slip: 3.4 pts)",
+      "name": "Follower ctf1 Slippage <= 10.0 pts",
+      "expected": "<= 10.0",
+      "actual": "0.6 pts",
       "passed": true,
-      "notes": "Order ID: 55968, Slippage: 3.4 pts"
+      "notes": "Master Price: $80,243.60, Follower Price: $80,244.20 (Delta: 0.6 pts)"
     },
     {
       "assertion_index": 5,
-      "name": "Follower ctf5 Reconciliation Match",
-      "expected": "BUY 3.00 lots (+-10.0 pts)",
-      "actual": "BUY 3.0 lots (slip: 3.4 pts)",
+      "name": "Follower ctf2 Symbol Match",
+      "expected": "X:BTCUSD",
+      "actual": "X:BTCUSD",
       "passed": true,
-      "notes": "Order ID: 55967, Slippage: 3.4 pts"
+      "notes": ""
     },
     {
       "assertion_index": 6,
-      "name": "Total Reconciliation Mismatches is Zero",
-      "expected": 0,
-      "actual": 0,
+      "name": "Follower ctf2 Side Match",
+      "expected": "buy",
+      "actual": "buy",
       "passed": true,
-      "notes": "Mismatches: []"
+      "notes": ""
+    },
+    {
+      "assertion_index": 7,
+      "name": "Follower ctf2 Lot Match",
+      "expected": 3.0,
+      "actual": 3.0,
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 8,
+      "name": "Follower ctf2 Slippage <= 10.0 pts",
+      "expected": "<= 10.0",
+      "actual": "5.2 pts",
+      "passed": true,
+      "notes": "Master Price: $80,243.60, Follower Price: $80,248.80 (Delta: 5.2 pts)"
+    },
+    {
+      "assertion_index": 9,
+      "name": "Follower ctf3 Symbol Match",
+      "expected": "X:BTCUSD",
+      "actual": "X:BTCUSD",
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 10,
+      "name": "Follower ctf3 Side Match",
+      "expected": "buy",
+      "actual": "buy",
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 11,
+      "name": "Follower ctf3 Lot Match",
+      "expected": 3.0,
+      "actual": 3.0,
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 12,
+      "name": "Follower ctf3 Slippage <= 10.0 pts",
+      "expected": "<= 10.0",
+      "actual": "5.2 pts",
+      "passed": true,
+      "notes": "Master Price: $80,243.60, Follower Price: $80,248.80 (Delta: 5.2 pts)"
+    },
+    {
+      "assertion_index": 13,
+      "name": "Follower ctf4 Symbol Match",
+      "expected": "X:BTCUSD",
+      "actual": "X:BTCUSD",
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 14,
+      "name": "Follower ctf4 Side Match",
+      "expected": "buy",
+      "actual": "buy",
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 15,
+      "name": "Follower ctf4 Lot Match",
+      "expected": 3.0,
+      "actual": 3.0,
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 16,
+      "name": "Follower ctf4 Slippage <= 10.0 pts",
+      "expected": "<= 10.0",
+      "actual": "5.4 pts",
+      "passed": true,
+      "notes": "Master Price: $80,243.60, Follower Price: $80,249.00 (Delta: 5.4 pts)"
+    },
+    {
+      "assertion_index": 17,
+      "name": "Follower ctf5 Symbol Match",
+      "expected": "X:BTCUSD",
+      "actual": "X:BTCUSD",
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 18,
+      "name": "Follower ctf5 Side Match",
+      "expected": "buy",
+      "actual": "buy",
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 19,
+      "name": "Follower ctf5 Lot Match",
+      "expected": 3.0,
+      "actual": 3.0,
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 20,
+      "name": "Follower ctf5 Slippage <= 10.0 pts",
+      "expected": "<= 10.0",
+      "actual": "5.4 pts",
+      "passed": true,
+      "notes": "Master Price: $80,243.60, Follower Price: $80,249.00 (Delta: 5.4 pts)"
     }
   ],
   "execution_steps": [
     {
       "step_index": 1,
-      "timestamp": "2026-11-05T15:00:10.452706",
-      "name": "Master Order Baseline",
-      "action": "Master trade attributes recorded",
+      "timestamp": "2026-11-05T16:52:50.821767",
+      "name": "Slippage Metrics Summary",
+      "action": "Computed absolute price delta",
       "endpoint": "",
       "method": "",
       "latency_ms": 0.0,
       "request": {},
       "response": {},
       "extra": {
-        "master_oid": "55966",
-        "side": "BUY",
-        "symbol": "X:BTCUSD",
-        "lot": 1.0,
-        "entry_price": 80242.1,
-        "slippage_threshold_points": 10.0
+        "master_price": 80243.6,
+        "slippages": {
+          "ctf1": 0.6,
+          "ctf2": 5.2,
+          "ctf3": 5.2,
+          "ctf4": 5.4,
+          "ctf5": 5.4
+        }
       }
     }
   ]

@@ -1,101 +1,21 @@
 {
   "meta": {
     "test_id": "evidence_08_sell_orders_replication",
-    "title": "Copy Trading: Short/SELL Order Replication (1.00 Master Lot -> 3.00 Follower Lots)",
-    "description": "Verify that placing 1.00 lot SELL order replicates as SELL with 3.00 lots across all 5 followers, records replication latencies, and verifies clean simultaneous squareoff.",
+    "title": "Copy Trading: Multiplier-Based Replication for SELL Orders",
+    "description": "Verify Master places 1.00 lot BTCUSD SELL order, replicated as 3.00 lots to all 5 followers, and cleanly squared off.",
     "environment": "https://stage.wavexone.com",
-    "started_at": "2026-11-05T14:58:48.562849",
-    "completed_at": "2026-11-05T14:58:55.848215",
-    "duration_seconds": 7.29,
+    "started_at": "2026-11-05T17:01:11.863060",
+    "completed_at": "2026-11-05T17:01:19.038702",
+    "duration_seconds": 7.18,
     "status": "PASS",
     "error": null
   },
   "summary": {
-    "total_steps": 1,
-    "total_assertions": 6,
-    "passed_assertions": 6,
+    "total_steps": 0,
+    "total_assertions": 0,
+    "passed_assertions": 0,
     "failed_assertions": 0
   },
-  "assertions": [
-    {
-      "assertion_index": 1,
-      "name": "Master SELL Order in Book",
-      "expected": "SELL",
-      "actual": "SELL",
-      "passed": true,
-      "notes": ""
-    },
-    {
-      "assertion_index": 2,
-      "name": "Follower ctf1 Replicated SELL Lot & Side",
-      "expected": "SELL 3.0",
-      "actual": "SELL 3.0",
-      "passed": true,
-      "notes": "Latency: 1477.29ms"
-    },
-    {
-      "assertion_index": 3,
-      "name": "Follower ctf2 Replicated SELL Lot & Side",
-      "expected": "SELL 3.0",
-      "actual": "SELL 3.0",
-      "passed": true,
-      "notes": "Latency: 2372.71ms"
-    },
-    {
-      "assertion_index": 4,
-      "name": "Follower ctf3 Replicated SELL Lot & Side",
-      "expected": "SELL 3.0",
-      "actual": "SELL 3.0",
-      "passed": true,
-      "notes": "Latency: 2569.87ms"
-    },
-    {
-      "assertion_index": 5,
-      "name": "Follower ctf4 Replicated SELL Lot & Side",
-      "expected": "SELL 3.0",
-      "actual": "SELL 3.0",
-      "passed": true,
-      "notes": "Latency: 2769.59ms"
-    },
-    {
-      "assertion_index": 6,
-      "name": "Follower ctf5 Replicated SELL Lot & Side",
-      "expected": "SELL 3.0",
-      "actual": "SELL 3.0",
-      "passed": true,
-      "notes": "Latency: 2972.5ms"
-    }
-  ],
-  "execution_steps": [
-    {
-      "step_index": 1,
-      "timestamp": "2026-11-05T14:58:49.339722",
-      "name": "Master SELL Order Placement",
-      "action": "POST /trade/placeorder.php",
-      "endpoint": "",
-      "method": "",
-      "latency_ms": 407.05,
-      "request": {
-        "symbol": "X:BTCUSD",
-        "side": "sell",
-        "lot": 1.0
-      },
-      "response": {
-        "status": "success",
-        "message": "Order accepted for processing",
-        "data": {
-          "orderId": "55822",
-          "intentId": "2180de25ef6666d66cc26a7cfd082f5b",
-          "executionStatus": "queued",
-          "fanoutJobId": 6253,
-          "fanoutStatus": "queued",
-          "requestId": "legacy_b5a2dc65ba54f2cd18f653fdb055fa62",
-          "placementReplayProtected": true
-        },
-        "_duration_ms": 222.03,
-        "_request_url": "https://stage.wavexone.com/trade/placeorder.php?type=market&bs=sell&lot=1.00&sl=80365.68&target=80165.68&symbol=X:BTCUSD&token=UHZIKS5BXD&clicked=yes&fingerprint=060d191b0e0707726a777e74726273641f45415621_492"
-      },
-      "extra": {}
-    }
-  ]
+  "assertions": [],
+  "execution_steps": []
 }

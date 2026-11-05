@@ -3,39 +3,34 @@
 **Test Identifier:** `evidence_01_multiplier_copy_trade`  
 **Objective:** Verify that placing 1.00 lot X:BTCUSD on Master replicates 3.00 lots to all 5 followers with separate read verification polling via /book/orders.php and simultaneous clean squareoff.  
 **Target Staging Engine:** `https://stage.wavexone.com`  
-**Execution Timestamp:** `2026-11-05T14:57:08.226895` $\rightarrow$ `2026-11-05T14:57:16.018648` (7.79s)  
+**Execution Timestamp:** `2026-11-05T16:59:28.978096` $\rightarrow$ `2026-11-05T16:59:36.177957` (7.2s)  
 **Overall Verification Status:** **✅ PASS**  
 
 ---
 
-## 📊 Verification Assertions (14/14 Passed)
+## 📊 Verification Assertions (13/13 Passed)
 
 | # | Assertion Check | Expected Value | Actual Value Observed | Result | Notes |
 | :-: | :--- | :--- | :--- | :---: | :--- |
-| 1 | **Master Order Acceptance** | `success` | `success` | ✅ PASS |  |
-| 2 | **Master Order Confirmed in Book** | `True` | `True` | ✅ PASS |  |
-| 3 | **Follower ctf1 Replicated Lot** | `3.0` | `3.0` | ✅ PASS | Replication Latency: 1468.7ms |
-| 4 | **Follower ctf2 Replicated Lot** | `3.0` | `3.0` | ✅ PASS | Replication Latency: 1670.62ms |
-| 5 | **Follower ctf3 Replicated Lot** | `3.0` | `3.0` | ✅ PASS | Replication Latency: 1873.63ms |
-| 6 | **Follower ctf4 Replicated Lot** | `3.0` | `3.0` | ✅ PASS | Replication Latency: 2810.04ms |
-| 7 | **Follower ctf5 Replicated Lot** | `3.0` | `3.0` | ✅ PASS | Replication Latency: 3395.98ms |
-| 8 | **Master Squareoff Response** | `success` | `success` | ✅ PASS |  |
-| 9 | **Master Position Closure Verified** | `True` | `True` | ✅ PASS |  |
-| 10 | **Follower ctf1 Order Closure** | `True` | `True` | ✅ PASS |  |
-| 11 | **Follower ctf2 Order Closure** | `True` | `True` | ✅ PASS |  |
-| 12 | **Follower ctf3 Order Closure** | `True` | `True` | ✅ PASS |  |
-| 13 | **Follower ctf4 Order Closure** | `True` | `True` | ✅ PASS |  |
-| 14 | **Follower ctf5 Order Closure** | `True` | `True` | ✅ PASS |  |
+| 1 | **Master Order Status** | `success` | `success` | ✅ PASS |  |
+| 2 | **Master Order Found in Book** | `True` | `True` | ✅ PASS |  |
+| 3 | **Follower ctf1 Replicated 3.00 Lots** | `3.0` | `3.0` | ✅ PASS | Replication Latency: 0.884s |
+| 4 | **Follower ctf2 Replicated 3.00 Lots** | `3.0` | `3.0` | ✅ PASS | Replication Latency: 1.083s |
+| 5 | **Follower ctf3 Replicated 3.00 Lots** | `3.0` | `3.0` | ✅ PASS | Replication Latency: 1.284s |
+| 6 | **Follower ctf4 Replicated 3.00 Lots** | `3.0` | `3.0` | ✅ PASS | Replication Latency: 1.466s |
+| 7 | **Follower ctf5 Replicated 3.00 Lots** | `3.0` | `3.0` | ✅ PASS | Replication Latency: 2.327s |
+| 8 | **Master Order Squareoff Closure** | `True` | `True` | ✅ PASS |  |
+| 9 | **Follower ctf1 Simultaneous Squareoff** | `True` | `True` | ✅ PASS |  |
+| 10 | **Follower ctf2 Simultaneous Squareoff** | `True` | `True` | ✅ PASS |  |
+| 11 | **Follower ctf3 Simultaneous Squareoff** | `True` | `True` | ✅ PASS |  |
+| 12 | **Follower ctf4 Simultaneous Squareoff** | `True` | `True` | ✅ PASS |  |
+| 13 | **Follower ctf5 Simultaneous Squareoff** | `True` | `True` | ✅ PASS |  |
 
 ---
 
 ## 📜 Chronological Execution Steps & Telemetry
 
-### Step 1: Market Probe
-- **Action:** `Fetched live engine price`
-- **Telemetry / Details:** `{"symbol": "X:BTCUSD", "last_price": 80269.63, "sl": "80169.63", "tp": "80369.63"}`
-
-### Step 2: Master Order Placement
+### Step 1: Master Order Placement
 - **Action:** `POST /trade/placeorder.php`
 ```json
 // Server Response:
@@ -43,52 +38,59 @@
   "status": "success",
   "message": "Order accepted for processing",
   "data": {
-    "orderId": "55696",
-    "intentId": "9db0e42ae03fa901c10196595f7741ab",
+    "orderId": "58410",
+    "intentId": "305ff0517ad9d9665c6b81d1271fe35f",
     "executionStatus": "queued",
-    "fanoutJobId": 6244,
+    "fanoutJobId": 6732,
     "fanoutStatus": "queued",
-    "requestId": "legacy_7390ee9756c58b61fd1e0894250a81dd",
+    "requestId": "legacy_8f41ffef650fd3e870bf3bb2b3a2b689",
     "placementReplayProtected": true
   },
-  "_duration_ms": 219.55,
-  "_request_url": "https://stage.wavexone.com/trade/placeorder.php?type=market&bs=buy&lot=1.00&sl=80169.63&target=80369.63&symbol=X:BTCUSD&token=UHZIKS5BXD&clicked=yes&fingerprint=060d191b0e0707726a777e74726273641f45415621_473"
+  "_duration_ms": 255.82,
+  "_request_url": "https://stage.wavexone.com/trade/placeorder.php?type=market&bs=buy&lot=1.00&sl=&target=&symbol=X:BTCUSD&token=UHZIKS5BXD&clicked=yes&fingerprint=060d191b0e0707726a777e74726273641f45415621_1100"
 }
 ```
 
-### Step 3: Master Book Snapshot
-- **Action:** `GET /book/orders.php?snapshot=1`
-- **Telemetry / Details:** `{"order_id": "55696", "lot": "1", "entry_price": "0"}`
+### Step 2: Master Order Snapshot
+- **Action:** `GET /book/orders.php`
+```json
+// Server Response:
+{
+  "id": "58410",
+  "symbol": "X:BTCUSD",
+  "formated_symbol": "BTCUSD",
+  "pair": "xxx",
+  "time": "2026-11-05 11:29:30",
+  "trigger": "0",
+  "type": "market",
+  "lot": "1",
+  "bs": "BUY",
+  "sl": "---",
+  "tp": "---",
+  "avg": "0",
+  "t_swap": "0.00",
+  "commission": null,
+  "status": "pending",
+  "partiallot": "---",
+  "follower_placement": null,
+  "provider_symbol": "X:BTCUSD",
+  "display_symbol": "X:BTCUSD"
+}
+```
 
-### Step 4: Follower ctf1 Replication
-- **Action:** `GET /book/orders.php?snapshot=1`
-- **Telemetry / Details:** `{"follower": "ctf1", "copied_order_id": "55701", "lot": 3.0, "latency_ms": 1468.7}`
+### Step 3: Replication Latencies
+- **Action:** `Measured per-follower latency`
+- **Telemetry / Details:** `{"ctf1": 0.884, "ctf2": 1.083, "ctf3": 1.284, "ctf4": 1.466, "ctf5": 2.327}`
 
-### Step 5: Follower ctf2 Replication
-- **Action:** `GET /book/orders.php?snapshot=1`
-- **Telemetry / Details:** `{"follower": "ctf2", "copied_order_id": "55700", "lot": 3.0, "latency_ms": 1670.62}`
-
-### Step 6: Follower ctf3 Replication
-- **Action:** `GET /book/orders.php?snapshot=1`
-- **Telemetry / Details:** `{"follower": "ctf3", "copied_order_id": "55699", "lot": 3.0, "latency_ms": 1873.63}`
-
-### Step 7: Follower ctf4 Replication
-- **Action:** `GET /book/orders.php?snapshot=1`
-- **Telemetry / Details:** `{"follower": "ctf4", "copied_order_id": "55698", "lot": 3.0, "latency_ms": 2810.04}`
-
-### Step 8: Follower ctf5 Replication
-- **Action:** `GET /book/orders.php?snapshot=1`
-- **Telemetry / Details:** `{"follower": "ctf5", "copied_order_id": "55697", "lot": 3.0, "latency_ms": 3395.98}`
-
-### Step 9: Master Squareoff Request
-- **Action:** `GET /book/squareoff.php?id=55696`
+### Step 4: Master Squareoff Request
+- **Action:** `GET /book/squareoff.php?id=58410`
 ```json
 // Server Response:
 {
   "status": "success",
-  "message": "Order ID - 55696  Sent to for Closing",
+  "message": "Order ID - 58410  Sent to for Closing",
   "data": [],
-  "_duration_ms": 264.74
+  "_duration_ms": 273.1
 }
 ```
 

@@ -1,92 +1,76 @@
 {
   "meta": {
     "test_id": "evidence_04_unfollow_refollow_lifecycle",
-    "title": "Copy Trading: Unfollow and Re-Follow Lifecycle Verification",
-    "description": "Verify that unfollowing a master immediately halts trade replication while active peers continue copying, and re-following the master immediately restores real-time trade copying.",
+    "title": "Copy Trading: Unfollow Halts Replication & Re-Follow Restores Service",
+    "description": "Verify that unfollowing stops trade replication to that follower while peer followers continue copying, and re-following immediately resumes normal replication.",
     "environment": "https://stage.wavexone.com",
-    "started_at": "2026-11-05T14:57:48.036912",
-    "completed_at": "2026-11-05T14:58:04.658074",
-    "duration_seconds": 16.62,
+    "started_at": "2026-11-05T17:00:03.766012",
+    "completed_at": "2026-11-05T17:00:26.522332",
+    "duration_seconds": 22.76,
     "status": "PASS",
     "error": null
   },
   "summary": {
     "total_steps": 2,
-    "total_assertions": 8,
-    "passed_assertions": 8,
+    "total_assertions": 6,
+    "passed_assertions": 6,
     "failed_assertions": 0
   },
   "assertions": [
     {
       "assertion_index": 1,
-      "name": "Unfollow Status",
-      "expected": "success",
-      "actual": "success",
+      "name": "Follower 1 Did NOT Receive Order while Unfollowed",
+      "expected": 0,
+      "actual": 0,
       "passed": true,
       "notes": ""
     },
     {
       "assertion_index": 2,
-      "name": "Unfollowed Follower Receives 0 Trades",
-      "expected": 0,
-      "actual": 0,
+      "name": "Peer ctf2 Received Order During F1 Unfollow",
+      "expected": 3.0,
+      "actual": 3.0,
       "passed": true,
-      "notes": "Replication halted for ctf1 while unfollowed"
+      "notes": ""
     },
     {
       "assertion_index": 3,
-      "name": "Active Peer ctf2 Copied Trade",
-      "expected": true,
-      "actual": true,
+      "name": "Peer ctf3 Received Order During F1 Unfollow",
+      "expected": 3.0,
+      "actual": 3.0,
       "passed": true,
       "notes": ""
     },
     {
       "assertion_index": 4,
-      "name": "Active Peer ctf3 Copied Trade",
-      "expected": true,
-      "actual": true,
+      "name": "Peer ctf4 Received Order During F1 Unfollow",
+      "expected": 3.0,
+      "actual": 3.0,
       "passed": true,
       "notes": ""
     },
     {
       "assertion_index": 5,
-      "name": "Active Peer ctf4 Copied Trade",
-      "expected": true,
-      "actual": true,
+      "name": "Peer ctf5 Received Order During F1 Unfollow",
+      "expected": 3.0,
+      "actual": 3.0,
       "passed": true,
       "notes": ""
     },
     {
       "assertion_index": 6,
-      "name": "Active Peer ctf5 Copied Trade",
-      "expected": true,
-      "actual": true,
+      "name": "Follower 1 Re-established Replication (3.00 Lots)",
+      "expected": 3.0,
+      "actual": 3.0,
       "passed": true,
       "notes": ""
-    },
-    {
-      "assertion_index": 7,
-      "name": "Re-Follow Status",
-      "expected": "success",
-      "actual": "success",
-      "passed": true,
-      "notes": ""
-    },
-    {
-      "assertion_index": 8,
-      "name": "Follower Resumed Copying After Re-Follow",
-      "expected": true,
-      "actual": true,
-      "passed": true,
-      "notes": "Replicated Order ID: 55761"
     }
   ],
   "execution_steps": [
     {
       "step_index": 1,
-      "timestamp": "2026-11-05T14:57:48.215682",
-      "name": "Unfollow Master Request",
+      "timestamp": "2026-11-05T17:00:03.980298",
+      "name": "Follower 1 Unfollow Request",
       "action": "GET /user/follow.php?follow=1060&type=unfollow",
       "endpoint": "",
       "method": "",
@@ -101,8 +85,8 @@
     },
     {
       "step_index": 2,
-      "timestamp": "2026-11-05T14:57:56.188581",
-      "name": "Re-Follow Master Request",
+      "timestamp": "2026-11-05T17:00:14.590988",
+      "name": "Follower 1 Re-follow Request",
       "action": "GET /user/follow.php?follow=1060&type=follow&method=multiplier&value=3.0",
       "endpoint": "",
       "method": "",

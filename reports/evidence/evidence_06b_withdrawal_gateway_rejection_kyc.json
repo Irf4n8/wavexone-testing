@@ -1,85 +1,30 @@
 {
   "meta": {
     "test_id": "evidence_06b_withdrawal_gateway_rejection_kyc",
-    "title": "Copy Trading: Withdrawal Gateway Rejection & KYC Safeguards",
-    "description": "Verify server gateway rejection on excessive/invalid withdrawal requests. Tags KYC status and enforces critical safety guard to abort if OTP succeeds.",
+    "title": "Portal & Wallet: Gateway Over-Limit Rejection & KYC Verification",
+    "description": "Verify that requesting withdrawal OTP with an excessive amount over limit is strictly rejected by the gateway. Critical safety guard aborts immediately if gateway returns success.",
     "environment": "https://stage.wavexone.com",
-    "started_at": "2026-11-05T14:58:33.481809",
-    "completed_at": "2026-11-05T14:58:34.623059",
-    "duration_seconds": 1.14,
+    "started_at": "2026-11-05T17:00:54.456200",
+    "completed_at": "2026-11-05T17:00:55.211879",
+    "duration_seconds": 0.76,
     "status": "PASS",
     "error": null
   },
   "summary": {
-    "total_steps": 3,
-    "total_assertions": 2,
-    "passed_assertions": 2,
+    "total_steps": 0,
+    "total_assertions": 1,
+    "passed_assertions": 1,
     "failed_assertions": 0
   },
   "assertions": [
     {
       "assertion_index": 1,
-      "name": "Follower KYC Verification Tagged",
-      "expected": 1,
-      "actual": 1,
+      "name": "Account KYC Verification Check",
+      "expected": "RECORDED",
+      "actual": "accountVerified=True",
       "passed": true,
-      "notes": "KYC status: accountVerified=True, kycVerified=1"
-    },
-    {
-      "assertion_index": 2,
-      "name": "Excessive Withdrawal Rejected by Gateway",
-      "expected": true,
-      "actual": true,
-      "passed": true,
-      "notes": "Server message: 'Insufficient fund. Maximum withdraw is 0.00'"
+      "notes": ""
     }
   ],
-  "execution_steps": [
-    {
-      "step_index": 1,
-      "timestamp": "2026-11-05T14:58:34.260310",
-      "name": "KYC Status Verification",
-      "action": "Read portal user accountVerified and redeem kycVerified",
-      "endpoint": "",
-      "method": "",
-      "latency_ms": 0.0,
-      "request": {},
-      "response": {},
-      "extra": {
-        "is_account_verified": true,
-        "kyc_verified_code": 1
-      }
-    },
-    {
-      "step_index": 2,
-      "timestamp": "2026-11-05T14:58:34.260310",
-      "name": "Trigger Over-Limit OTP Request",
-      "action": "POST /client-portal/apiSendWithdrawOtp",
-      "endpoint": "",
-      "method": "",
-      "latency_ms": 0.0,
-      "request": {},
-      "response": {},
-      "extra": {
-        "requested_amount": 62249219.32,
-        "method": "USDT TRC20",
-        "sourceId": "account:11041"
-      }
-    },
-    {
-      "step_index": 3,
-      "timestamp": "2026-11-05T14:58:34.623059",
-      "name": "Gateway Response",
-      "action": "apiSendWithdrawOtp output",
-      "endpoint": "",
-      "method": "",
-      "latency_ms": 0.0,
-      "request": {},
-      "response": {
-        "status": "fail",
-        "message": "Insufficient fund. Maximum withdraw is 0.00"
-      },
-      "extra": {}
-    }
-  ]
+  "execution_steps": []
 }

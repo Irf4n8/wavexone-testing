@@ -1,0 +1,70 @@
+{
+  "meta": {
+    "test_id": "evidence_10b_take_profit_hit_autoclose",
+    "title": "Copy Trading: Auto-Close on Take Profit Hit (120s Timeout)",
+    "description": "Place a BUY position with tight TP offset (12 points). Wait up to 120s for market tick to cross TP. Assert Master and all 5 followers auto-close.",
+    "environment": "https://stage.wavexone.com",
+    "started_at": "2026-11-05T16:52:23.748677",
+    "completed_at": "2026-11-05T16:52:36.980862",
+    "duration_seconds": 13.23,
+    "status": "PASS",
+    "error": null
+  },
+  "summary": {
+    "total_steps": 0,
+    "total_assertions": 6,
+    "passed_assertions": 6,
+    "failed_assertions": 0
+  },
+  "assertions": [
+    {
+      "assertion_index": 1,
+      "name": "Master Order Auto-Closed on TP Hit",
+      "expected": true,
+      "actual": true,
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 2,
+      "name": "Follower ctf1 Auto-Closed on TP Hit",
+      "expected": true,
+      "actual": true,
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 3,
+      "name": "Follower ctf2 Auto-Closed on TP Hit",
+      "expected": true,
+      "actual": true,
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 4,
+      "name": "Follower ctf3 Auto-Closed on TP Hit",
+      "expected": true,
+      "actual": true,
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 5,
+      "name": "Follower ctf4 Auto-Closed on TP Hit",
+      "expected": true,
+      "actual": true,
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 6,
+      "name": "Follower ctf5 Auto-Closed on TP Hit",
+      "expected": true,
+      "actual": true,
+      "passed": true,
+      "notes": ""
+    }
+  ],
+  "execution_steps": []
+}

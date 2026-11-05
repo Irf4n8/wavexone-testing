@@ -1,0 +1,30 @@
+{
+  "meta": {
+    "test_id": "evidence_10a_stop_loss_hit_autoclose",
+    "title": "Copy Trading: Auto-Close on Stop Loss Hit (120s Timeout)",
+    "description": "Place a BUY position with tight SL offset (12 points). Wait up to 120s for market tick to cross SL. Assert Master and all 5 followers auto-close.",
+    "environment": "https://stage.wavexone.com",
+    "started_at": "2026-11-05T17:04:09.300488",
+    "completed_at": "2026-11-05T17:06:23.284397",
+    "duration_seconds": 133.98,
+    "status": "FAIL",
+    "error": null
+  },
+  "summary": {
+    "total_steps": 0,
+    "total_assertions": 1,
+    "passed_assertions": 0,
+    "failed_assertions": 1
+  },
+  "assertions": [
+    {
+      "assertion_index": 1,
+      "name": "SL Auto-Close Hit",
+      "expected": "Triggered within 120s",
+      "actual": "Price did not move 12 points",
+      "passed": false,
+      "notes": "Marked INCONCLUSIVE: test cannot force live staging market price ticks."
+    }
+  ],
+  "execution_steps": []
+}

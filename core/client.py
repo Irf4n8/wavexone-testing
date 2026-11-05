@@ -58,11 +58,13 @@ class WavexUserSession:
             dur = round((time.time() - start_t) * 1000, 2)
             try:
                 data = resp.json()
+                if isinstance(data, str):
+                    data = json.loads(data)
             except Exception:
                 data = {"raw": resp.text}
             self._log_call(WavexSettings.LOGIN_CHECK_ENDPOINT, "POST", dur, resp.status_code, {"email": self.email}, data)
 
-            if data.get("status") == "success":
+            if isinstance(data, dict) and data.get("status") == "success":
                 self.token = data.get("token")
                 self.user_id = str(data.get("userID"))
 
@@ -106,7 +108,8 @@ class WavexUserSession:
                 logger.info(f"[{self.name}] Authenticated (UID={self.user_id}, Account={self.account_id})")
                 return True
             else:
-                logger.error(f"[{self.name}] Auth failed: {data.get('message', resp.text)}")
+                err_msg = data.get('message', resp.text) if isinstance(data, dict) else data
+                logger.error(f"[{self.name}] Auth failed: {err_msg}")
                 return False
         except Exception as e:
             logger.error(f"[{self.name}] Login exception: {e}")
@@ -123,7 +126,7 @@ class WavexUserSession:
             dur = round((time.time() - start_t) * 1000, 2)
             data = res.json()
             self._log_call(WavexSettings.CREATE_FINGERPRINT_ENDPOINT, "GET", dur, res.status_code, {}, data)
-            if data.get("status") == "success":
+            if isinstance(data, dict) and data.get("status") == "success":
                 self.fingerprint = data.get("fingerprint")
                 return self.fingerprint
             return None
@@ -158,7 +161,7 @@ class WavexUserSession:
             dur = round((time.time() - start_t) * 1000, 2)
             data = res.json()
             self._log_call(WavexSettings.ORDERS_SNAPSHOT_ENDPOINT, "GET", dur, res.status_code, {}, data)
-            if data.get("status") == "success":
+            if isinstance(data, dict) and data.get("status") == "success":
                 return data.get("data", [])
             return []
         except Exception as e:
@@ -246,9 +249,12 @@ class WavexUserSession:
 
         self.generate_fingerprint()
         lot_str = f"{lot:.2f}"
+        bs_param = side.lower()
         if order_type == "stop":
+            if str(stop_hft_type) == "2" and bs_param == "both":
+                bs_param = "buy"
             query = (
-                f"type=stop&bs={side.lower()}&lotb={lotb or lot_str}&slb={slb}&targetb={targetb}&triggerb={triggerb}"
+                f"type=stop&bs={bs_param}&lotb={lotb or lot_str}&slb={slb}&targetb={targetb}&triggerb={triggerb}"
                 f"&lots={lots or lot_str}&sls={sls}&targets={targets}&triggers={triggers}"
                 f"&symbol={symbol}&stop_hft_type={stop_hft_type}"
                 f"&token={self.token}&clicked=yes&fingerprint={self.fingerprint or ''}"
@@ -301,6 +307,32 @@ class WavexUserSession:
             return data
         except Exception as e:
             logger.error(f"[{self.name}] Squareoff exception for {order_id}: {e}")
+            return {"status": "error", "message": str(e)}
+
+    def partial_close_position(self, order_id: str, partial_lot: float) -> Dict[str, Any]:
+        """Partially close an open position via book/squareoff.php?close_mode=partial&partial_lot={lot}."""
+        if not self.token:
+            return {"status": "fail", "message": "Not authenticated"}
+
+        self.generate_fingerprint()
+        lot_str = f"{partial_lot:.2f}"
+        url = (
+            f"{WavexSettings.SQUAREOFF_ENDPOINT}?token={self.token}&id={order_id}"
+            f"&fingerprint={self.fingerprint or ''}&close_mode=partial&partial_lot={lot_str}"
+        )
+        start_t = time.time()
+        try:
+            res = self.session.get(url, timeout=15)
+            dur = round((time.time() - start_t) * 1000, 2)
+            try:
+                data = res.json()
+            except Exception:
+                data = {"status": "raw", "text": res.text}
+            data["_duration_ms"] = dur
+            self._log_call(WavexSettings.SQUAREOFF_ENDPOINT, "GET", dur, res.status_code, {"id": order_id, "partial_lot": lot_str}, data)
+            return data
+        except Exception as e:
+            logger.error(f"[{self.name}] Partial close exception for {order_id}: {e}")
             return {"status": "error", "message": str(e)}
 
     def cancel_order(self, order_id: str) -> Dict[str, Any]:
@@ -608,14 +640,14 @@ class WavexUserSession:
             dur = round((time.time() - start_t) * 1000, 2)
             data = res.json()
             self._log_call(url, "GET", dur, res.status_code, {}, data)
-            if data.get("status") == "success":
+            if isinstance(data, dict) and data.get("status") == "success":
                 return data.get("data", {})
             return data
         except Exception as e:
             logger.error(f"[{self.name}] get_pamm_withdraw_limit error: {e}")
             return {}
 
-    def request_withdraw_otp(self, method: str, amount: float, withdraw_address: str, source_id: str) -> Dict[str, Any]:
+    def request_withdraw_otp(self, amount: float, method: str = 'crypto', withdraw_address: str = '0x1111111111111111111111111111111111111111', source_id: str = '1') -> Dict[str, Any]:
         """Request OTP for withdrawal via apiSendWithdrawOtp."""
         if not self.token:
             return {}

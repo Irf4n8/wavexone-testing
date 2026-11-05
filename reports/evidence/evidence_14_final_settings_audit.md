@@ -1,9 +1,9 @@
-# Evidence Report: Copy Trading: Final System State & Settings Restoration Audit (✅ PASS)
+# Evidence Report: Copy Trading: Final Settings Restoration & Zero Residual State Audit (✅ PASS)
 
 **Test Identifier:** `evidence_14_final_settings_audit`  
-**Objective:** Audit that all 5 follower accounts are restored to multiplier=3.0 following master 1060, and verify zero open or pending orders exist across all 6 accounts.  
+**Objective:** Audit final platform state: confirm all 5 followers are strictly restored to multiplier=3.0 following master 1060, and assert zero open or pending orders exist across all 6 accounts.  
 **Target Staging Engine:** `https://stage.wavexone.com`  
-**Execution Timestamp:** `2026-11-05T15:00:31.596443` $\rightarrow$ `2026-11-05T15:00:37.113204` (5.52s)  
+**Execution Timestamp:** `2026-11-05T16:53:26.427471` $\rightarrow$ `2026-11-05T16:53:28.685594` (2.26s)  
 **Overall Verification Status:** **✅ PASS**  
 
 ---
@@ -12,27 +12,27 @@
 
 | # | Assertion Check | Expected Value | Actual Value Observed | Result | Notes |
 | :-: | :--- | :--- | :--- | :---: | :--- |
-| 1 | **Follower ctf1 Subscribed to Master 1060** | `True` | `True` | ✅ PASS |  |
-| 2 | **Follower ctf1 Method is 'multiplier'** | `multiplier` | `multiplier` | ✅ PASS |  |
-| 3 | **Follower ctf1 Multiplier Value is 3.0** | `3.0` | `3.0` | ✅ PASS |  |
-| 4 | **Follower ctf2 Subscribed to Master 1060** | `True` | `True` | ✅ PASS |  |
-| 5 | **Follower ctf2 Method is 'multiplier'** | `multiplier` | `multiplier` | ✅ PASS |  |
-| 6 | **Follower ctf2 Multiplier Value is 3.0** | `3.0` | `3.0` | ✅ PASS |  |
-| 7 | **Follower ctf3 Subscribed to Master 1060** | `True` | `True` | ✅ PASS |  |
-| 8 | **Follower ctf3 Method is 'multiplier'** | `multiplier` | `multiplier` | ✅ PASS |  |
-| 9 | **Follower ctf3 Multiplier Value is 3.0** | `3.0` | `3.0` | ✅ PASS |  |
-| 10 | **Follower ctf4 Subscribed to Master 1060** | `True` | `True` | ✅ PASS |  |
-| 11 | **Follower ctf4 Method is 'multiplier'** | `multiplier` | `multiplier` | ✅ PASS |  |
-| 12 | **Follower ctf4 Multiplier Value is 3.0** | `3.0` | `3.0` | ✅ PASS |  |
-| 13 | **Follower ctf5 Subscribed to Master 1060** | `True` | `True` | ✅ PASS |  |
-| 14 | **Follower ctf5 Method is 'multiplier'** | `multiplier` | `multiplier` | ✅ PASS |  |
-| 15 | **Follower ctf5 Multiplier Value is 3.0** | `3.0` | `3.0` | ✅ PASS |  |
-| 16 | **ctmaster Zero Lingering Open Orders** | `0` | `0` | ✅ PASS | Active order count: 0 |
-| 17 | **ctf1 Zero Lingering Open Orders** | `0` | `0` | ✅ PASS | Active order count: 0 |
-| 18 | **ctf2 Zero Lingering Open Orders** | `0` | `0` | ✅ PASS | Active order count: 0 |
-| 19 | **ctf3 Zero Lingering Open Orders** | `0` | `0` | ✅ PASS | Active order count: 0 |
-| 20 | **ctf4 Zero Lingering Open Orders** | `0` | `0` | ✅ PASS | Active order count: 0 |
-| 21 | **ctf5 Zero Lingering Open Orders** | `0` | `0` | ✅ PASS | Active order count: 0 |
+| 1 | **Master Zero Lingering Open/Pending Orders** | `0` | `0` | ✅ PASS |  |
+| 2 | **Follower ctf1 Zero Residual Orders** | `0` | `0` | ✅ PASS |  |
+| 3 | **Follower ctf1 Subscribed to Master 1060** | `True` | `True` | ✅ PASS |  |
+| 4 | **Follower ctf1 Method == 'multiplier'** | `multiplier` | `multiplier` | ✅ PASS |  |
+| 5 | **Follower ctf1 Multiplier Value == '3.0'** | `3.0` | `3.0` | ✅ PASS |  |
+| 6 | **Follower ctf2 Zero Residual Orders** | `0` | `0` | ✅ PASS |  |
+| 7 | **Follower ctf2 Subscribed to Master 1060** | `True` | `True` | ✅ PASS |  |
+| 8 | **Follower ctf2 Method == 'multiplier'** | `multiplier` | `multiplier` | ✅ PASS |  |
+| 9 | **Follower ctf2 Multiplier Value == '3.0'** | `3.0` | `3.0` | ✅ PASS |  |
+| 10 | **Follower ctf3 Zero Residual Orders** | `0` | `0` | ✅ PASS |  |
+| 11 | **Follower ctf3 Subscribed to Master 1060** | `True` | `True` | ✅ PASS |  |
+| 12 | **Follower ctf3 Method == 'multiplier'** | `multiplier` | `multiplier` | ✅ PASS |  |
+| 13 | **Follower ctf3 Multiplier Value == '3.0'** | `3.0` | `3.0` | ✅ PASS |  |
+| 14 | **Follower ctf4 Zero Residual Orders** | `0` | `0` | ✅ PASS |  |
+| 15 | **Follower ctf4 Subscribed to Master 1060** | `True` | `True` | ✅ PASS |  |
+| 16 | **Follower ctf4 Method == 'multiplier'** | `multiplier` | `multiplier` | ✅ PASS |  |
+| 17 | **Follower ctf4 Multiplier Value == '3.0'** | `3.0` | `3.0` | ✅ PASS |  |
+| 18 | **Follower ctf5 Zero Residual Orders** | `0` | `0` | ✅ PASS |  |
+| 19 | **Follower ctf5 Subscribed to Master 1060** | `True` | `True` | ✅ PASS |  |
+| 20 | **Follower ctf5 Method == 'multiplier'** | `multiplier` | `multiplier` | ✅ PASS |  |
+| 21 | **Follower ctf5 Multiplier Value == '3.0'** | `3.0` | `3.0` | ✅ PASS |  |
 
 ---
 

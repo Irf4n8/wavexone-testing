@@ -1,12 +1,12 @@
 {
   "meta": {
     "test_id": "evidence_14_final_settings_audit",
-    "title": "Copy Trading: Final System State & Settings Restoration Audit",
-    "description": "Audit that all 5 follower accounts are restored to multiplier=3.0 following master 1060, and verify zero open or pending orders exist across all 6 accounts.",
+    "title": "Copy Trading: Final Settings Restoration & Zero Residual State Audit",
+    "description": "Audit final platform state: confirm all 5 followers are strictly restored to multiplier=3.0 following master 1060, and assert zero open or pending orders exist across all 6 accounts.",
     "environment": "https://stage.wavexone.com",
-    "started_at": "2026-11-05T15:00:31.596443",
-    "completed_at": "2026-11-05T15:00:37.113204",
-    "duration_seconds": 5.52,
+    "started_at": "2026-11-05T16:53:26.427471",
+    "completed_at": "2026-11-05T16:53:28.685594",
+    "duration_seconds": 2.26,
     "status": "PASS",
     "error": null
   },
@@ -19,6 +19,22 @@
   "assertions": [
     {
       "assertion_index": 1,
+      "name": "Master Zero Lingering Open/Pending Orders",
+      "expected": 0,
+      "actual": 0,
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 2,
+      "name": "Follower ctf1 Zero Residual Orders",
+      "expected": 0,
+      "actual": 0,
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 3,
       "name": "Follower ctf1 Subscribed to Master 1060",
       "expected": true,
       "actual": true,
@@ -26,23 +42,31 @@
       "notes": ""
     },
     {
-      "assertion_index": 2,
-      "name": "Follower ctf1 Method is 'multiplier'",
+      "assertion_index": 4,
+      "name": "Follower ctf1 Method == 'multiplier'",
       "expected": "multiplier",
       "actual": "multiplier",
       "passed": true,
       "notes": ""
     },
     {
-      "assertion_index": 3,
-      "name": "Follower ctf1 Multiplier Value is 3.0",
+      "assertion_index": 5,
+      "name": "Follower ctf1 Multiplier Value == '3.0'",
       "expected": "3.0",
       "actual": "3.0",
       "passed": true,
       "notes": ""
     },
     {
-      "assertion_index": 4,
+      "assertion_index": 6,
+      "name": "Follower ctf2 Zero Residual Orders",
+      "expected": 0,
+      "actual": 0,
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 7,
       "name": "Follower ctf2 Subscribed to Master 1060",
       "expected": true,
       "actual": true,
@@ -50,32 +74,8 @@
       "notes": ""
     },
     {
-      "assertion_index": 5,
-      "name": "Follower ctf2 Method is 'multiplier'",
-      "expected": "multiplier",
-      "actual": "multiplier",
-      "passed": true,
-      "notes": ""
-    },
-    {
-      "assertion_index": 6,
-      "name": "Follower ctf2 Multiplier Value is 3.0",
-      "expected": "3.0",
-      "actual": "3.0",
-      "passed": true,
-      "notes": ""
-    },
-    {
-      "assertion_index": 7,
-      "name": "Follower ctf3 Subscribed to Master 1060",
-      "expected": true,
-      "actual": true,
-      "passed": true,
-      "notes": ""
-    },
-    {
       "assertion_index": 8,
-      "name": "Follower ctf3 Method is 'multiplier'",
+      "name": "Follower ctf2 Method == 'multiplier'",
       "expected": "multiplier",
       "actual": "multiplier",
       "passed": true,
@@ -83,7 +83,7 @@
     },
     {
       "assertion_index": 9,
-      "name": "Follower ctf3 Multiplier Value is 3.0",
+      "name": "Follower ctf2 Multiplier Value == '3.0'",
       "expected": "3.0",
       "actual": "3.0",
       "passed": true,
@@ -91,6 +91,46 @@
     },
     {
       "assertion_index": 10,
+      "name": "Follower ctf3 Zero Residual Orders",
+      "expected": 0,
+      "actual": 0,
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 11,
+      "name": "Follower ctf3 Subscribed to Master 1060",
+      "expected": true,
+      "actual": true,
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 12,
+      "name": "Follower ctf3 Method == 'multiplier'",
+      "expected": "multiplier",
+      "actual": "multiplier",
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 13,
+      "name": "Follower ctf3 Multiplier Value == '3.0'",
+      "expected": "3.0",
+      "actual": "3.0",
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 14,
+      "name": "Follower ctf4 Zero Residual Orders",
+      "expected": 0,
+      "actual": 0,
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 15,
       "name": "Follower ctf4 Subscribed to Master 1060",
       "expected": true,
       "actual": true,
@@ -98,23 +138,31 @@
       "notes": ""
     },
     {
-      "assertion_index": 11,
-      "name": "Follower ctf4 Method is 'multiplier'",
+      "assertion_index": 16,
+      "name": "Follower ctf4 Method == 'multiplier'",
       "expected": "multiplier",
       "actual": "multiplier",
       "passed": true,
       "notes": ""
     },
     {
-      "assertion_index": 12,
-      "name": "Follower ctf4 Multiplier Value is 3.0",
+      "assertion_index": 17,
+      "name": "Follower ctf4 Multiplier Value == '3.0'",
       "expected": "3.0",
       "actual": "3.0",
       "passed": true,
       "notes": ""
     },
     {
-      "assertion_index": 13,
+      "assertion_index": 18,
+      "name": "Follower ctf5 Zero Residual Orders",
+      "expected": 0,
+      "actual": 0,
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 19,
       "name": "Follower ctf5 Subscribed to Master 1060",
       "expected": true,
       "actual": true,
@@ -122,68 +170,20 @@
       "notes": ""
     },
     {
-      "assertion_index": 14,
-      "name": "Follower ctf5 Method is 'multiplier'",
+      "assertion_index": 20,
+      "name": "Follower ctf5 Method == 'multiplier'",
       "expected": "multiplier",
       "actual": "multiplier",
       "passed": true,
       "notes": ""
     },
     {
-      "assertion_index": 15,
-      "name": "Follower ctf5 Multiplier Value is 3.0",
+      "assertion_index": 21,
+      "name": "Follower ctf5 Multiplier Value == '3.0'",
       "expected": "3.0",
       "actual": "3.0",
       "passed": true,
       "notes": ""
-    },
-    {
-      "assertion_index": 16,
-      "name": "ctmaster Zero Lingering Open Orders",
-      "expected": 0,
-      "actual": 0,
-      "passed": true,
-      "notes": "Active order count: 0"
-    },
-    {
-      "assertion_index": 17,
-      "name": "ctf1 Zero Lingering Open Orders",
-      "expected": 0,
-      "actual": 0,
-      "passed": true,
-      "notes": "Active order count: 0"
-    },
-    {
-      "assertion_index": 18,
-      "name": "ctf2 Zero Lingering Open Orders",
-      "expected": 0,
-      "actual": 0,
-      "passed": true,
-      "notes": "Active order count: 0"
-    },
-    {
-      "assertion_index": 19,
-      "name": "ctf3 Zero Lingering Open Orders",
-      "expected": 0,
-      "actual": 0,
-      "passed": true,
-      "notes": "Active order count: 0"
-    },
-    {
-      "assertion_index": 20,
-      "name": "ctf4 Zero Lingering Open Orders",
-      "expected": 0,
-      "actual": 0,
-      "passed": true,
-      "notes": "Active order count: 0"
-    },
-    {
-      "assertion_index": 21,
-      "name": "ctf5 Zero Lingering Open Orders",
-      "expected": 0,
-      "actual": 0,
-      "passed": true,
-      "notes": "Active order count: 0"
     }
   ],
   "execution_steps": []
