@@ -40,16 +40,23 @@ This repository provides an automated testing framework dedicated to **WavexOne*
 
 ---
 
-## 👥 Test Accounts Overview
+## 👥 Test Accounts Architecture & Security
 
-| Module | Role | Email | Password | User ID | Account ID | Configured Mechanism |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| **Copy Trading** | Master | `ctmaster@mailinator.com` | `123` | `1060` | `11060` | Master Order Placement |
-| | Followers (5) | `ctf1@mailinator.com` to `ctf5@mailinator.com` | `123` | `1041-1050` | `11041-11050` | `trade_method = multiplier`, value = `3` |
-| **MAM** | Master | `mammaster@mailinator.com` | `123` | `1056` | `11056` | Master Lot Placement |
-| | Followers (5) | `mamf1@mailinator.com` to `mamf5@mailinator.com` | `123` | `1058-1088` | `11058-11088` | `mam_share = 50.00%` |
-| **PAMM** | Master | `pammmaster@mailinator.com` | `123` | `1054` | `11054` | Pooled Fund: $5,000,000 |
-| | Followers (5) | `pammf1@mailinator.com` to `pammf5@mailinator.com` | `123` | `1078-1086` | `11078-11086` | Investment: $1,000,000 each, Share: 50% |
+All account credentials (usernames, emails, passwords, tokens) are strictly isolated in a local `.env` file that is excluded from version control (`.gitignore`). 
+
+To configure test accounts, copy `.env.example` to `.env` and fill in your staging credentials:
+```bash
+cp .env.example .env
+```
+
+| Module | Role | Identifier Key in `.env` | Verified Account ID | Configured Mechanism |
+| :--- | :--- | :--- | :--- | :--- |
+| **Copy Trading** | Master | `CT_MASTER_EMAIL` | `11060` (UID: 1060) | Master Order Placement (1.00 Lot) |
+| | Followers (5) | `CT_FOLLOWER_1_EMAIL` .. `5` | `11041` – `11050` | Multiplier (3x), Proportional Balance, Proportional Equity |
+| **MAM** | Master | `MAM_MASTER_EMAIL` | `11056` (UID: 1056) | Master Order Placement |
+| | Followers (5) | `MAM_FOLLOWER_1_EMAIL` .. `5` | `11058` – `11088` | Proportional Lot Allocation (`mam_share = 50.00%`) |
+| **PAMM** | Master | `PAMM_MASTER_EMAIL` | `11054` (UID: 1054) | Pooled Fund Execution ($5,000,000 pool) |
+| | Followers (5) | `PAMM_FOLLOWER_1_EMAIL` .. `5` | `11078` – `11086` | Proportional Capital Allocation ($1,000,000 each) |
 
 ---
 

@@ -18,13 +18,13 @@
   "modules": {
     "copy_trading": {
       "title": "Copy Trading (1 Master + 5 Followers)",
-      "master": "ctmaster@mailinator.com",
+      "master": "ctmaster",
       "followers": [
-        "ctf1@mailinator.com",
-        "ctf2@mailinator.com",
-        "ctf3@mailinator.com",
-        "ctf4@mailinator.com",
-        "ctf5@mailinator.com"
+        "ctf1",
+        "ctf2",
+        "ctf3",
+        "ctf4",
+        "ctf5"
       ],
       "orders_tested": 10,
       "passed": 10,
@@ -145,13 +145,13 @@
     },
     "mam": {
       "title": "MAM Trading (1 Master + 5 Followers)",
-      "master": "mammaster@mailinator.com",
+      "master": "mammaster",
       "followers": [
-        "mamf1@mailinator.com",
-        "mamf2@mailinator.com",
-        "mamf3@mailinator.com",
-        "mamf4@mailinator.com",
-        "mamf5@mailinator.com"
+        "mamf1",
+        "mamf2",
+        "mamf3",
+        "mamf4",
+        "mamf5"
       ],
       "orders_tested": 10,
       "passed": 10,
@@ -272,13 +272,13 @@
     },
     "pamm": {
       "title": "PAMM Trading (1 Master + 5 Followers)",
-      "master": "pammmaster@mailinator.com",
+      "master": "pammmaster",
       "followers": [
-        "pammf1@mailinator.com",
-        "pammf2@mailinator.com",
-        "pammf3@mailinator.com",
-        "pammf4@mailinator.com",
-        "pammf5@mailinator.com"
+        "pammf1",
+        "pammf2",
+        "pammf3",
+        "pammf4",
+        "pammf5"
       ],
       "orders_tested": 6,
       "passed": 6,

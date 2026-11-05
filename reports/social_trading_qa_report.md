@@ -11,16 +11,16 @@
 
 | Social Trading Module | Master Account | Orders Placed | Passed Checks | Failed Checks | Follower Fanout / Allocation | Result |
 | :--- | :--- | :---: | :---: | :---: | :---: | :---: |
-| **Copy Trading** | ctmaster@mailinator.com | 10 | 10 | 0 | 50/50 Copied (3x multiplier verified & closed) | **✅ PASS** |
-| **MAM Trading** | mammaster@mailinator.com | 10 | 10 | 0 | 50/50 Allocated (50% share verified & closed) | **✅ PASS** |
-| **PAMM Trading** | pammmaster@mailinator.com | 6 | 6 | 0 | 100% Pooled Fund Execution & Clean Books | **✅ PASS** |
+| **Copy Trading** | Copy Trading Master (ctmaster) | 10 | 10 | 0 | 50/50 Copied (3x multiplier verified & closed) | **✅ PASS** |
+| **MAM Trading** | MAM Master (mammaster) | 10 | 10 | 0 | 50/50 Allocated (50% share verified & closed) | **✅ PASS** |
+| **PAMM Trading** | PAMM Master (pammmaster) | 6 | 6 | 0 | 100% Pooled Fund Execution & Clean Books | **✅ PASS** |
 | **TOTAL** | **3 Masters** | **26** | **26** | **0** | **100% Sync Across All 15 Followers** | **✅ PASS** |
 
 ---
 
 ## 1. 📈 Copy Trading Module Results
-- **Master Account:** ctmaster@mailinator.com (UID: 1060, Account: 11060)
-- **Follower Accounts (5):** ctf1 to ctf5 (ctf1@mailinator.com - ctf5@mailinator.com)
+- **Master Account:** Copy Trading Master (ctmaster) (UID: 1060, Account: 11060)
+- **Follower Accounts (5):** ctf1 to ctf5 (ctf1 - ctf5)
 - **Configuration:** Multiplier = 3x, Profit Share = 10%
 - **Verification:** For every master order of lot L, each follower receives an order with lot 3.0 * L. Master squareoff triggers simultaneous close on all 5 followers.
 
@@ -40,8 +40,8 @@
 ---
 
 ## 2. 👥 MAM (Multi-Account Manager) Module Results
-- **Master Account:** mammaster@mailinator.com (UID: 1056, Account: 11056)
-- **Follower Accounts (5):** mamf1 to mamf5 (mamf1@mailinator.com - mamf5@mailinator.com)
+- **Master Account:** MAM Master (mammaster) (UID: 1056, Account: 11056)
+- **Follower Accounts (5):** mamf1 to mamf5 (mamf1 - mamf5)
 - **Configuration:** MAM Share = 50.00%
 - **Verification:** Master orders distribute allocated lots to each follower according to MAM share. Master squareoff triggers instantaneous closing across all 5 followers.
 
@@ -61,7 +61,7 @@
 ---
 
 ## 3. 💼 PAMM (Percent Allocation Management Module) Results
-- **Master Account:** pammmaster@mailinator.com (UID: 1054, Account: 11054)
+- **Master Account:** PAMM Master (pammmaster) (UID: 1054, Account: 11054)
 - **Follower Accounts (5):** pammf1 to pammf5 (,000,000 investment each into ,000,000 pooled fund)
 - **Verification:** Orders execute strictly at the pooled master level; follower open books remain clean with 0 individual order pollution. Proportional PnL distributes into investment ledger upon closing.
 

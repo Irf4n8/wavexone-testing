@@ -261,3 +261,4 @@ class TestOrderTypesSuite:
         assert res.get("status") == "fail", f"Expected rejection but got: {res}"
         assert res.get("message") == "Invalid order side", f"Unexpected error: {res}"
         logger.info(f"  [EVIDENCE RECORDED] Server correctly validated: '{res.get('message')}' (Raw: {res})")
+

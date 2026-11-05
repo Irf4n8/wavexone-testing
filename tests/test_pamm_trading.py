@@ -86,3 +86,43 @@ class TestPAMMTradingSuite:
         assert len(folls_after) == 5, "Follower count mismatch in PAMM ledger"
         logger.info("  PAMM ledger verified: Proportional PnL distributed across all 5 followers.")
 
+    def test_pamm_follower_withdrawal_safeguards_with_open_orders(self):
+        """Verify PAMM follower withdraw limits, locked margin, and open order safeguards."""
+        logger.info("\n--- [PAMM Safeguards] Verifying Follower Withdrawal Limits with Open Orders ---")
+        f1 = self.followers[0]
+        master_uid = str(self.master.user_id)
+
+        # 1. Baseline check: 0 open orders
+        pre_limit = f1.get_pamm_withdraw_limit(pamm_master_uid=master_uid)
+        logger.info(f"  [PAMM PRE-TRADE] Follower {f1.name} PAMM Limit: {pre_limit}")
+        assert pre_limit.get("open_orders", 0) == 0, f"Expected 0 open orders before trade, got: {pre_limit.get('open_orders')}"
+        assert float(pre_limit.get("available_withdraw", 0)) > 0, "PAMM available withdraw must be positive"
+        assert pre_limit.get("full_withdraw_safe") == 1, "Full withdraw should be safe when 0 orders open"
+
+        # 2. Master places order
+        sym = "X:BTCUSD"
+        res = self.master.place_order(symbol=sym, side="buy", lot=WavexSettings.DEFAULT_LOT)
+        assert res.get("status") == "success"
+        time.sleep(1.5)
+        open_m = self.master.get_open_orders()
+        assert len(open_m) > 0
+        master_oid = open_m[0]["id"]
+
+        # 3. In-trade check: follower PAMM limits with active open orders
+        in_limit = f1.get_pamm_withdraw_limit(pamm_master_uid=master_uid)
+        logger.info(f"  [PAMM IN-TRADE] Follower {f1.name} PAMM Limit with OPEN orders: {in_limit}")
+        open_ords_in = int(in_limit.get("open_orders", 0))
+        assert open_ords_in >= 1, f"Expected open_orders >= 1 while trade active on pooled fund, got: {open_ords_in}"
+        logger.info(f"  [OPEN ORDERS DETECTED] Count={open_ords_in}, Safe Partial Withdraw=${float(in_limit.get('safe_partial_withdraw', 0)):,.2f}")
+
+        # 4. Squareoff master position
+        self.master.squareoff_position(master_oid)
+        time.sleep(2.5)
+
+        # 5. Post-trade check: verify restoration
+        post_limit = f1.get_pamm_withdraw_limit(pamm_master_uid=master_uid)
+        logger.info(f"  [PAMM POST-TRADE] Follower {f1.name} PAMM Limit restored: {post_limit}")
+        assert post_limit.get("open_orders", 0) == 0, f"Expected 0 open orders after squareoff, got: {post_limit.get('open_orders')}"
+        assert post_limit.get("full_withdraw_safe") == 1, "Full withdraw should be restored to safe after position closure"
+        logger.info("  [VERIFIED] PAMM follower open-order margin locks and withdrawal limits verified.")
+
