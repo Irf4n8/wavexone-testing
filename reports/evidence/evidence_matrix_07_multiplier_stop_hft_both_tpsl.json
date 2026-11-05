@@ -1,0 +1,52 @@
+{
+  "meta": {
+    "test_id": "evidence_matrix_07_multiplier_stop_hft_both_tpsl",
+    "title": "Copy Trading Matrix: Multiplier Mode - Stop HFT BOTH with TP/SL",
+    "description": "Verify that placing Stop HFT BOTH creates dual pending orders on master and replicates dual 3.0x orders with matching Trigger, TP, and SL to follower.",
+    "environment": "https://stage.wavexone.com",
+    "started_at": "2026-11-05T15:47:51.277892",
+    "completed_at": "2026-11-05T15:48:00.169131",
+    "duration_seconds": 8.89,
+    "status": "PASS",
+    "error": null
+  },
+  "summary": {
+    "total_steps": 1,
+    "total_assertions": 1,
+    "passed_assertions": 1,
+    "failed_assertions": 0
+  },
+  "assertions": [
+    {
+      "assertion_index": 1,
+      "name": "Follower Replicated Dual Stop Orders with TP/SL",
+      "expected": 2,
+      "actual": 2,
+      "passed": true,
+      "notes": ""
+    }
+  ],
+  "execution_steps": [
+    {
+      "step_index": 1,
+      "timestamp": "2026-11-05T15:47:53.591552",
+      "name": "Master Place Stop HFT BOTH with TP/SL",
+      "action": "POST /trade/placeorder.php?type=stop&stop_hft_type=2",
+      "endpoint": "",
+      "method": "",
+      "latency_ms": 0.0,
+      "request": {},
+      "response": {
+        "status": "success",
+        "message": "Order Placed Successfully",
+        "data": {
+          "orderId": "57439,57440",
+          "time": 0.06980395317077637
+        },
+        "_duration_ms": 284.87,
+        "_request_url": "https://stage.wavexone.com/trade/placeorder.php?type=stop&bs=buy&lotb=0.01&slb=80756.54&targetb=80956.54&triggerb=80856.54&lots=0.01&sls=79956.54&targets=79756.54&triggers=79856.54&symbol=X:BTCUSD&stop_hft_type=2&token=UHZIKS5BXD&clicked=yes&fingerprint=060d191b0e0707726a777e74726273641f45415621_845"
+      },
+      "extra": {}
+    }
+  ]
+}

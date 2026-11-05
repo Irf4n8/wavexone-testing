@@ -1,0 +1,62 @@
+{
+  "meta": {
+    "test_id": "evidence_matrix_09_balance_market_sell_tpsl",
+    "title": "Copy Trading Matrix: Balance Mode - Market SELL with TP/SL",
+    "description": "Verify that under Balance mode, Follower receives lot size proportional to live balance ratio on Market SELL with matching TP/SL.",
+    "environment": "https://stage.wavexone.com",
+    "started_at": "2026-11-05T15:48:13.720800",
+    "completed_at": "2026-11-05T15:48:22.243770",
+    "duration_seconds": 8.52,
+    "status": "PASS",
+    "error": null
+  },
+  "summary": {
+    "total_steps": 0,
+    "total_assertions": 5,
+    "passed_assertions": 5,
+    "failed_assertions": 0
+  },
+  "assertions": [
+    {
+      "assertion_index": 1,
+      "name": "Follower Scaled to Balance Ratio SELL (0.11 lots)",
+      "expected": 0.11,
+      "actual": 0.11,
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 2,
+      "name": "Master Book SL Matches Expected",
+      "expected": "80842",
+      "actual": "80842",
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 3,
+      "name": "Master Book TP Matches Expected",
+      "expected": "79842",
+      "actual": "79842",
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 4,
+      "name": "Follower Book SL Replicated",
+      "expected": "80842",
+      "actual": "80842",
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 5,
+      "name": "Follower Book TP Replicated",
+      "expected": "79842",
+      "actual": "79842",
+      "passed": true,
+      "notes": ""
+    }
+  ],
+  "execution_steps": []
+}

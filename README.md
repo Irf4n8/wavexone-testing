@@ -23,9 +23,10 @@ This repository provides an automated testing framework dedicated to **WavexOne*
 │   └── reporter.py         # Structured Markdown and JSON report generator
 ├── tests/
 │   ├── __init__.py
-│   ├── test_copy_trading.py# Copy Trading suite (15 end-to-end tests: Phase 0, multiplier, balance, margin, withdrawal, TP/SL, limits, etc.)
-│   ├── test_mam_trading.py # MAM suite (Master -> 5 Followers with proportional share allocation)
-│   └── test_pamm_trading.py# PAMM suite (Master -> 5 Followers with pooled capital and ledger sync)
+│   ├── test_copy_trading.py       # Core Copy Trading suite (15 end-to-end tests: Phase 0, margin math, withdrawal safeguards, batch, slippage audit)
+│   ├── test_copy_trading_matrix.py# Complete 21-scenario matrix suite (Multiplier, Balance, Equity x Market, Limit, Stop HFT Buy/Sell/Both with TP/SL)
+│   ├── test_mam_trading.py        # MAM suite (Master -> 5 Followers with proportional share allocation)
+│   └── test_pamm_trading.py       # PAMM suite (Master -> 5 Followers with pooled capital and ledger sync)
 ├── reports/
 │   ├── copy_trading_qa_report.md   # Comprehensive Copy Trading audit report
 │   ├── copy_trading_qa_report.json # Telemetry, order IDs, latencies, sync metrics
@@ -52,7 +53,7 @@ cp .env.example .env
 | Module | Role | Identifier Key in `.env` | Verified Account ID | Configured Mechanism |
 | :--- | :--- | :--- | :--- | :--- |
 | **Copy Trading** | Master | `CT_MASTER_EMAIL` | `11060` (UID: 1060) | Master Order Placement (1.00 Lot) |
-| | Followers (5) | `CT_FOLLOWER_1_EMAIL` .. `5` | `11061`, `11063`, `11065`, `11089`, `11067` | Multiplier (3x), Proportional Balance, Proportional Equity |
+| | Followers (5) | `CT_FOLLOWER_1_EMAIL` .. `5` | `11041`, `11043`, `11045`, `11048`, `11050` | Multiplier (3x), Proportional Balance, Proportional Equity |
 | **MAM** | Master | `MAM_MASTER_EMAIL` | `11056` (UID: 1056) | Master Order Placement |
 | | Followers (5) | `MAM_FOLLOWER_1_EMAIL` .. `5` | `11058`, `11062`, `11064`, `11088`, `11066` | Proportional Lot Allocation (`mam_share = 50.00%`) |
 | **PAMM** | Master | `PAMM_MASTER_EMAIL` | `11054` (UID: 1054) | Pooled Fund Execution |
@@ -60,26 +61,34 @@ cp .env.example .env
 
 ---
 
-## Copy Trading Test Suite Scope & Coverage
+## Copy Trading 21-Scenario Complete Matrix Suite
 
-The `TestCopyTradingSuite` in `tests/test_copy_trading.py` executes 15 distinct verification routines:
+The `TestCopyTradingMatrixSuite` in `tests/test_copy_trading_matrix.py` validates **every combination of Mode, Order Type, and Side with mandatory Take Profit (TP) and Stop Loss (SL) verification**:
 
-1. **Phase 0 Runtime Account Verification:** Validates live account IDs against expected IDs from `.env`/config.
-2. **Test 1: Multiplier Mode BUY:** Master 1.00 lot BUY BTCUSD replicates as 3.00 lots to all 5 followers; simultaneous clean squareoff.
-3. **Test 2: Balance-Based Mode & Rounding Probe:** Follower 1 switches to balance proportional copying. Includes two mathematical probes (`0.11009` and `0.10459`) to verify the engine uses standard `round(x, 2)`.
-4. **Test 3: Equity Mode & Floating P&L Guard:** Large master position generates floating P&L. Computes expected lot from live equity vs balance. If equity equals balance, marks test `INCONCLUSIVE` per specification.
-5. **Test 4: Unfollow & Re-Follow Lifecycle:** Verifies unfollow halts replication to that follower while peers continue copying, and re-follow restores replication.
-6. **Test 5: Dynamic Margin Verification:** Formula $\text{Margin} = \frac{\text{lot} \times \text{price}}{\text{leverage}}$ verified within 2% tolerance; follower margin verified at ~3x master margin; 100% margin release verified after squareoff.
-7. **Test 6A: Withdrawal Ratio Safeguard:** Verifies `apiRedeemConfig` dynamically caps withdrawable ratio to 0.8 with open orders, restoring to 1.0 upon closure.
-8. **Test 6B: Gateway Rejection Safeguard:** Tests excessive withdrawal OTP rejection tagged with KYC verification status. Critical safety guard aborts immediately if gateway returns success.
-9. **Test 7: Unfollow While Position is Open:** Observes platform behavior when a follower unfollows master during an active position (stayed open, closed with master; tagged `UNVERIFIED vs spec`).
-10. **Test 8: Multiplier Mode SELL:** Master 1.00 lot SELL BTCUSD replicates as 3.00 lots across all 5 followers.
-11. **Test 9: 10-Order Batch Concurrency:** Rapid batch execution of 5 BUY and 5 SELL orders (50 replicated orders across 5 followers) with zero drops and bulk squareoff.
-12. **Test 10: TP/SL Propagation & Trigger Hits:** Verifies TP/SL propagation to followers, modification via `modify.php` (`name=StopLoss` and `name=Target`), and auto-execution on SL hit.
-13. **Test 11: Limit & Stop Orders:** Pending limit replication, cancellation propagation, and marketable limit fill replication.
-14. **Test 12: Order Reconciliation & Slippage Audit:** Compares price, side, symbol, and lot across master vs followers; measures slippage against configured tolerance.
-15. **Test 13: Edge Cases & Safeguards:** Partial close probe (`squareoff.php?lot=0.50`), follower pause/resume, and ghost position prevention.
-16. **Test 14: Final Settings Restoration Audit:** Confirms all 5 followers are restored to `multiplier = 3.0` following Master `1060`, and zero lingering open orders exist across all accounts.
+1. **Multiplier Mode (3.0x Multiplier):**
+   - Market BUY with TP/SL
+   - Market SELL with TP/SL
+   - Limit BUY with Trigger/TP/SL
+   - Limit SELL with Trigger/TP/SL
+   - Stop HFT BUY (`stop_hft_type=1`) with Trigger/TP/SL
+   - Stop HFT SELL (`stop_hft_type=0`) with Trigger/TP/SL
+   - Stop HFT BOTH (`stop_hft_type=2`, dual pending orders) with Trigger/TP/SL
+2. **Balance-Based Proportional Mode:**
+   - Market BUY with TP/SL
+   - Market SELL with TP/SL
+   - Limit BUY with Trigger/TP/SL
+   - Limit SELL with Trigger/TP/SL
+   - Stop HFT BUY with Trigger/TP/SL
+   - Stop HFT SELL with Trigger/TP/SL
+   - Stop HFT BOTH with Trigger/TP/SL
+3. **Equity-Based Proportional Mode:**
+   - Market BUY with TP/SL
+   - Market SELL with TP/SL
+   - Limit BUY with Trigger/TP/SL
+   - Limit SELL with Trigger/TP/SL
+   - Stop HFT BUY with Trigger/TP/SL
+   - Stop HFT SELL with Trigger/TP/SL
+   - Stop HFT BOTH with Trigger/TP/SL
 
 ---
 
@@ -90,7 +99,12 @@ The `TestCopyTradingSuite` in `tests/test_copy_trading.py` executes 15 distinct 
 pip install -r requirements.txt
 ```
 
-### 2. Run Copy Trading Test Suite
+### 2. Run Complete Copy Trading Matrix (21 Tests with TP/SL)
+```bash
+pytest tests/test_copy_trading_matrix.py -v
+```
+
+### 3. Run Core Copy Trading Suite (15 Tests)
 ```bash
 pytest tests/test_copy_trading.py -v
 ```
@@ -99,8 +113,8 @@ pytest tests/test_copy_trading.py -v
 
 ## Reports & Telemetry
 Individual JSON and Markdown evidence files are exported per test to:
-- `reports/evidence/evidence_*.json`
-- `reports/evidence/evidence_*.md`
+- `reports/evidence/evidence_matrix_*.json`
+- `reports/evidence/evidence_matrix_*.md`
 
 Executive summaries and reconciliation reports:
 - `reports/copy_trading_qa_report.md`

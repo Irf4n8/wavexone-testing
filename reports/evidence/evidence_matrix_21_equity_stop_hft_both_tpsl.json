@@ -1,0 +1,30 @@
+{
+  "meta": {
+    "test_id": "evidence_matrix_21_equity_stop_hft_both_tpsl",
+    "title": "Copy Trading Matrix: Equity Mode - Stop HFT BOTH with TP/SL",
+    "description": "Verify that under Equity mode, Stop HFT BOTH creates dual pending orders on master and replicates dual equity-scaled orders with matching Trigger, TP, and SL to follower.",
+    "environment": "https://stage.wavexone.com",
+    "started_at": "2026-11-05T15:50:12.466579",
+    "completed_at": "2026-11-05T15:50:23.716747",
+    "duration_seconds": 11.25,
+    "status": "PASS",
+    "error": null
+  },
+  "summary": {
+    "total_steps": 0,
+    "total_assertions": 1,
+    "passed_assertions": 1,
+    "failed_assertions": 0
+  },
+  "assertions": [
+    {
+      "assertion_index": 1,
+      "name": "Follower Replicated Dual Stop Orders with TP/SL (Equity Mode)",
+      "expected": 2,
+      "actual": 2,
+      "passed": true,
+      "notes": ""
+    }
+  ],
+  "execution_steps": []
+}
