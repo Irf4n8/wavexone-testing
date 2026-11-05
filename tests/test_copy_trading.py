@@ -45,6 +45,12 @@ class TestCopyTradingSuite:
         cls.master_lot = WavexSettings.DEFAULT_LOT   # 1.00 Lot
         logger.info(f"Master {cls.master.name} and {len(cls.followers)} followers authenticated and ID-verified.")
 
+        # Initial cleanup: ensure 0 open positions across all accounts before starting
+        for sess in [cls.master] + cls.followers:
+            open_ords = sess.get_open_orders()
+            for o in open_ords:
+                sess.close_or_cancel(o["id"], o.get("type", "market"))
+
     @classmethod
     def teardown_class(cls):
         """Cleanup safety: squareoff any remaining positions across all accounts."""
@@ -140,7 +146,8 @@ class TestCopyTradingSuite:
         # 4. Cleanup & restore multiplier method
         self.master.squareoff_position(master_oid)
         assert self.master.wait_for_order_closure(master_oid)
-        assert f1.wait_for_order_closure(f1_order["id"])
+        for f in self.followers:
+            assert f.wait_for_all_closed(timeout=10.0)
 
         # Restore Follower 1 to multiplier
         f1.update_copy_trading_method(master_uid=self.master_uid, method="multiplier", value="3.0")
@@ -181,7 +188,8 @@ class TestCopyTradingSuite:
         # 4. Cleanup & restore multiplier method
         self.master.squareoff_position(master_oid)
         assert self.master.wait_for_order_closure(master_oid)
-        assert f1.wait_for_order_closure(f1_order["id"])
+        for f in self.followers:
+            assert f.wait_for_all_closed(timeout=10.0)
 
         # Restore Follower 1 to multiplier
         f1.update_copy_trading_method(master_uid=self.master_uid, method="multiplier", value="3.0")
@@ -199,55 +207,73 @@ class TestCopyTradingSuite:
         # 1. Follower 1 unfollows Master
         unf_res = f1.unfollow_copy_master(master_uid=self.master_uid)
         logger.info(f"  Follower {f1.name} unfollowed Master {self.master.name}: {unf_res}")
+        assert unf_res.get("status") == "success", f"Unfollow failed: {unf_res}"
 
         time.sleep(2.0)
+        master_oid = None
+        master_oid2 = None
 
-        # 2. Master places trade
-        res = self.master.place_order(symbol=self.symbol, side="buy", lot=self.master_lot)
-        assert res.get("status") == "success"
-        master_order = self.master.wait_for_order_in_book(symbol=self.symbol, side="buy", expected_lot=self.master_lot)
-        master_oid = master_order["id"]
+        try:
+            # 2. Master places trade
+            res = self.master.place_order(symbol=self.symbol, side="buy", lot=self.master_lot)
+            assert res.get("status") == "success"
+            master_order = self.master.wait_for_order_in_book(symbol=self.symbol, side="buy", expected_lot=self.master_lot)
+            master_oid = master_order["id"]
 
-        time.sleep(2.5)
+            time.sleep(2.5)
 
-        # 3. Assert Follower 1 received 0 trades (unfollowed!)
-        f1_orders = f1.get_open_orders()
-        assert len(f1_orders) == 0, f"Unfollowed follower {f1.name} unexpectedly received orders: {f1_orders}"
-        logger.info(f"  [VERIFIED] Unfollowed follower {f1.name} received 0 orders (Replication halted).")
+            # 3. Assert Follower 1 received 0 trades (unfollowed!)
+            f1_orders = f1.get_open_orders()
+            assert len(f1_orders) == 0, f"Unfollowed follower {f1.name} unexpectedly received orders: {f1_orders}"
+            logger.info(f"  [VERIFIED] Unfollowed follower {f1.name} received 0 orders (Replication halted).")
 
-        # 4. Assert active followers 2-5 received trades normally
-        for peer in self.followers[1:]:
-            peer_order = peer.wait_for_order_in_book(symbol=self.symbol, side="buy", expected_lot=round(self.master_lot * 3.0, 2))
-            assert peer_order is not None, f"Peer {peer.name} failed to receive order while f1 was unfollowed"
-        logger.info("  [VERIFIED] Active peers ctf2-ctf5 copied trades normally.")
+            # 4. Assert active followers 2-5 received trades normally
+            for peer in self.followers[1:]:
+                peer_order = peer.wait_for_order_in_book(symbol=self.symbol, side="buy", expected_lot=round(self.master_lot * 3.0, 2))
+                assert peer_order is not None, f"Peer {peer.name} failed to receive order while f1 was unfollowed"
+            logger.info("  [VERIFIED] Active peers ctf2-ctf5 copied trades normally.")
 
-        # 5. Master squares off
-        self.master.squareoff_position(master_oid)
-        assert self.master.wait_for_order_closure(master_oid)
-        for peer in self.followers[1:]:
-            assert peer.wait_for_all_closed()
+            # 5. Master squares off
+            self.master.squareoff_position(master_oid)
+            assert self.master.wait_for_order_closure(master_oid)
+            for peer in self.followers[1:]:
+                assert peer.wait_for_all_closed()
+            master_oid = None
 
-        # 6. Re-follow Master with multiplier=3.0
-        fol_res = f1.follow_copy_master(master_uid=self.master_uid, method="multiplier", value="3.0")
-        logger.info(f"  Follower {f1.name} re-followed Master: {fol_res}")
+            # 6. Re-follow Master with multiplier=3.0
+            fol_res = f1.follow_copy_master(master_uid=self.master_uid, method="multiplier", value="3.0")
+            logger.info(f"  Follower {f1.name} re-followed Master: {fol_res}")
+            assert fol_res.get("status") == "success", f"Re-follow failed: {fol_res}"
 
-        time.sleep(2.0)
+            time.sleep(2.0)
 
-        # 7. Master places order again; verify Follower 1 resumes copying
-        res2 = self.master.place_order(symbol=self.symbol, side="buy", lot=self.master_lot)
-        master_order2 = self.master.wait_for_order_in_book(symbol=self.symbol, side="buy", expected_lot=self.master_lot)
-        master_oid2 = master_order2["id"]
+            # 7. Master places order again; verify Follower 1 resumes copying
+            res2 = self.master.place_order(symbol=self.symbol, side="buy", lot=self.master_lot)
+            master_order2 = self.master.wait_for_order_in_book(symbol=self.symbol, side="buy", expected_lot=self.master_lot)
+            master_oid2 = master_order2["id"]
 
-        f1_order_resumed = f1.wait_for_order_in_book(symbol=self.symbol, side="buy", expected_lot=round(self.master_lot * 3.0, 2))
-        assert f1_order_resumed is not None, f"Follower {f1.name} failed to resume copying after re-follow!"
-        logger.info(f"  [VERIFIED] Follower {f1.name} successfully resumed copying after re-follow (ID={f1_order_resumed['id']})")
+            f1_order_resumed = f1.wait_for_order_in_book(symbol=self.symbol, side="buy", expected_lot=round(self.master_lot * 3.0, 2))
+            assert f1_order_resumed is not None, f"Follower {f1.name} failed to resume copying after re-follow!"
+            logger.info(f"  [VERIFIED] Follower {f1.name} successfully resumed copying after re-follow (ID={f1_order_resumed['id']})")
 
-        # Cleanup
-        self.master.squareoff_position(master_oid2)
-        assert self.master.wait_for_order_closure(master_oid2)
-        for f in self.followers:
-            assert f.wait_for_all_closed()
-        logger.info("  Cleaned up all positions.")
+            # Cleanup trade 2
+            self.master.squareoff_position(master_oid2)
+            assert self.master.wait_for_order_closure(master_oid2)
+            master_oid2 = None
+            for f in self.followers:
+                assert f.wait_for_all_closed()
+            logger.info("  Cleaned up all positions.")
+        finally:
+            if master_oid:
+                self.master.squareoff_position(master_oid)
+            if master_oid2:
+                self.master.squareoff_position(master_oid2)
+            # Ensure f1 is re-followed if interrupted
+            subs = f1.get_copy_following()
+            if not any(str(s.get("manager_id")) == str(self.master_uid) for s in subs):
+                f1.follow_copy_master(master_uid=self.master_uid, method="multiplier", value="3.0")
+            for sess in [self.master] + self.followers:
+                sess.wait_for_all_closed()
 
     # -------------------------------------------------------------------------
     # TEST 5: BALANCE & FUNDS DYNAMIC VALUES AUDIT
@@ -280,51 +306,59 @@ class TestCopyTradingSuite:
             s = m_boot["summary"]
             logger.info(f"  [PORTAL] Master Portal Summary: TotalFund=${float(s.get('totalFund', 0)):,.2f}, TotalEquity=${float(s.get('totalEquity', 0)):,.2f}")
 
-        # 2. Place Trade: 1.00 Lot BTCUSD on Master -> 3.00 Lots on Followers
-        res = self.master.place_order(symbol=self.symbol, side="buy", lot=self.master_lot)
-        assert res.get("status") == "success"
-        master_order = self.master.wait_for_order_in_book(symbol=self.symbol, side="buy", expected_lot=self.master_lot)
-        assert master_order is not None
-        master_oid = master_order["id"]
+        master_oid = None
+        try:
+            # 2. Place Trade: 1.00 Lot BTCUSD on Master -> 3.00 Lots on Followers
+            res = self.master.place_order(symbol=self.symbol, side="buy", lot=self.master_lot)
+            assert res.get("status") == "success"
+            master_order = self.master.wait_for_order_in_book(symbol=self.symbol, side="buy", expected_lot=self.master_lot)
+            assert master_order is not None
+            master_oid = master_order["id"]
 
-        f1_order = f1.wait_for_order_in_book(symbol=self.symbol, side="buy", expected_lot=round(self.master_lot * 3.0, 2))
-        assert f1_order is not None
+            f1_order = f1.wait_for_order_in_book(symbol=self.symbol, side="buy", expected_lot=round(self.master_lot * 3.0, 2))
+            assert f1_order is not None
 
-        time.sleep(2.0)
+            time.sleep(2.0)
 
-        # 3. In-trade: Verify equity and fund dynamically reflect open positions
-        m_bal_in = self.master.get_balance()
-        f1_bal_in = f1.get_balance()
-        logger.info(
-            f"  [IN-TRADE] Master Fund=${float(m_bal_in.get('fund', 0)):,.2f}, "
-            f"Equity=${float(m_bal_in.get('equity', 0)):,.2f}"
-        )
-        logger.info(
-            f"  [IN-TRADE] Follower {f1.name} Fund=${float(f1_bal_in.get('fund', 0)):,.2f}, "
-            f"Equity=${float(f1_bal_in.get('equity', 0)):,.2f}"
-        )
-        # Margin is utilized, so available fund is <= equity
-        assert float(m_bal_in.get("fund", 0)) > 0, "In-trade available fund must remain positive"
+            # 3. In-trade: Verify equity and fund dynamically reflect open positions
+            m_bal_in = self.master.get_balance()
+            f1_bal_in = f1.get_balance()
+            logger.info(
+                f"  [IN-TRADE] Master Fund=${float(m_bal_in.get('fund', 0)):,.2f}, "
+                f"Equity=${float(m_bal_in.get('equity', 0)):,.2f}"
+            )
+            logger.info(
+                f"  [IN-TRADE] Follower {f1.name} Fund=${float(f1_bal_in.get('fund', 0)):,.2f}, "
+                f"Equity=${float(f1_bal_in.get('equity', 0)):,.2f}"
+            )
+            # Margin is utilized, so available fund is <= equity
+            assert float(m_bal_in.get("fund", 0)) > 0, "In-trade available fund must remain positive"
 
-        # 4. Squareoff Master and all Followers
-        self.master.squareoff_position(master_oid)
-        assert self.master.wait_for_order_closure(master_oid)
-        for f in self.followers:
-            assert f.wait_for_all_closed()
+            # 4. Squareoff Master and all Followers
+            self.master.squareoff_position(master_oid)
+            assert self.master.wait_for_order_closure(master_oid)
+            master_oid = None
+            for f in self.followers:
+                assert f.wait_for_all_closed()
 
-        time.sleep(2.0)
+            time.sleep(2.0)
 
-        # 5. Post-trade: Verify settled balance & released margin
-        m_bal_after = self.master.get_balance()
-        f1_bal_after = f1.get_balance()
-        logger.info(
-            f"  [POST-TRADE] Master Settled Balance=${float(m_bal_after.get('balance', 0)):,.2f}, "
-            f"Settled Equity=${float(m_bal_after.get('equity', 0)):,.2f}"
-        )
-        logger.info(
-            f"  [POST-TRADE] Follower {f1.name} Settled Balance=${float(f1_bal_after.get('balance', 0)):,.2f}"
-        )
-        logger.info("  [VERIFIED] Balance, funds, and equity values dynamically verified across trade lifecycle.")
+            # 5. Post-trade: Verify settled balance & released margin
+            m_bal_after = self.master.get_balance()
+            f1_bal_after = f1.get_balance()
+            logger.info(
+                f"  [POST-TRADE] Master Settled Balance=${float(m_bal_after.get('balance', 0)):,.2f}, "
+                f"Settled Equity=${float(m_bal_after.get('equity', 0)):,.2f}"
+            )
+            logger.info(
+                f"  [POST-TRADE] Follower {f1.name} Settled Balance=${float(f1_bal_after.get('balance', 0)):,.2f}"
+            )
+            logger.info("  [VERIFIED] Balance, funds, and equity values dynamically verified across trade lifecycle.")
+        finally:
+            if master_oid:
+                self.master.squareoff_position(master_oid)
+            for sess in [self.master] + self.followers:
+                sess.wait_for_all_closed()
 
     # -------------------------------------------------------------------------
     # TEST 6: WITHDRAWAL LIMITS & OPEN ORDER SAFEGUARDS
@@ -345,60 +379,68 @@ class TestCopyTradingSuite:
             assert avail_pre > 0, "Available withdrawable amount must be positive"
             logger.info(f"  [BASELINE] Open Orders={open_ords_pre}, Available for Withdrawal=${avail_pre:,.2f}")
 
-        # 2. Place Master order to trigger active open positions on Follower
-        res = self.master.place_order(symbol=self.symbol, side="buy", lot=self.master_lot)
-        assert res.get("status") == "success"
-        master_order = self.master.wait_for_order_in_book(symbol=self.symbol, side="buy", expected_lot=self.master_lot)
-        master_oid = master_order["id"]
+        master_oid = None
+        try:
+            # 2. Place Master order to trigger active open positions on Follower
+            res = self.master.place_order(symbol=self.symbol, side="buy", lot=self.master_lot)
+            assert res.get("status") == "success"
+            master_order = self.master.wait_for_order_in_book(symbol=self.symbol, side="buy", expected_lot=self.master_lot)
+            master_oid = master_order["id"]
 
-        f1_order = f1.wait_for_order_in_book(symbol=self.symbol, side="buy", expected_lot=round(self.master_lot * 3.0, 2))
-        assert f1_order is not None
+            f1_order = f1.wait_for_order_in_book(symbol=self.symbol, side="buy", expected_lot=round(self.master_lot * 3.0, 2))
+            assert f1_order is not None
 
-        time.sleep(2.0)
+            time.sleep(2.0)
 
-        # 3. In-trade check: Verify withdraw limit reflects active open orders
-        w_limit_in = f1.get_withdraw_limit()
-        logger.info(f"  [IN-TRADE] Follower {f1.name} Withdraw Limit with OPEN orders: {w_limit_in}")
-        if w_limit_in:
-            open_ords_in = int(w_limit_in.get("open_orders", 0))
-            avail_in = float(w_limit_in.get("available", 0))
-            logger.info(f"  [IN-TRADE GUARD] Open Orders={open_ords_in}, Constrained Withdrawable=${avail_in:,.2f}")
-            assert open_ords_in >= 1, f"Expected open_orders >= 1 while trade active, got {open_ords_in}"
-            # Available withdraw amount must be capped to ensure margin remains for open orders
-            assert avail_in > 0, "Safe withdrawable amount must remain non-negative"
+            # 3. In-trade check: Verify withdraw limit reflects active open orders
+            w_limit_in = f1.get_withdraw_limit()
+            logger.info(f"  [IN-TRADE] Follower {f1.name} Withdraw Limit with OPEN orders: {w_limit_in}")
+            if w_limit_in:
+                open_ords_in = int(w_limit_in.get("open_orders", 0))
+                avail_in = float(w_limit_in.get("available", 0))
+                logger.info(f"  [IN-TRADE GUARD] Open Orders={open_ords_in}, Constrained Withdrawable=${avail_in:,.2f}")
+                assert open_ords_in >= 1, f"Expected open_orders >= 1 while trade active, got {open_ords_in}"
+                # Available withdraw amount must be capped to ensure margin remains for open orders
+                assert avail_in > 0, "Safe withdrawable amount must remain non-negative"
 
-        # 4. Test withdrawal over-limit rejection: Attempting to withdraw > available must be rejected
-        excessive_amount = float(w_limit_in.get("available", 1000000)) + 50000000.0
-        otp_res = f1.request_withdraw_otp(
-            method="USDT TRC20",
-            amount=excessive_amount,
-            withdraw_address="TFakeTestAddressForValidationOnly123456",
-            source_id=f"account:{f1.account_id}"
-        )
-        logger.info(f"  [REJECTION EVIDENCE] Excessive withdrawal attempt response: {otp_res}")
-        # The portal must reject amounts exceeding available withdrawable funds
-        assert (
-            otp_res.get("status") in ["fail", "error"]
-            or "valid" in otp_res.get("message", "").lower()
-            or "exceed" in otp_res.get("message", "").lower()
-            or "balance" in otp_res.get("message", "").lower()
-            or "kyc" in otp_res.get("message", "").lower()
-        ), f"Engine should reject withdrawal exceeding safe margin: {otp_res}"
+            # 4. Test withdrawal over-limit rejection: Attempting to withdraw > available must be rejected
+            excessive_amount = float(w_limit_in.get("available", 1000000)) + 50000000.0
+            otp_res = f1.request_withdraw_otp(
+                method="USDT TRC20",
+                amount=excessive_amount,
+                withdraw_address="TFakeTestAddressForValidationOnly123456",
+                source_id=f"account:{f1.account_id}"
+            )
+            logger.info(f"  [REJECTION EVIDENCE] Excessive withdrawal attempt response: {otp_res}")
+            # The portal must reject amounts exceeding available withdrawable funds
+            assert (
+                otp_res.get("status") in ["fail", "error"]
+                or "valid" in otp_res.get("message", "").lower()
+                or "exceed" in otp_res.get("message", "").lower()
+                or "balance" in otp_res.get("message", "").lower()
+                or "kyc" in otp_res.get("message", "").lower()
+            ), f"Engine should reject withdrawal exceeding safe margin: {otp_res}"
 
-        # 5. Squareoff Master and verify closure
-        self.master.squareoff_position(master_oid)
-        assert self.master.wait_for_order_closure(master_oid)
-        for f in self.followers:
-            assert f.wait_for_all_closed()
+            # 5. Squareoff Master and verify closure
+            self.master.squareoff_position(master_oid)
+            assert self.master.wait_for_order_closure(master_oid)
+            master_oid = None
+            for f in self.followers:
+                assert f.wait_for_all_closed()
 
-        time.sleep(2.0)
+            time.sleep(2.0)
 
-        # 6. Post-trade check: Verify open_orders returns to 0 and safe available funds restore
-        w_limit_post = f1.get_withdraw_limit()
-        logger.info(f"  [POST-TRADE] Follower {f1.name} Withdraw Limit after order closure: {w_limit_post}")
-        if w_limit_post:
-            open_ords_post = int(w_limit_post.get("open_orders", 0))
-            assert open_ords_post == 0, f"Expected 0 open orders after squareoff, got {open_ords_post}"
-            logger.info(f"  [RESTORED] Open Orders={open_ords_post}, Available Withdrawable=${float(w_limit_post.get('available', 0)):,.2f}")
+            # 6. Post-trade check: Verify open_orders returns to 0 and safe available funds restore
+            w_limit_post = f1.get_withdraw_limit()
+            logger.info(f"  [POST-TRADE] Follower {f1.name} Withdraw Limit after order closure: {w_limit_post}")
+            if w_limit_post:
+                open_ords_post = int(w_limit_post.get("open_orders", 0))
+                assert open_ords_post == 0, f"Expected 0 open orders after squareoff, got {open_ords_post}"
+                logger.info(f"  [RESTORED] Open Orders={open_ords_post}, Available Withdrawable=${float(w_limit_post.get('available', 0)):,.2f}")
 
-        logger.info("  [VERIFIED] Withdrawal safeguards and open-order margin locks verified successfully.")
+            logger.info("  [VERIFIED] Withdrawal safeguards and open-order margin locks verified successfully.")
+        finally:
+            if master_oid:
+                self.master.squareoff_position(master_oid)
+            for sess in [self.master] + self.followers:
+                sess.wait_for_all_closed()

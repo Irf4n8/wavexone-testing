@@ -380,66 +380,76 @@ class WavexUserSession:
     # -------------------------------------------------------------------------
 
     def follow_copy_master(self, master_uid: str, method: str = "multiplier", value: str = "3.0") -> Dict[str, Any]:
-        """Follow a Copy Trading master using user/follow.php."""
+        """Follow a Copy Trading master using GET user/follow.php."""
+        if not self.token:
+            return {}
         start_t = time.time()
-        url = f"{WavexSettings.COPY_FOLLOW_ENDPOINT}?token={self.token}"
-        payload = {
-            "follow": master_uid,
-            "type": "follow",
-            "method": method,
-            "value": value if method == "multiplier" else ""
-        }
+        val_str = str(value) if method == "multiplier" else ""
+        url = (
+            f"{WavexSettings.COPY_FOLLOW_ENDPOINT}?token={self.token}"
+            f"&follow={master_uid}&type=follow&method={method}&value={val_str}"
+        )
         try:
-            res = self.session.post(url, data=payload, timeout=15)
+            res = self.session.get(url, timeout=15)
             dur = round((time.time() - start_t) * 1000, 2)
             try:
                 data = res.json()
             except Exception:
                 data = {"raw": res.text}
-            self._log_call(WavexSettings.COPY_FOLLOW_ENDPOINT, "POST", dur, res.status_code, payload, data)
+            self._log_call(WavexSettings.COPY_FOLLOW_ENDPOINT, "GET", dur, res.status_code, {"follow": master_uid, "type": "follow", "method": method, "value": val_str}, data)
             return data
         except Exception as e:
             logger.error(f"[{self.name}] follow_copy_master exception: {e}")
             return {"status": "error", "message": str(e)}
 
     def unfollow_copy_master(self, master_uid: str) -> Dict[str, Any]:
-        """Unfollow a Copy Trading master using user/follow.php."""
+        """Unfollow a Copy Trading master using GET user/follow.php."""
+        if not self.token:
+            return {}
         start_t = time.time()
-        url = f"{WavexSettings.COPY_FOLLOW_ENDPOINT}?token={self.token}"
-        payload = {
-            "follow": master_uid,
-            "type": "unfollow"
-        }
+        url = (
+            f"{WavexSettings.COPY_FOLLOW_ENDPOINT}?token={self.token}"
+            f"&follow={master_uid}&type=unfollow"
+        )
         try:
-            res = self.session.post(url, data=payload, timeout=15)
+            res = self.session.get(url, timeout=15)
             dur = round((time.time() - start_t) * 1000, 2)
             try:
                 data = res.json()
             except Exception:
                 data = {"raw": res.text}
-            self._log_call(WavexSettings.COPY_FOLLOW_ENDPOINT, "POST", dur, res.status_code, payload, data)
+            self._log_call(WavexSettings.COPY_FOLLOW_ENDPOINT, "GET", dur, res.status_code, {"follow": master_uid, "type": "unfollow"}, data)
             return data
         except Exception as e:
             logger.error(f"[{self.name}] unfollow_copy_master exception: {e}")
             return {"status": "error", "message": str(e)}
 
     def update_copy_trading_method(self, master_uid: str, method: str = "multiplier", value: str = "3.0") -> Dict[str, Any]:
-        """Update Copy Trading method (multiplier, balance, equity) via updateCopyTradingMethod.php."""
+        """Update Copy Trading method (multiplier, balance, equity) via GET updateCopyTradingMethod.php."""
+        if not self.token:
+            return {}
+        # Resolve subscription uid from copy list if available
+        sub_uid = master_uid
+        subs = self.get_copy_following()
+        for s in subs:
+            if str(s.get("manager_id")) == str(master_uid) or str(s.get("account_id")) == str(master_uid):
+                sub_uid = str(s.get("uid", master_uid))
+                break
+
         start_t = time.time()
-        url = f"{WavexSettings.UPDATE_COPY_METHOD_ENDPOINT}?token={self.token}"
-        payload = {
-            "uid": master_uid,
-            "method": method,
-            "value": str(value) if method == "multiplier" else ""
-        }
+        val_param = str(value) if method == "multiplier" else ""
+        url = (
+            f"{WavexSettings.UPDATE_COPY_METHOD_ENDPOINT}?token={self.token}"
+            f"&uid={sub_uid}&method={method}&value={val_param}"
+        )
         try:
-            res = self.session.post(url, data=payload, timeout=15)
+            res = self.session.get(url, timeout=15)
             dur = round((time.time() - start_t) * 1000, 2)
             try:
                 data = res.json()
             except Exception:
                 data = {"raw": res.text}
-            self._log_call(WavexSettings.UPDATE_COPY_METHOD_ENDPOINT, "POST", dur, res.status_code, payload, data)
+            self._log_call(WavexSettings.UPDATE_COPY_METHOD_ENDPOINT, "GET", dur, res.status_code, {"uid": sub_uid, "method": method, "value": val_param}, data)
             return data
         except Exception as e:
             logger.error(f"[{self.name}] update_copy_trading_method exception: {e}")
@@ -457,12 +467,14 @@ class WavexUserSession:
             return []
 
     def get_copy_following(self) -> List[Dict[str, Any]]:
-        """Get masters followed by this follower."""
+        """Get masters followed by this follower via userCopyFollowers.php."""
+        if not self.token:
+            return []
         try:
-            res = self.session.get(f"{WavexSettings.COPY_FOLLOWERS_ENDPOINT}?token={self.token}", timeout=10)
+            res = self.session.get(f"{WavexSettings.BASE_URL}/user/userCopyFollowers.php?token={self.token}", timeout=10)
             data = res.json()
-            f_list = data.get("data", {}).get("copyFollowersList", "[]")
-            return json.loads(f_list) if isinstance(f_list, str) else f_list
+            f_list = data.get("data", {}).get("copyTradingList", "[]")
+            return json.loads(f_list) if isinstance(f_list, str) else (f_list if isinstance(f_list, list) else [])
         except Exception as e:
             logger.error(f"[{self.name}] get_copy_following error: {e}")
             return []
