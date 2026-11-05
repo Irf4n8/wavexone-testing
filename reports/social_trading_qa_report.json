@@ -1,0 +1,351 @@
+{
+  "meta": {
+    "suite": "WavexOne Social Trading QA Automation Matrix",
+    "environment": "https://stage.wavexone.com",
+    "total_orders_placed": 26,
+    "order_limit_constraint": "20 to 50 orders (Executed: 26)",
+    "passed_checks": 26,
+    "failed_checks": 0,
+    "success_rate_percent": 100.0,
+    "accounts_tested": 18
+  },
+  "modules": {
+    "copy_trading": {
+      "title": "Copy Trading (1 Master + 5 Followers)",
+      "master": "ctmaster@mailinator.com",
+      "followers": [
+        "ctf1@mailinator.com",
+        "ctf2@mailinator.com",
+        "ctf3@mailinator.com",
+        "ctf4@mailinator.com",
+        "ctf5@mailinator.com"
+      ],
+      "orders_tested": 10,
+      "passed": 10,
+      "failed": 0,
+      "fanout_summary": "100% (50/50 Copied with 3x multiplier & closed cleanly)",
+      "order_records": [
+        {
+          "test_index": 1,
+          "symbol": "C:EURUSD",
+          "type": "MARKET",
+          "side": "BUY",
+          "lot": 0.01,
+          "master_order_id": "52590",
+          "followers_synced": "5/5",
+          "sync_success": true,
+          "close_success": true
+        },
+        {
+          "test_index": 2,
+          "symbol": "C:GBPUSD",
+          "type": "MARKET",
+          "side": "BUY",
+          "lot": 0.01,
+          "master_order_id": "52596",
+          "followers_synced": "5/5",
+          "sync_success": true,
+          "close_success": true
+        },
+        {
+          "test_index": 3,
+          "symbol": "C:USDJPY",
+          "type": "MARKET",
+          "side": "BUY",
+          "lot": 0.01,
+          "master_order_id": "52602",
+          "followers_synced": "5/5",
+          "sync_success": true,
+          "close_success": true
+        },
+        {
+          "test_index": 4,
+          "symbol": "C:XAUUSD",
+          "type": "MARKET",
+          "side": "BUY",
+          "lot": 0.01,
+          "master_order_id": "52608",
+          "followers_synced": "5/5",
+          "sync_success": true,
+          "close_success": true
+        },
+        {
+          "test_index": 5,
+          "symbol": "X:BTCUSD",
+          "type": "MARKET",
+          "side": "BUY",
+          "lot": 0.01,
+          "master_order_id": "52614",
+          "followers_synced": "5/5",
+          "sync_success": true,
+          "close_success": true
+        },
+        {
+          "test_index": 6,
+          "symbol": "C:EURUSD",
+          "type": "MARKET",
+          "side": "SELL",
+          "lot": 0.01,
+          "master_order_id": "52620",
+          "followers_synced": "5/5",
+          "sync_success": true,
+          "close_success": true
+        },
+        {
+          "test_index": 7,
+          "symbol": "C:GBPUSD",
+          "type": "MARKET",
+          "side": "SELL",
+          "lot": 0.01,
+          "master_order_id": "52626",
+          "followers_synced": "5/5",
+          "sync_success": true,
+          "close_success": true
+        },
+        {
+          "test_index": 8,
+          "symbol": "C:USDJPY",
+          "type": "MARKET",
+          "side": "SELL",
+          "lot": 0.01,
+          "master_order_id": "52632",
+          "followers_synced": "5/5",
+          "sync_success": true,
+          "close_success": true
+        },
+        {
+          "test_index": 9,
+          "symbol": "C:XAUUSD",
+          "type": "MARKET",
+          "side": "SELL",
+          "lot": 0.01,
+          "master_order_id": "52638",
+          "followers_synced": "5/5",
+          "sync_success": true,
+          "close_success": true
+        },
+        {
+          "test_index": 10,
+          "symbol": "X:BTCUSD",
+          "type": "MARKET",
+          "side": "SELL",
+          "lot": 0.01,
+          "master_order_id": "52644",
+          "followers_synced": "5/5",
+          "sync_success": true,
+          "close_success": true
+        }
+      ]
+    },
+    "mam": {
+      "title": "MAM Trading (1 Master + 5 Followers)",
+      "master": "mammaster@mailinator.com",
+      "followers": [
+        "mamf1@mailinator.com",
+        "mamf2@mailinator.com",
+        "mamf3@mailinator.com",
+        "mamf4@mailinator.com",
+        "mamf5@mailinator.com"
+      ],
+      "orders_tested": 10,
+      "passed": 10,
+      "failed": 0,
+      "fanout_summary": "100% (50/50 Allocated with 50% MAM share & closed cleanly)",
+      "order_records": [
+        {
+          "test_index": 1,
+          "symbol": "C:EURUSD",
+          "type": "MARKET",
+          "side": "BUY",
+          "lot": 0.02,
+          "master_order_id": "52650",
+          "followers_synced": "5/5",
+          "sync_success": true,
+          "close_success": true
+        },
+        {
+          "test_index": 2,
+          "symbol": "C:GBPUSD",
+          "type": "MARKET",
+          "side": "BUY",
+          "lot": 0.02,
+          "master_order_id": "52656",
+          "followers_synced": "5/5",
+          "sync_success": true,
+          "close_success": true
+        },
+        {
+          "test_index": 3,
+          "symbol": "C:USDJPY",
+          "type": "MARKET",
+          "side": "BUY",
+          "lot": 0.02,
+          "master_order_id": "52662",
+          "followers_synced": "5/5",
+          "sync_success": true,
+          "close_success": true
+        },
+        {
+          "test_index": 4,
+          "symbol": "C:XAUUSD",
+          "type": "MARKET",
+          "side": "BUY",
+          "lot": 0.02,
+          "master_order_id": "52668",
+          "followers_synced": "5/5",
+          "sync_success": true,
+          "close_success": true
+        },
+        {
+          "test_index": 5,
+          "symbol": "X:BTCUSD",
+          "type": "MARKET",
+          "side": "BUY",
+          "lot": 0.02,
+          "master_order_id": "52674",
+          "followers_synced": "5/5",
+          "sync_success": true,
+          "close_success": true
+        },
+        {
+          "test_index": 6,
+          "symbol": "C:EURUSD",
+          "type": "MARKET",
+          "side": "SELL",
+          "lot": 0.02,
+          "master_order_id": "52680",
+          "followers_synced": "5/5",
+          "sync_success": true,
+          "close_success": true
+        },
+        {
+          "test_index": 7,
+          "symbol": "C:GBPUSD",
+          "type": "MARKET",
+          "side": "SELL",
+          "lot": 0.02,
+          "master_order_id": "52686",
+          "followers_synced": "5/5",
+          "sync_success": true,
+          "close_success": true
+        },
+        {
+          "test_index": 8,
+          "symbol": "C:USDJPY",
+          "type": "MARKET",
+          "side": "SELL",
+          "lot": 0.02,
+          "master_order_id": "52692",
+          "followers_synced": "5/5",
+          "sync_success": true,
+          "close_success": true
+        },
+        {
+          "test_index": 9,
+          "symbol": "C:XAUUSD",
+          "type": "MARKET",
+          "side": "SELL",
+          "lot": 0.02,
+          "master_order_id": "52698",
+          "followers_synced": "5/5",
+          "sync_success": true,
+          "close_success": true
+        },
+        {
+          "test_index": 10,
+          "symbol": "X:BTCUSD",
+          "type": "MARKET",
+          "side": "SELL",
+          "lot": 0.02,
+          "master_order_id": "52704",
+          "followers_synced": "5/5",
+          "sync_success": true,
+          "close_success": true
+        }
+      ]
+    },
+    "pamm": {
+      "title": "PAMM Trading (1 Master + 5 Followers)",
+      "master": "pammmaster@mailinator.com",
+      "followers": [
+        "pammf1@mailinator.com",
+        "pammf2@mailinator.com",
+        "pammf3@mailinator.com",
+        "pammf4@mailinator.com",
+        "pammf5@mailinator.com"
+      ],
+      "orders_tested": 6,
+      "passed": 6,
+      "failed": 0,
+      "fanout_summary": "100% (Pooled execution model verified, clean books, ledger synced)",
+      "order_records": [
+        {
+          "test_index": 1,
+          "symbol": "C:EURUSD",
+          "type": "MARKET",
+          "side": "BUY",
+          "lot": 0.01,
+          "master_order_id": "52710",
+          "followers_synced": "5/5",
+          "sync_success": true,
+          "close_success": true
+        },
+        {
+          "test_index": 2,
+          "symbol": "C:GBPUSD",
+          "type": "MARKET",
+          "side": "BUY",
+          "lot": 0.01,
+          "master_order_id": "52711",
+          "followers_synced": "5/5",
+          "sync_success": true,
+          "close_success": true
+        },
+        {
+          "test_index": 3,
+          "symbol": "C:USDJPY",
+          "type": "MARKET",
+          "side": "BUY",
+          "lot": 0.01,
+          "master_order_id": "52712",
+          "followers_synced": "5/5",
+          "sync_success": true,
+          "close_success": true
+        },
+        {
+          "test_index": 4,
+          "symbol": "C:XAUUSD",
+          "type": "MARKET",
+          "side": "BUY",
+          "lot": 0.01,
+          "master_order_id": "52713",
+          "followers_synced": "5/5",
+          "sync_success": true,
+          "close_success": true
+        },
+        {
+          "test_index": 5,
+          "symbol": "X:BTCUSD",
+          "type": "MARKET",
+          "side": "BUY",
+          "lot": 0.01,
+          "master_order_id": "52714",
+          "followers_synced": "5/5",
+          "sync_success": true,
+          "close_success": true
+        },
+        {
+          "test_index": 6,
+          "symbol": "C:EURUSD",
+          "type": "MARKET",
+          "side": "SELL",
+          "lot": 0.01,
+          "master_order_id": "52715",
+          "followers_synced": "5/5",
+          "sync_success": true,
+          "close_success": true
+        }
+      ]
+    }
+  }
+}
