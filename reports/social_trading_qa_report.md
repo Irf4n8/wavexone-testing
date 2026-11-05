@@ -76,6 +76,20 @@
 
 ---
 
+
+---
+
+## 4. ⚡ Advanced Social Trading Suite Results (4/4 PASSED)
+Executed in 	ests/test_advanced_social.py:
+
+| # | Advanced Scenario | Target Accounts | Verification Criteria | Status |
+| :-: | :--- | :--- | :--- | :---: |
+| 1 | **CT Follower Manual Early Close** | ctmaster + ctf1 | ctf1 closed early; master & peers ctf2–ctf5 remained OPEN; master close settled all peers cleanly. | **✅ PASS** |
+| 2 | **Follower Independent Order** | ctf1 | Follower placed independent trade; verified 0 pollution in Master or peer accounts. | **✅ PASS** |
+| 3 | **MAM Follower Manual Early Close** | mammaster + mamf1 | mamf1 closed early; master & peers mamf2–mamf5 remained OPEN; master close settled all peers cleanly. | **✅ PASS** |
+| 4 | **Multi-Pair Concurrency Stress** | ctmaster + 5 Followers | Rapid placement across 3 asset classes (Forex, Gold, BTC); 15 concurrent follower orders opened & closed in parallel. | **✅ PASS** |
+
+
 ## 🛡️ Live Account Book Reconciliation
 A post-test verification across all 18 accounts confirmed that **every account has 0 lingering open orders**:
 - ctmaster + ctf1 – ctf5: 0 Open Orders

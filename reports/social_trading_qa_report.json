@@ -2,12 +2,15 @@
   "meta": {
     "suite": "WavexOne Social Trading QA Automation Matrix",
     "environment": "https://stage.wavexone.com",
-    "total_orders_placed": 26,
+    "total_orders_placed": 32,
     "order_limit_constraint": "20 to 50 orders (Executed: 26)",
-    "passed_checks": 26,
+    "passed_checks": 30,
     "failed_checks": 0,
     "success_rate_percent": 100.0,
-    "accounts_tested": 18
+    "accounts_tested": 18,
+    "total_tests_run": 30,
+    "advanced_suite_passed": 4,
+    "advanced_suite_failed": 0
   },
   "modules": {
     "copy_trading": {
@@ -344,6 +347,34 @@
           "followers_synced": "5/5",
           "sync_success": true,
           "close_success": true
+        }
+      ]
+    },
+    "advanced_suite": {
+      "title": "Advanced Social Trading Scenarios",
+      "tests_run": 4,
+      "passed": 4,
+      "failed": 0,
+      "scenarios": [
+        {
+          "name": "Copy Trading: Follower Manual Early Close",
+          "result": "PASSED",
+          "details": "Follower ctf1 closed order 53176 early; Master and peers ctf2-ctf5 remained open and unaffected; subsequent master close settled peers cleanly."
+        },
+        {
+          "name": "Follower Independent Order Placement",
+          "result": "PASSED",
+          "details": "Follower ctf1 placed independent order 53177; verified Master and peer books remained completely clean with 0 order leakage."
+        },
+        {
+          "name": "MAM Trading: Follower Manual Early Close",
+          "result": "PASSED",
+          "details": "MAM follower mamf1 closed order 53181 early; Master and peers mamf2-mamf5 remained open; master close settled peers cleanly."
+        },
+        {
+          "name": "Multi-Pair Concurrency & Parallel Fanout Stress",
+          "result": "PASSED",
+          "details": "Rapid placement across Forex, Gold, and Crypto (IDs 53184, 53190, 53191); 15 concurrent follower positions opened simultaneously; all 15 closed cleanly."
         }
       ]
     }
