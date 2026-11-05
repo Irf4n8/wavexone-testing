@@ -10,7 +10,10 @@
     "accounts_tested": 18,
     "total_tests_run": 30,
     "advanced_suite_passed": 4,
-    "advanced_suite_failed": 0
+    "advanced_suite_failed": 0,
+    "total_order_types_tests": 10,
+    "order_types_passed": 10,
+    "order_types_failed": 0
   },
   "modules": {
     "copy_trading": {
@@ -375,6 +378,81 @@
           "name": "Multi-Pair Concurrency & Parallel Fanout Stress",
           "result": "PASSED",
           "details": "Rapid placement across Forex, Gold, and Crypto (IDs 53184, 53190, 53191); 15 concurrent follower positions opened simultaneously; all 15 closed cleanly."
+        }
+      ]
+    },
+    "order_types_suite": {
+      "title": "Order Types QA Suite (Market, Limit, Stop HFT)",
+      "tests_run": 10,
+      "passed": 10,
+      "failed": 0,
+      "scenarios": [
+        {
+          "order_type": "Market BUY with TP/SL",
+          "symbol": "C:EURUSD",
+          "order_id": "53585",
+          "result": "PASSED",
+          "evidence": "Opened at live price 1.12616 with tight SL 1.12566, TP 1.12666. Position verified in book and squared off cleanly."
+        },
+        {
+          "order_type": "Market SELL with TP/SL",
+          "symbol": "C:EURUSD",
+          "order_id": "53591",
+          "result": "PASSED",
+          "evidence": "Opened at live price 1.12615 with tight SL 1.12665, TP 1.12565. Position verified in book and squared off cleanly."
+        },
+        {
+          "order_type": "Validation Evidence: Market BUY Invalid SL",
+          "symbol": "C:EURUSD",
+          "result": "PASSED",
+          "evidence": "Server correctly rejected SL > price with message: Stop loss for Buy order should be less than last price 1.12616"
+        },
+        {
+          "order_type": "Validation Evidence: Market SELL Invalid TP",
+          "symbol": "C:EURUSD",
+          "result": "PASSED",
+          "evidence": "Server correctly rejected TP > price with message: Target for Sell order should be less than last price 1.12604"
+        },
+        {
+          "order_type": "Limit BUY with Trigger/TP/SL",
+          "symbol": "C:EURUSD",
+          "order_id": "53602",
+          "result": "PASSED",
+          "evidence": "Pending Buy Limit placed at Trigger 1.12466, SL 1.12366, TP 1.12566. Verified in pending book and cancelled cleanly via cancel.php."
+        },
+        {
+          "order_type": "Limit SELL with Trigger/TP/SL",
+          "symbol": "C:EURUSD",
+          "order_id": "53608",
+          "result": "PASSED",
+          "evidence": "Pending Sell Limit placed at Trigger 1.12766, SL 1.12866, TP 1.12666. Verified in pending book and cancelled cleanly via cancel.php."
+        },
+        {
+          "order_type": "Stop HFT BUY (stop_hft_type=1)",
+          "symbol": "C:EURUSD",
+          "order_id": "53614",
+          "result": "PASSED",
+          "evidence": "Pending Stop BUY placed at Trigger 1.12716, SL 1.12666, TP 1.12766. Verified in pending book and cancelled cleanly via cancel.php."
+        },
+        {
+          "order_type": "Stop HFT SELL (stop_hft_type=0)",
+          "symbol": "C:EURUSD",
+          "order_id": "53620",
+          "result": "PASSED",
+          "evidence": "Pending Stop SELL placed at Trigger 1.12516, SL 1.12566, TP 1.12466. Verified in pending book and cancelled cleanly via cancel.php."
+        },
+        {
+          "order_type": "Stop HFT Both (stop_hft_type=2)",
+          "symbol": "C:EURUSD",
+          "order_id": "53631, 53632",
+          "result": "PASSED",
+          "evidence": "Dual simultaneous stop orders placed with Buy Trigger 1.12716 & Sell Trigger 1.12516. Both orders confirmed in book and cancelled cleanly via cancel.php."
+        },
+        {
+          "order_type": "Validation Evidence: Stop HFT Both with bs=both",
+          "symbol": "C:EURUSD",
+          "result": "PASSED",
+          "evidence": "Sending bs=both triggers server validation failure: Invalid order side (Raw response verified). Frontend correctly uses bs=buy with stop_hft_type=2."
         }
       ]
     }

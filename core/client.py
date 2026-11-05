@@ -6,6 +6,7 @@ real-time order book queries, and position squareoff.
 import requests
 import json
 import time
+import re
 from typing import Dict, Any, List, Optional
 from config.settings import WavexSettings
 from core.logger import logger
@@ -112,12 +113,22 @@ class WavexUserSession:
         self,
         symbol: str,
         side: str,
-        lot: float,
+        lot: float = 0.01,
         order_type: str = "market",
         sl: str = "",
-        target: str = ""
+        target: str = "",
+        trigger: str = "",
+        stop_hft_type: str = "",
+        lotb: str = "",
+        triggerb: str = "",
+        slb: str = "",
+        targetb: str = "",
+        lots: str = "",
+        triggers: str = "",
+        sls: str = "",
+        targets: str = ""
     ) -> Dict[str, Any]:
-        """Place an order via trade/placeorder.php."""
+        """Place an order via trade/placeorder.php supporting Market, Limit, and Stop HFT."""
         if not self.token:
             return {"status": "fail", "message": "Not authenticated"}
 
@@ -125,10 +136,24 @@ class WavexUserSession:
         self.generate_fingerprint()
 
         lot_str = f"{lot:.2f}"
-        query = (
-            f"type={order_type}&bs={side.lower()}&lot={lot_str}&sl={sl}&target={target}"
-            f"&symbol={symbol}&token={self.token}&clicked=yes&fingerprint={self.fingerprint or ''}"
-        )
+        if order_type == "stop":
+            query = (
+                f"type=stop&bs={side.lower()}&lotb={lotb or lot_str}&slb={slb}&targetb={targetb}&triggerb={triggerb}"
+                f"&lots={lots or lot_str}&sls={sls}&targets={targets}&triggers={triggers}"
+                f"&symbol={symbol}&stop_hft_type={stop_hft_type}"
+                f"&token={self.token}&clicked=yes&fingerprint={self.fingerprint or ''}"
+            )
+        elif order_type == "limit":
+            query = (
+                f"type=limit&bs={side.lower()}&lot={lot_str}&sl={sl}&target={target}&trigger={trigger}"
+                f"&symbol={symbol}&token={self.token}&clicked=yes&fingerprint={self.fingerprint or ''}"
+            )
+        else:
+            query = (
+                f"type={order_type}&bs={side.lower()}&lot={lot_str}&sl={sl}&target={target}"
+                f"&symbol={symbol}&token={self.token}&clicked=yes&fingerprint={self.fingerprint or ''}"
+            )
+
         url = f"{WavexSettings.PLACE_ORDER_ENDPOINT}?{query}"
         start_t = time.time()
         try:
@@ -139,10 +164,11 @@ class WavexUserSession:
             except Exception:
                 data = {"status": "raw", "text": res.text}
             data["_duration_ms"] = duration_ms
+            data["_request_url"] = url
             return data
         except Exception as e:
             logger.error(f"[{self.name}] Place order exception: {e}")
-            return {"status": "error", "message": str(e)}
+            return {"status": "error", "message": str(e), "_request_url": url}
 
     def squareoff_position(self, order_id: str) -> Dict[str, Any]:
         """Squareoff / Close an open position via book/squareoff.php."""
@@ -166,6 +192,52 @@ class WavexUserSession:
         except Exception as e:
             logger.error(f"[{self.name}] Squareoff exception for {order_id}: {e}")
             return {"status": "error", "message": str(e)}
+
+    def cancel_order(self, order_id: str) -> Dict[str, Any]:
+        """Cancel a pending limit or stop HFT order via book/cancel.php."""
+        if not self.token:
+            return {"status": "fail", "message": "Not authenticated"}
+
+        self.generate_fingerprint()
+        url = f"{WavexSettings.CANCEL_ORDER_ENDPOINT}?token={self.token}&id={order_id}&fingerprint={self.fingerprint or ''}"
+        start_t = time.time()
+        try:
+            res = self.session.get(url, timeout=15)
+            duration_ms = round((time.time() - start_t) * 1000, 2)
+            try:
+                data = res.json()
+            except Exception:
+                data = {"status": "raw", "text": res.text}
+            data["_duration_ms"] = duration_ms
+            return data
+        except Exception as e:
+            logger.error(f"[{self.name}] Cancel order exception for {order_id}: {e}")
+            return {"status": "error", "message": str(e)}
+
+    def close_or_cancel(self, order_id: str, order_type: str = "market") -> Dict[str, Any]:
+        """Intelligently squareoff market positions or cancel pending limit/stop orders."""
+        if order_type.lower() in ["limit", "stop", "pending"]:
+            return self.cancel_order(order_id)
+        return self.squareoff_position(order_id)
+
+    def get_live_price(self, symbol: str = "C:EURUSD") -> float:
+        """Query live execution price from trading engine."""
+        if not self.token:
+            return 1.1260
+        self.generate_fingerprint()
+        url = (
+            f"{WavexSettings.PLACE_ORDER_ENDPOINT}?type=market&bs=buy&lot=0.01"
+            f"&sl=999999&target=0&symbol={symbol}&token={self.token}&clicked=yes&fingerprint={self.fingerprint or ''}"
+        )
+        try:
+            res = self.session.get(url, timeout=10)
+            msg = res.json().get("message", "")
+            match = re.search(r"last price\s+([0-9.]+)", msg)
+            if match:
+                return float(match.group(1))
+        except Exception as e:
+            logger.warning(f"Could not parse live price from probe: {e}")
+        return 1.1260
 
     def get_copy_followers(self) -> List[Dict[str, Any]]:
         """Get Copy Trading followers subscribed to this master."""

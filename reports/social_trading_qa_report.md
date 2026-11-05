@@ -90,6 +90,26 @@ Executed in 	ests/test_advanced_social.py:
 | 4 | **Multi-Pair Concurrency Stress** | ctmaster + 5 Followers | Rapid placement across 3 asset classes (Forex, Gold, BTC); 15 concurrent follower orders opened & closed in parallel. | **✅ PASS** |
 
 
+
+---
+
+## 5. 🎯 Order Types QA Suite: Market, Limit, and Stop HFT (10/10 PASSED)
+Automated testing in [	ests/test_order_types.py](file:///c:/testing%20wavexone/tests/test_order_types.py):
+
+| # | Order Type | Side | Target / Trigger / TP / SL Settings | Order ID | Status | Evidence / Verification |
+| :-: | :--- | :---: | :--- | :---: | :---: | :--- |
+| 1 | **Market BUY** | BUY | Tight SL: 1.12566, TP: 1.12666 (Last Price: 1.12616) | 53585 | **✅ PASS** | Position confirmed in book; squared off cleanly. |
+| 2 | **Market SELL** | SELL | Tight SL: 1.12665, TP: 1.12565 (Last Price: 1.12615) | 53591 | **✅ PASS** | Position confirmed in book; squared off cleanly. |
+| 3 | **Market BUY (Guard)** | BUY | Invalid SL > Price (1.13116 > 1.12616) | N/A | **✅ PASS** | **Server Evidence:** Rejected with 'Stop loss for Buy order should be less than last price 1.12616'. |
+| 4 | **Market SELL (Guard)** | SELL | Invalid TP > Price (1.12716 > 1.12616) | N/A | **✅ PASS** | **Server Evidence:** Rejected with 'Target for Sell order should be less than last price 1.12604'. |
+| 5 | **Limit BUY** | BUY | Trigger: 1.12466 (< Market), SL: 1.12366, TP: 1.12566 | 53602 | **✅ PASS** | Pending limit order verified in book; cancelled cleanly via cancel.php. |
+| 6 | **Limit SELL** | SELL | Trigger: 1.12766 (> Market), SL: 1.12866, TP: 1.12666 | 53608 | **✅ PASS** | Pending limit order verified in book; cancelled cleanly via cancel.php. |
+| 7 | **Stop HFT BUY** | BUY | stop_hft_type=1, Trigger: 1.12716, SL: 1.12666, TP: 1.12766 | 53614 | **✅ PASS** | Pending Stop BUY confirmed in book; cancelled cleanly via cancel.php. |
+| 8 | **Stop HFT SELL** | SELL | stop_hft_type=0, Trigger: 1.12516, SL: 1.12566, TP: 1.12466 | 53620 | **✅ PASS** | Pending Stop SELL confirmed in book; cancelled cleanly via cancel.php. |
+| 9 | **Stop HFT Both** | DUAL | stop_hft_type=2, Buy Trigger: 1.12716, Sell Trigger: 1.12516 | 53631, 53632 | **✅ PASS** | Both orders created simultaneously; both cancelled cleanly via cancel.php. |
+| 10 | **Stop HFT (Side Guard)** | BOTH | Raw s=both with stop_hft_type=2 | N/A | **✅ PASS** | **Server Evidence:** Rejected with 'Invalid order side'. Engine requires s=buy with stop_hft_type=2. |
+
+
 ## 🛡️ Live Account Book Reconciliation
 A post-test verification across all 18 accounts confirmed that **every account has 0 lingering open orders**:
 - ctmaster + ctf1 – ctf5: 0 Open Orders
