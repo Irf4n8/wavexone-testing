@@ -57,11 +57,18 @@ class EvidenceCollector:
             "notes": notes
         })
 
-    def finish(self, passed: bool, error: str = None) -> Dict[str, Any]:
+    def finish(self, passed: Any = None, error: str = None, status: str = None) -> Dict[str, Any]:
         """Finalize and export evidence to separate JSON and Markdown files."""
         end_time = datetime.now()
         duration_sec = round((end_time - self.start_time).total_seconds(), 2)
-        self.status = "PASS" if passed else "FAIL"
+        if status:
+            self.status = status
+        elif passed is True:
+            self.status = "PASS"
+        elif passed is False:
+            self.status = "FAIL"
+        else:
+            self.status = "INCONCLUSIVE"
         self.error_message = error
 
         evidence_data = {
@@ -103,7 +110,12 @@ class EvidenceCollector:
         summary = data["summary"]
         lines = []
 
-        status_badge = "✅ PASS" if meta["status"] == "PASS" else "❌ FAIL"
+        if meta["status"] == "PASS":
+            status_badge = "✅ PASS"
+        elif meta["status"] in ["INCONCLUSIVE", "UNVERIFIED vs spec"]:
+            status_badge = f"⚠️ {meta['status']}"
+        else:
+            status_badge = "❌ FAIL"
         lines.append(f"# Evidence Report: {meta['title']} ({status_badge})")
         lines.append(f"")
         lines.append(f"**Test Identifier:** `{meta['test_id']}`  ")

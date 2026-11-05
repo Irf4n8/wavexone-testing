@@ -4,14 +4,14 @@
     "title": "Copy Trading: Multiplier-Based Replication (1.00 Master Lot -> 3.00 Follower Lots)",
     "description": "Verify that placing 1.00 lot X:BTCUSD on Master replicates 3.00 lots to all 5 followers with separate read verification polling via /book/orders.php and simultaneous clean squareoff.",
     "environment": "https://stage.wavexone.com",
-    "started_at": "2026-11-05T13:45:35.298379",
-    "completed_at": "2026-11-05T13:45:42.270435",
-    "duration_seconds": 6.97,
+    "started_at": "2026-11-05T14:57:08.226895",
+    "completed_at": "2026-11-05T14:57:16.018648",
+    "duration_seconds": 7.79,
     "status": "PASS",
     "error": null
   },
   "summary": {
-    "total_steps": 14,
+    "total_steps": 9,
     "total_assertions": 14,
     "passed_assertions": 14,
     "failed_assertions": 0
@@ -39,7 +39,7 @@
       "expected": 3.0,
       "actual": 3.0,
       "passed": true,
-      "notes": "Replication Latency: 1700.46ms"
+      "notes": "Replication Latency: 1468.7ms"
     },
     {
       "assertion_index": 4,
@@ -47,7 +47,7 @@
       "expected": 3.0,
       "actual": 3.0,
       "passed": true,
-      "notes": "Replication Latency: 2558.24ms"
+      "notes": "Replication Latency: 1670.62ms"
     },
     {
       "assertion_index": 5,
@@ -55,7 +55,7 @@
       "expected": 3.0,
       "actual": 3.0,
       "passed": true,
-      "notes": "Replication Latency: 2757.89ms"
+      "notes": "Replication Latency: 1873.63ms"
     },
     {
       "assertion_index": 6,
@@ -63,7 +63,7 @@
       "expected": 3.0,
       "actual": 3.0,
       "passed": true,
-      "notes": "Replication Latency: 2954.38ms"
+      "notes": "Replication Latency: 2810.04ms"
     },
     {
       "assertion_index": 7,
@@ -71,7 +71,7 @@
       "expected": 3.0,
       "actual": 3.0,
       "passed": true,
-      "notes": "Replication Latency: 3149.88ms"
+      "notes": "Replication Latency: 3395.98ms"
     },
     {
       "assertion_index": 8,
@@ -133,7 +133,7 @@
   "execution_steps": [
     {
       "step_index": 1,
-      "timestamp": "2026-11-05T13:45:35.748337",
+      "timestamp": "2026-11-05T14:57:08.619482",
       "name": "Market Probe",
       "action": "Fetched live engine price",
       "endpoint": "",
@@ -143,46 +143,46 @@
       "response": {},
       "extra": {
         "symbol": "X:BTCUSD",
-        "last_price": 80450.32,
-        "sl": "80400.32",
-        "tp": "80500.32"
+        "last_price": 80269.63,
+        "sl": "80169.63",
+        "tp": "80369.63"
       }
     },
     {
       "step_index": 2,
-      "timestamp": "2026-11-05T13:45:36.244974",
+      "timestamp": "2026-11-05T14:57:09.019833",
       "name": "Master Order Placement",
       "action": "POST /trade/placeorder.php",
       "endpoint": "",
       "method": "",
-      "latency_ms": 496.64,
+      "latency_ms": 400.35,
       "request": {
         "symbol": "X:BTCUSD",
         "side": "buy",
         "lot": 1.0,
-        "sl": "80400.32",
-        "target": "80500.32"
+        "sl": "80169.63",
+        "target": "80369.63"
       },
       "response": {
         "status": "success",
         "message": "Order accepted for processing",
         "data": {
-          "orderId": "53922",
-          "intentId": "04bcad750b05bd62c2e8aae5f6fad98d",
+          "orderId": "55696",
+          "intentId": "9db0e42ae03fa901c10196595f7741ab",
           "executionStatus": "queued",
-          "fanoutJobId": 6006,
+          "fanoutJobId": 6244,
           "fanoutStatus": "queued",
-          "requestId": "legacy_6ca57761c5511cf8bec813a7be9f6f7f",
+          "requestId": "legacy_7390ee9756c58b61fd1e0894250a81dd",
           "placementReplayProtected": true
         },
-        "_duration_ms": 279.27,
-        "_request_url": "https://stage.wavexone.com/trade/placeorder.php?type=market&bs=buy&lot=1.00&sl=80400.32&target=80500.32&symbol=X:BTCUSD&token=UHZIKS5BXD&clicked=yes&fingerprint=060d191b0e0707726a777e74726273641f45415621_214"
+        "_duration_ms": 219.55,
+        "_request_url": "https://stage.wavexone.com/trade/placeorder.php?type=market&bs=buy&lot=1.00&sl=80169.63&target=80369.63&symbol=X:BTCUSD&token=UHZIKS5BXD&clicked=yes&fingerprint=060d191b0e0707726a777e74726273641f45415621_473"
       },
       "extra": {}
     },
     {
       "step_index": 3,
-      "timestamp": "2026-11-05T13:45:37.249164",
+      "timestamp": "2026-11-05T14:57:09.212100",
       "name": "Master Book Snapshot",
       "action": "GET /book/orders.php?snapshot=1",
       "endpoint": "",
@@ -191,192 +191,112 @@
       "request": {},
       "response": {},
       "extra": {
-        "order_id": "53922",
+        "order_id": "55696",
         "lot": "1",
-        "entry_price": "80451.6"
+        "entry_price": "0"
       }
     },
     {
       "step_index": 4,
-      "timestamp": "2026-11-05T13:45:37.448794",
+      "timestamp": "2026-11-05T14:57:10.088184",
       "name": "Follower ctf1 Replication",
       "action": "GET /book/orders.php?snapshot=1",
       "endpoint": "",
       "method": "",
-      "latency_ms": 1700.46,
+      "latency_ms": 1468.7,
       "request": {},
       "response": {},
       "extra": {
         "follower": "ctf1",
-        "copied_order_id": "53927",
+        "copied_order_id": "55701",
         "lot": 3.0,
-        "latency_ms": 1700.46
+        "latency_ms": 1468.7
       }
     },
     {
       "step_index": 5,
-      "timestamp": "2026-11-05T13:45:38.307664",
+      "timestamp": "2026-11-05T14:57:10.291128",
       "name": "Follower ctf2 Replication",
       "action": "GET /book/orders.php?snapshot=1",
       "endpoint": "",
       "method": "",
-      "latency_ms": 2558.24,
+      "latency_ms": 1670.62,
       "request": {},
       "response": {},
       "extra": {
         "follower": "ctf2",
-        "copied_order_id": "53926",
+        "copied_order_id": "55700",
         "lot": 3.0,
-        "latency_ms": 2558.24
+        "latency_ms": 1670.62
       }
     },
     {
       "step_index": 6,
-      "timestamp": "2026-11-05T13:45:38.506979",
+      "timestamp": "2026-11-05T14:57:10.494122",
       "name": "Follower ctf3 Replication",
       "action": "GET /book/orders.php?snapshot=1",
       "endpoint": "",
       "method": "",
-      "latency_ms": 2757.89,
+      "latency_ms": 1873.63,
       "request": {},
       "response": {},
       "extra": {
         "follower": "ctf3",
-        "copied_order_id": "53925",
+        "copied_order_id": "55699",
         "lot": 3.0,
-        "latency_ms": 2757.89
+        "latency_ms": 1873.63
       }
     },
     {
       "step_index": 7,
-      "timestamp": "2026-11-05T13:45:38.702720",
+      "timestamp": "2026-11-05T14:57:11.430531",
       "name": "Follower ctf4 Replication",
       "action": "GET /book/orders.php?snapshot=1",
       "endpoint": "",
       "method": "",
-      "latency_ms": 2954.38,
+      "latency_ms": 2810.04,
       "request": {},
       "response": {},
       "extra": {
         "follower": "ctf4",
-        "copied_order_id": "53924",
+        "copied_order_id": "55698",
         "lot": 3.0,
-        "latency_ms": 2954.38
+        "latency_ms": 2810.04
       }
     },
     {
       "step_index": 8,
-      "timestamp": "2026-11-05T13:45:38.899020",
+      "timestamp": "2026-11-05T14:57:12.016466",
       "name": "Follower ctf5 Replication",
       "action": "GET /book/orders.php?snapshot=1",
       "endpoint": "",
       "method": "",
-      "latency_ms": 3149.88,
+      "latency_ms": 3395.98,
       "request": {},
       "response": {},
       "extra": {
         "follower": "ctf5",
-        "copied_order_id": "53923",
+        "copied_order_id": "55697",
         "lot": 3.0,
-        "latency_ms": 3149.88
+        "latency_ms": 3395.98
       }
     },
     {
       "step_index": 9,
-      "timestamp": "2026-11-05T13:45:39.377906",
+      "timestamp": "2026-11-05T14:57:12.465250",
       "name": "Master Squareoff Request",
-      "action": "GET /book/squareoff.php?id=53922",
+      "action": "GET /book/squareoff.php?id=55696",
       "endpoint": "",
       "method": "",
-      "latency_ms": 478.89,
+      "latency_ms": 448.78,
       "request": {},
       "response": {
         "status": "success",
-        "message": "Order ID - 53922  Sent to for Closing",
+        "message": "Order ID - 55696  Sent to for Closing",
         "data": [],
-        "_duration_ms": 264.29
+        "_duration_ms": 264.74
       },
       "extra": {}
-    },
-    {
-      "step_index": 10,
-      "timestamp": "2026-11-05T13:45:40.518322",
-      "name": "Follower ctf1 Closure Verified",
-      "action": "GET /book/orders.php?snapshot=1",
-      "endpoint": "",
-      "method": "",
-      "latency_ms": 0.0,
-      "request": {},
-      "response": {},
-      "extra": {
-        "follower": "ctf1",
-        "closed_order_id": "53927",
-        "status": "closed"
-      }
-    },
-    {
-      "step_index": 11,
-      "timestamp": "2026-11-05T13:45:40.693168",
-      "name": "Follower ctf2 Closure Verified",
-      "action": "GET /book/orders.php?snapshot=1",
-      "endpoint": "",
-      "method": "",
-      "latency_ms": 0.0,
-      "request": {},
-      "response": {},
-      "extra": {
-        "follower": "ctf2",
-        "closed_order_id": "53926",
-        "status": "closed"
-      }
-    },
-    {
-      "step_index": 12,
-      "timestamp": "2026-11-05T13:45:40.897002",
-      "name": "Follower ctf3 Closure Verified",
-      "action": "GET /book/orders.php?snapshot=1",
-      "endpoint": "",
-      "method": "",
-      "latency_ms": 0.0,
-      "request": {},
-      "response": {},
-      "extra": {
-        "follower": "ctf3",
-        "closed_order_id": "53925",
-        "status": "closed"
-      }
-    },
-    {
-      "step_index": 13,
-      "timestamp": "2026-11-05T13:45:41.101413",
-      "name": "Follower ctf4 Closure Verified",
-      "action": "GET /book/orders.php?snapshot=1",
-      "endpoint": "",
-      "method": "",
-      "latency_ms": 0.0,
-      "request": {},
-      "response": {},
-      "extra": {
-        "follower": "ctf4",
-        "closed_order_id": "53924",
-        "status": "closed"
-      }
-    },
-    {
-      "step_index": 14,
-      "timestamp": "2026-11-05T13:45:41.304727",
-      "name": "Follower ctf5 Closure Verified",
-      "action": "GET /book/orders.php?snapshot=1",
-      "endpoint": "",
-      "method": "",
-      "latency_ms": 0.0,
-      "request": {},
-      "response": {},
-      "extra": {
-        "follower": "ctf5",
-        "closed_order_id": "53923",
-        "status": "closed"
-      }
     }
   ]
 }

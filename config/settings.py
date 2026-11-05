@@ -116,9 +116,11 @@ class WavexSettings:
     REPORTS_DIR = BASE_DIR / "reports"
     LOGS_DIR = BASE_DIR / "logs"
 
-    # Testing symbol & default test lot
+    # Testing symbol, leverage, slippage & default test lot
     DEFAULT_SYMBOL = "X:BTCUSD"
     DEFAULT_LOT = 1.00
+    DEFAULT_LEVERAGE = int(os.getenv("ACCOUNT_LEVERAGE", "500"))
+    SLIPPAGE_TOLERANCE_POINTS = float(os.getenv("SLIPPAGE_TOLERANCE_POINTS", "10.0"))
 
 
 # Ensure directories exist

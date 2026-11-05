@@ -4,14 +4,14 @@
     "title": "Copy Trading: Unfollow and Re-Follow Lifecycle Verification",
     "description": "Verify that unfollowing a master immediately halts trade replication while active peers continue copying, and re-following the master immediately restores real-time trade copying.",
     "environment": "https://stage.wavexone.com",
-    "started_at": "2026-11-05T13:45:56.038516",
-    "completed_at": "2026-11-05T13:46:14.177442",
-    "duration_seconds": 18.14,
+    "started_at": "2026-11-05T14:57:48.036912",
+    "completed_at": "2026-11-05T14:58:04.658074",
+    "duration_seconds": 16.62,
     "status": "PASS",
     "error": null
   },
   "summary": {
-    "total_steps": 4,
+    "total_steps": 2,
     "total_assertions": 8,
     "passed_assertions": 8,
     "failed_assertions": 0
@@ -79,13 +79,13 @@
       "expected": true,
       "actual": true,
       "passed": true,
-      "notes": "Replicated Order ID: 53950"
+      "notes": "Replicated Order ID: 55761"
     }
   ],
   "execution_steps": [
     {
       "step_index": 1,
-      "timestamp": "2026-11-05T13:45:56.268684",
+      "timestamp": "2026-11-05T14:57:48.215682",
       "name": "Unfollow Master Request",
       "action": "GET /user/follow.php?follow=1060&type=unfollow",
       "endpoint": "",
@@ -101,37 +101,7 @@
     },
     {
       "step_index": 2,
-      "timestamp": "2026-11-05T13:45:58.782410",
-      "name": "Master Order Placement (Trade 1)",
-      "action": "POST /trade/placeorder.php",
-      "endpoint": "",
-      "method": "",
-      "latency_ms": 0.0,
-      "request": {
-        "symbol": "X:BTCUSD",
-        "side": "buy",
-        "lot": 1.0
-      },
-      "response": {
-        "status": "success",
-        "message": "Order accepted for processing",
-        "data": {
-          "orderId": "53940",
-          "intentId": "33183cdd8879e58eebafbf6c0daf8505",
-          "executionStatus": "queued",
-          "fanoutJobId": 6009,
-          "fanoutStatus": "queued",
-          "requestId": "legacy_b2a27756960e1c21ae5640b24fee4a5a",
-          "placementReplayProtected": true
-        },
-        "_duration_ms": 268.41,
-        "_request_url": "https://stage.wavexone.com/trade/placeorder.php?type=market&bs=buy&lot=1.00&sl=&target=&symbol=X:BTCUSD&token=UHZIKS5BXD&clicked=yes&fingerprint=060d191b0e0707726a777e74726273641f45415621_220"
-      },
-      "extra": {}
-    },
-    {
-      "step_index": 3,
-      "timestamp": "2026-11-05T13:46:06.293410",
+      "timestamp": "2026-11-05T14:57:56.188581",
       "name": "Re-Follow Master Request",
       "action": "GET /user/follow.php?follow=1060&type=follow&method=multiplier&value=3.0",
       "endpoint": "",
@@ -144,36 +114,6 @@
         "data": {
           "profit_share": 10
         }
-      },
-      "extra": {}
-    },
-    {
-      "step_index": 4,
-      "timestamp": "2026-11-05T13:46:08.778499",
-      "name": "Master Order Placement (Trade 2)",
-      "action": "POST /trade/placeorder.php",
-      "endpoint": "",
-      "method": "",
-      "latency_ms": 0.0,
-      "request": {
-        "symbol": "X:BTCUSD",
-        "side": "buy",
-        "lot": 1.0
-      },
-      "response": {
-        "status": "success",
-        "message": "Order accepted for processing",
-        "data": {
-          "orderId": "53945",
-          "intentId": "cda218daa8868f0590081270967a3a0b",
-          "executionStatus": "queued",
-          "fanoutJobId": 6010,
-          "fanoutStatus": "queued",
-          "requestId": "legacy_6478c1613c98bcddce89787be7c048cf",
-          "placementReplayProtected": true
-        },
-        "_duration_ms": 258.88,
-        "_request_url": "https://stage.wavexone.com/trade/placeorder.php?type=market&bs=buy&lot=1.00&sl=&target=&symbol=X:BTCUSD&token=UHZIKS5BXD&clicked=yes&fingerprint=060d191b0e0707726a777e74726273641f45415621_222"
       },
       "extra": {}
     }

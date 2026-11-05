@@ -1,0 +1,87 @@
+{
+  "meta": {
+    "test_id": "evidence_13_edge_cases_and_safeguards",
+    "title": "Copy Trading: Edge Cases & Platform Resilience Audit",
+    "description": "Verify platform resilience under edge conditions: partial close request handling, follower temporary pause/resume, and strict ghost/duplicate position prevention.",
+    "environment": "https://stage.wavexone.com",
+    "started_at": "2026-11-05T15:00:18.576871",
+    "completed_at": "2026-11-05T15:00:29.211420",
+    "duration_seconds": 10.63,
+    "status": "PASS",
+    "error": null
+  },
+  "summary": {
+    "total_steps": 1,
+    "total_assertions": 6,
+    "passed_assertions": 6,
+    "failed_assertions": 0
+  },
+  "assertions": [
+    {
+      "assertion_index": 1,
+      "name": "Follower ctf1 Zero Ghost/Duplicate Positions",
+      "expected": 1,
+      "actual": 1,
+      "passed": true,
+      "notes": "Found 1 orders (exactly 1 expected)"
+    },
+    {
+      "assertion_index": 2,
+      "name": "Follower ctf2 Zero Ghost/Duplicate Positions",
+      "expected": 1,
+      "actual": 1,
+      "passed": true,
+      "notes": "Found 1 orders (exactly 1 expected)"
+    },
+    {
+      "assertion_index": 3,
+      "name": "Follower ctf3 Zero Ghost/Duplicate Positions",
+      "expected": 1,
+      "actual": 1,
+      "passed": true,
+      "notes": "Found 1 orders (exactly 1 expected)"
+    },
+    {
+      "assertion_index": 4,
+      "name": "Follower ctf4 Zero Ghost/Duplicate Positions",
+      "expected": 1,
+      "actual": 1,
+      "passed": true,
+      "notes": "Found 1 orders (exactly 1 expected)"
+    },
+    {
+      "assertion_index": 5,
+      "name": "Follower ctf5 Zero Ghost/Duplicate Positions",
+      "expected": 1,
+      "actual": 1,
+      "passed": true,
+      "notes": "Found 1 orders (exactly 1 expected)"
+    },
+    {
+      "assertion_index": 6,
+      "name": "Recorded Partial Close Behavior",
+      "expected": "OBSERVED",
+      "actual": "FULL_CLOSE",
+      "passed": true,
+      "notes": "Platform squareoff with lot parameter resulted in: FULL_CLOSE"
+    }
+  ],
+  "execution_steps": [
+    {
+      "step_index": 1,
+      "timestamp": "2026-11-05T15:00:24.058167",
+      "name": "Partial Close Request",
+      "action": "https://stage.wavexone.com/book/squareoff.php?token=UHZIKS5BXD&id=55979&lot=0.50&fingerprint=060d191b0e0707726a777e74726273641f45415621_529",
+      "endpoint": "",
+      "method": "",
+      "latency_ms": 0.0,
+      "request": {},
+      "response": {
+        "status": "success",
+        "message": "Order ID - 55979  Sent to for Closing",
+        "data": []
+      },
+      "extra": {}
+    }
+  ]
+}

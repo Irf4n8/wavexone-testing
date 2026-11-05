@@ -546,8 +546,8 @@ class WavexUserSession:
             logger.error(f"[{self.name}] get_portal_bootstrap error: {e}")
             return {}
 
-    def get_withdraw_limit(self) -> Dict[str, Any]:
-        """Fetch withdraw limit details (available, open_orders, ratio, pending) via apiRedeemConfig."""
+    def get_redeem_config(self) -> Dict[str, Any]:
+        """Fetch full redeem config payload via apiRedeemConfig."""
         if not self.token:
             return {}
         self.init_portal_session()
@@ -558,12 +558,41 @@ class WavexUserSession:
             dur = round((time.time() - start_t) * 1000, 2)
             data = res.json()
             self._log_call(url, "GET", dur, res.status_code, {}, data)
-            if data.get("status") == "success":
-                return data.get("data", {}).get("withdrawLimit", {})
-            return {}
+            return data.get("data", {}) if data.get("status") == "success" else {}
         except Exception as e:
-            logger.error(f"[{self.name}] get_withdraw_limit error: {e}")
+            logger.error(f"[{self.name}] get_redeem_config error: {e}")
             return {}
+
+    def get_leverage(self) -> int:
+        """Read live account leverage from portal bootstrap API, fallback to settings."""
+        try:
+            boot = self.get_portal_bootstrap()
+            accounts = boot.get("accounts", [])
+            for a in accounts:
+                if str(a.get("code")) == str(self.account_id) or str(a.get("token")) == str(self.token):
+                    lev = a.get("leverage") or a.get("subgroup_value")
+                    if lev:
+                        return int(lev)
+            if accounts and accounts[0].get("leverage"):
+                return int(accounts[0]["leverage"])
+        except Exception as e:
+            logger.warning(f"[{self.name}] Error reading leverage from API: {e}")
+        return WavexSettings.DEFAULT_LEVERAGE
+
+    def is_account_verified(self) -> bool:
+        """Check whether user is verified / KYC approved in client portal."""
+        try:
+            boot = self.get_portal_bootstrap()
+            user = boot.get("user", {})
+            return int(user.get("accountVerified", 0)) == 1 or int(user.get("verified", 0)) == 1
+        except Exception as e:
+            logger.warning(f"[{self.name}] Error reading verification status: {e}")
+            return False
+
+    def get_withdraw_limit(self) -> Dict[str, Any]:
+        """Fetch withdraw limit details (available, open_orders, ratio, pending) via apiRedeemConfig."""
+        cfg = self.get_redeem_config()
+        return cfg.get("withdrawLimit", {})
 
     def get_pamm_withdraw_limit(self, pamm_master_uid: str) -> Dict[str, Any]:
         """Fetch PAMM follower withdraw limit, locked margin, and open order safeguards via withdrawPammAmount.php."""

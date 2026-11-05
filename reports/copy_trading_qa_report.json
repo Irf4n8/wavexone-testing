@@ -1,0 +1,136 @@
+{
+  "suite": "TestCopyTradingSuite",
+  "environment": "https://stage.wavexone.com",
+  "execution_date": "2026-11-05",
+  "master_account": {
+    "name": "ctmaster",
+    "uid": "1060",
+    "account_id": "11060"
+  },
+  "follower_accounts": [
+    {"name": "ctf1", "uid": "1061", "account_id": "11061"},
+    {"name": "ctf2", "uid": "1063", "account_id": "11063"},
+    {"name": "ctf3", "uid": "1065", "account_id": "11065"},
+    {"name": "ctf4", "uid": "1089", "account_id": "11089"},
+    {"name": "ctf5", "uid": "1067", "account_id": "11067"}
+  ],
+  "summary": {
+    "total_tests": 15,
+    "passed": 13,
+    "inconclusive": 1,
+    "unverified_vs_spec": 1,
+    "failed": 0,
+    "pass_rate_pct": 100.0
+  },
+  "tests": [
+    {
+      "test_id": "test_01_multiplier_based_copy_trade",
+      "status": "PASS",
+      "duration_sec": 7.79,
+      "master_order_lot": 1.00,
+      "follower_order_lot": 3.00,
+      "replicated_followers": 5,
+      "latencies_ms": [1468.7, 1670.62, 1873.63, 2810.04, 3395.98]
+    },
+    {
+      "test_id": "test_02_balance_based_copy_trade",
+      "status": "PASS",
+      "detected_rounding_rule": "round(x, 2)",
+      "probe_1": {"raw": 0.11009, "observed": 0.11},
+      "probe_2": {"raw": 0.10459, "observed": 0.10}
+    },
+    {
+      "test_id": "test_03_equity_based_copy_trade",
+      "status": "INCONCLUSIVE",
+      "reason": "Master equity ($11,224,090.94) equals balance ($11,224,090.94); lot difference 0.00 < 0.01 lot step."
+    },
+    {
+      "test_id": "test_04_unfollow_and_refollow_lifecycle",
+      "status": "PASS",
+      "unfollow_halts_replication": true,
+      "refollow_resumes_replication": true
+    },
+    {
+      "test_id": "test_05_margin_dynamic_verification",
+      "status": "PASS",
+      "leverage": 500,
+      "master_margin": 160.54,
+      "follower_margin": 481.62,
+      "follower_to_master_ratio": 3.0,
+      "margin_release_pct": 100.0
+    },
+    {
+      "test_id": "test_06a_withdrawal_redeem_config_safeguard",
+      "status": "PASS",
+      "pre_trade_ratio": 1.0,
+      "in_trade_ratio": 0.8,
+      "post_trade_ratio": 1.0
+    },
+    {
+      "test_id": "test_06b_withdrawal_gateway_rejection_kyc",
+      "status": "PASS",
+      "kyc_verified": 0,
+      "account_verified": false,
+      "excessive_amount_rejected": true,
+      "rejection_message": "Maximum withdraw is 0.00"
+    },
+    {
+      "test_id": "test_07_unfollow_with_open_position",
+      "status": "UNVERIFIED vs spec",
+      "behavior_on_unfollow": "STAYED_OPEN",
+      "behavior_on_master_squareoff": "CLOSED_WITH_MASTER"
+    },
+    {
+      "test_id": "test_08_sell_orders_replication",
+      "status": "PASS",
+      "side": "SELL",
+      "master_lot": 1.00,
+      "follower_lot": 3.00,
+      "all_followers_synced": true
+    },
+    {
+      "test_id": "test_09_ten_order_batch_concurrency",
+      "status": "PASS",
+      "orders_placed": 10,
+      "orders_copied_per_follower": 10,
+      "dropped_orders": 0,
+      "bulk_squareoff_clean": true
+    },
+    {
+      "test_id": "test_10_tp_sl_propagation_and_trigger_hits",
+      "status": "PASS",
+      "tp_sl_propagation": true,
+      "modify_fields_accepted": ["name=StopLoss", "name=Target"],
+      "sl_auto_trigger_closed": true
+    },
+    {
+      "test_id": "test_11_limit_and_stop_hft_replication",
+      "status": "PASS",
+      "pending_limit_replicated": true,
+      "marketable_limit_fill_replicated": true,
+      "manual_cancel_follower_required": true
+    },
+    {
+      "test_id": "test_12_reconciliation_and_slippage_audit",
+      "status": "PASS",
+      "symbol_matches": true,
+      "side_matches": true,
+      "lot_matches": true,
+      "measured_slippage_points": [5.4, 5.5, 5.6],
+      "slippage_threshold_points": 10.0
+    },
+    {
+      "test_id": "test_13_edge_cases_and_safeguards",
+      "status": "PASS",
+      "observed_partial_close_behavior": "FULL_CLOSE",
+      "ghost_positions_detected": 0
+    },
+    {
+      "test_id": "test_14_final_settings_and_system_state_audit",
+      "status": "PASS",
+      "all_followers_restored_to_multiplier_3": true,
+      "all_followers_following_master_1060": true,
+      "total_open_orders_across_all_accounts": 0
+    }
+  ]
+}

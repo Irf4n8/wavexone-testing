@@ -1,0 +1,97 @@
+{
+  "meta": {
+    "test_id": "evidence_09_ten_order_batch_concurrency",
+    "title": "Copy Trading: High-Concurrency 10-Order Batch Fanout",
+    "description": "Verify that a rapid burst of 10 alternating BUY and SELL orders executes without order drops, replicates with 3x multiplier to all 5 followers, and cleanly closes upon bulk squareoff.",
+    "environment": "https://stage.wavexone.com",
+    "started_at": "2026-11-05T14:58:58.165001",
+    "completed_at": "2026-11-05T14:59:28.106092",
+    "duration_seconds": 29.94,
+    "status": "PASS",
+    "error": null
+  },
+  "summary": {
+    "total_steps": 1,
+    "total_assertions": 6,
+    "passed_assertions": 6,
+    "failed_assertions": 0
+  },
+  "assertions": [
+    {
+      "assertion_index": 1,
+      "name": "Master All 10 Orders in Book",
+      "expected": 10,
+      "actual": 10,
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 2,
+      "name": "Follower ctf1 Replicated All 10 Orders",
+      "expected": 10,
+      "actual": 10,
+      "passed": true,
+      "notes": "Replicated Lot: 0.03"
+    },
+    {
+      "assertion_index": 3,
+      "name": "Follower ctf2 Replicated All 10 Orders",
+      "expected": 10,
+      "actual": 10,
+      "passed": true,
+      "notes": "Replicated Lot: 0.03"
+    },
+    {
+      "assertion_index": 4,
+      "name": "Follower ctf3 Replicated All 10 Orders",
+      "expected": 10,
+      "actual": 10,
+      "passed": true,
+      "notes": "Replicated Lot: 0.03"
+    },
+    {
+      "assertion_index": 5,
+      "name": "Follower ctf4 Replicated All 10 Orders",
+      "expected": 10,
+      "actual": 10,
+      "passed": true,
+      "notes": "Replicated Lot: 0.03"
+    },
+    {
+      "assertion_index": 6,
+      "name": "Follower ctf5 Replicated All 10 Orders",
+      "expected": 10,
+      "actual": 10,
+      "passed": true,
+      "notes": "Replicated Lot: 0.03"
+    }
+  ],
+  "execution_steps": [
+    {
+      "step_index": 1,
+      "timestamp": "2026-11-05T14:59:06.692286",
+      "name": "Master Batch Placement Completed",
+      "action": "10 rapid orders sent in 8.53s",
+      "endpoint": "",
+      "method": "",
+      "latency_ms": 0.0,
+      "request": {},
+      "response": {},
+      "extra": {
+        "order_latencies_ms": [
+          389.7,
+          554.43,
+          406.52,
+          420.67,
+          570.14,
+          503.8,
+          534.28,
+          683.27,
+          648.42,
+          799.85
+        ],
+        "average_latency_ms": 551.11
+      }
+    }
+  ]
+}

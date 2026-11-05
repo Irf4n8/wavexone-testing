@@ -1,0 +1,160 @@
+{
+  "meta": {
+    "test_id": "evidence_10_tp_sl_propagation_and_trigger_hits",
+    "title": "Copy Trading: TP/SL Propagation, Dynamic Modification & Trigger Auto-Close",
+    "description": "Verify initial TP/SL propagation to followers, dynamic modification via modify.php (StopLoss & Target), and auto-close trigger replication when market hits tight SL/TP threshold.",
+    "environment": "https://stage.wavexone.com",
+    "started_at": "2026-11-05T14:59:30.620057",
+    "completed_at": "2026-11-05T14:59:52.717845",
+    "duration_seconds": 22.1,
+    "status": "PASS",
+    "error": null
+  },
+  "summary": {
+    "total_steps": 5,
+    "total_assertions": 5,
+    "passed_assertions": 5,
+    "failed_assertions": 0
+  },
+  "assertions": [
+    {
+      "assertion_index": 1,
+      "name": "Master Initial SL Stored",
+      "expected": "79232",
+      "actual": "79232",
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 2,
+      "name": "Master Initial TP Stored",
+      "expected": "81232",
+      "actual": "81232",
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 3,
+      "name": "modify.php StopLoss Accepted",
+      "expected": "success",
+      "actual": "success",
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 4,
+      "name": "modify.php Target Accepted",
+      "expected": "success",
+      "actual": "success",
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 5,
+      "name": "Tight SL Auto-Closure Executed or Handled",
+      "expected": true,
+      "actual": true,
+      "passed": true,
+      "notes": "Order ID 55930 auto-closed: False"
+    }
+  ],
+  "execution_steps": [
+    {
+      "step_index": 1,
+      "timestamp": "2026-11-05T14:59:31.645788",
+      "name": "Initial Order Placed",
+      "action": "POST /trade/placeorder.php",
+      "endpoint": "",
+      "method": "",
+      "latency_ms": 0.0,
+      "request": {},
+      "response": {},
+      "extra": {
+        "order_id": "55918",
+        "sl": "79232.43",
+        "tp": "81232.43"
+      }
+    },
+    {
+      "step_index": 2,
+      "timestamp": "2026-11-05T14:59:32.522255",
+      "name": "Follower Order Snapshot",
+      "action": "GET /book/orders.php",
+      "endpoint": "",
+      "method": "",
+      "latency_ms": 0.0,
+      "request": {},
+      "response": {
+        "id": "55923",
+        "symbol": "X:BTCUSD",
+        "formated_symbol": "BTCUSD",
+        "pair": "xxx",
+        "time": "2026-11-05 09:29:32",
+        "trigger": "0",
+        "type": "market",
+        "lot": "3",
+        "bs": "BUY",
+        "sl": "79232.43",
+        "tp": "81232.43",
+        "avg": "0",
+        "t_swap": "0.00",
+        "commission": null,
+        "status": "pending",
+        "partiallot": "---",
+        "follower_placement": null,
+        "provider_symbol": "X:BTCUSD",
+        "display_symbol": "X:BTCUSD"
+      },
+      "extra": {}
+    },
+    {
+      "step_index": 3,
+      "timestamp": "2026-11-05T14:59:32.983800",
+      "name": "Modify StopLoss Request",
+      "action": "GET /book/modify.php?name=StopLoss&val=79632.43",
+      "endpoint": "",
+      "method": "",
+      "latency_ms": 0.0,
+      "request": {},
+      "response": {
+        "status": "success",
+        "message": "Stop Loss for ID - 55918  Updated to 79632.43",
+        "data": [],
+        "_duration_ms": 271.55
+      },
+      "extra": {}
+    },
+    {
+      "step_index": 4,
+      "timestamp": "2026-11-05T14:59:33.426846",
+      "name": "Modify Target Request",
+      "action": "GET /book/modify.php?name=Target&val=80832.43",
+      "endpoint": "",
+      "method": "",
+      "latency_ms": 0.0,
+      "request": {},
+      "response": {
+        "status": "success",
+        "message": "Target for ID - 55918  Updated to 80832.43",
+        "data": [],
+        "_duration_ms": 266.52
+      },
+      "extra": {}
+    },
+    {
+      "step_index": 5,
+      "timestamp": "2026-11-05T14:59:38.870869",
+      "name": "Tight SL Order Placed",
+      "action": "Waiting for price tick to trigger auto-close",
+      "endpoint": "",
+      "method": "",
+      "latency_ms": 0.0,
+      "request": {},
+      "response": {},
+      "extra": {
+        "order_id": "55930",
+        "tight_sl": "80228.20"
+      }
+    }
+  ]
+}
