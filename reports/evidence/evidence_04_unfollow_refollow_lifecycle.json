@@ -1,0 +1,181 @@
+{
+  "meta": {
+    "test_id": "evidence_04_unfollow_refollow_lifecycle",
+    "title": "Copy Trading: Unfollow and Re-Follow Lifecycle Verification",
+    "description": "Verify that unfollowing a master immediately halts trade replication while active peers continue copying, and re-following the master immediately restores real-time trade copying.",
+    "environment": "https://stage.wavexone.com",
+    "started_at": "2026-11-05T13:45:56.038516",
+    "completed_at": "2026-11-05T13:46:14.177442",
+    "duration_seconds": 18.14,
+    "status": "PASS",
+    "error": null
+  },
+  "summary": {
+    "total_steps": 4,
+    "total_assertions": 8,
+    "passed_assertions": 8,
+    "failed_assertions": 0
+  },
+  "assertions": [
+    {
+      "assertion_index": 1,
+      "name": "Unfollow Status",
+      "expected": "success",
+      "actual": "success",
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 2,
+      "name": "Unfollowed Follower Receives 0 Trades",
+      "expected": 0,
+      "actual": 0,
+      "passed": true,
+      "notes": "Replication halted for ctf1 while unfollowed"
+    },
+    {
+      "assertion_index": 3,
+      "name": "Active Peer ctf2 Copied Trade",
+      "expected": true,
+      "actual": true,
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 4,
+      "name": "Active Peer ctf3 Copied Trade",
+      "expected": true,
+      "actual": true,
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 5,
+      "name": "Active Peer ctf4 Copied Trade",
+      "expected": true,
+      "actual": true,
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 6,
+      "name": "Active Peer ctf5 Copied Trade",
+      "expected": true,
+      "actual": true,
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 7,
+      "name": "Re-Follow Status",
+      "expected": "success",
+      "actual": "success",
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 8,
+      "name": "Follower Resumed Copying After Re-Follow",
+      "expected": true,
+      "actual": true,
+      "passed": true,
+      "notes": "Replicated Order ID: 53950"
+    }
+  ],
+  "execution_steps": [
+    {
+      "step_index": 1,
+      "timestamp": "2026-11-05T13:45:56.268684",
+      "name": "Unfollow Master Request",
+      "action": "GET /user/follow.php?follow=1060&type=unfollow",
+      "endpoint": "",
+      "method": "",
+      "latency_ms": 0.0,
+      "request": {},
+      "response": {
+        "status": "success",
+        "message": "Successfully unfollowed to this user",
+        "data": []
+      },
+      "extra": {}
+    },
+    {
+      "step_index": 2,
+      "timestamp": "2026-11-05T13:45:58.782410",
+      "name": "Master Order Placement (Trade 1)",
+      "action": "POST /trade/placeorder.php",
+      "endpoint": "",
+      "method": "",
+      "latency_ms": 0.0,
+      "request": {
+        "symbol": "X:BTCUSD",
+        "side": "buy",
+        "lot": 1.0
+      },
+      "response": {
+        "status": "success",
+        "message": "Order accepted for processing",
+        "data": {
+          "orderId": "53940",
+          "intentId": "33183cdd8879e58eebafbf6c0daf8505",
+          "executionStatus": "queued",
+          "fanoutJobId": 6009,
+          "fanoutStatus": "queued",
+          "requestId": "legacy_b2a27756960e1c21ae5640b24fee4a5a",
+          "placementReplayProtected": true
+        },
+        "_duration_ms": 268.41,
+        "_request_url": "https://stage.wavexone.com/trade/placeorder.php?type=market&bs=buy&lot=1.00&sl=&target=&symbol=X:BTCUSD&token=UHZIKS5BXD&clicked=yes&fingerprint=060d191b0e0707726a777e74726273641f45415621_220"
+      },
+      "extra": {}
+    },
+    {
+      "step_index": 3,
+      "timestamp": "2026-11-05T13:46:06.293410",
+      "name": "Re-Follow Master Request",
+      "action": "GET /user/follow.php?follow=1060&type=follow&method=multiplier&value=3.0",
+      "endpoint": "",
+      "method": "",
+      "latency_ms": 0.0,
+      "request": {},
+      "response": {
+        "status": "success",
+        "message": "Successfully followed this user. Master profit share: 10.00%",
+        "data": {
+          "profit_share": 10
+        }
+      },
+      "extra": {}
+    },
+    {
+      "step_index": 4,
+      "timestamp": "2026-11-05T13:46:08.778499",
+      "name": "Master Order Placement (Trade 2)",
+      "action": "POST /trade/placeorder.php",
+      "endpoint": "",
+      "method": "",
+      "latency_ms": 0.0,
+      "request": {
+        "symbol": "X:BTCUSD",
+        "side": "buy",
+        "lot": 1.0
+      },
+      "response": {
+        "status": "success",
+        "message": "Order accepted for processing",
+        "data": {
+          "orderId": "53945",
+          "intentId": "cda218daa8868f0590081270967a3a0b",
+          "executionStatus": "queued",
+          "fanoutJobId": 6010,
+          "fanoutStatus": "queued",
+          "requestId": "legacy_6478c1613c98bcddce89787be7c048cf",
+          "placementReplayProtected": true
+        },
+        "_duration_ms": 258.88,
+        "_request_url": "https://stage.wavexone.com/trade/placeorder.php?type=market&bs=buy&lot=1.00&sl=&target=&symbol=X:BTCUSD&token=UHZIKS5BXD&clicked=yes&fingerprint=060d191b0e0707726a777e74726273641f45415621_222"
+      },
+      "extra": {}
+    }
+  ]
+}

@@ -1,0 +1,181 @@
+{
+  "meta": {
+    "test_id": "evidence_06_withdrawal_limits_open_orders",
+    "title": "Copy Trading: Withdrawal Limits and Open-Order Margin Safeguards",
+    "description": "Verify that available withdrawable funds cap when open orders exist to preserve required margin and that excessive withdrawal attempts are strictly rejected.",
+    "environment": "https://stage.wavexone.com",
+    "started_at": "2026-11-05T13:46:25.292991",
+    "completed_at": "2026-11-05T13:46:36.372557",
+    "duration_seconds": 11.08,
+    "status": "PASS",
+    "error": null
+  },
+  "summary": {
+    "total_steps": 5,
+    "total_assertions": 7,
+    "passed_assertions": 7,
+    "failed_assertions": 0
+  },
+  "assertions": [
+    {
+      "assertion_index": 1,
+      "name": "Pre-Trade Open Orders is 0",
+      "expected": 0,
+      "actual": 0,
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 2,
+      "name": "Pre-Trade Available Withdrawable Positive",
+      "expected": ">0",
+      "actual": 12223128.73,
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 3,
+      "name": "In-Trade Open Orders Detected",
+      "expected": ">=1",
+      "actual": 1,
+      "passed": true,
+      "notes": "Open position successfully detected by withdrawal subsystem"
+    },
+    {
+      "assertion_index": 4,
+      "name": "Withdrawable Ratio Capped",
+      "expected": 0.8,
+      "actual": 0.8,
+      "passed": true,
+      "notes": "Platform capped available funds to 80% to protect margin"
+    },
+    {
+      "assertion_index": 5,
+      "name": "Excessive Withdrawal Rejected by Server",
+      "expected": true,
+      "actual": true,
+      "passed": true,
+      "notes": "Server rejection message: 'Insufficient fund. Maximum withdraw is 0.00'"
+    },
+    {
+      "assertion_index": 6,
+      "name": "Post-Trade Open Orders Restored to 0",
+      "expected": 0,
+      "actual": 0,
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 7,
+      "name": "Withdrawable Ratio Restored to 1.0",
+      "expected": 1.0,
+      "actual": 1.0,
+      "passed": true,
+      "notes": "Full available withdrawal restored: $12,223,079.84"
+    }
+  ],
+  "execution_steps": [
+    {
+      "step_index": 1,
+      "timestamp": "2026-11-05T13:46:25.767094",
+      "name": "Pre-Trade Withdraw Limit Check",
+      "action": "GET /client-portal/apiRedeemConfig",
+      "endpoint": "",
+      "method": "",
+      "latency_ms": 0.0,
+      "request": {},
+      "response": {
+        "available": 12223128.73,
+        "open_orders": 0,
+        "ratio": 1,
+        "pending_withdraw": 0,
+        "pamm_follower_reserve": 0
+      },
+      "extra": {}
+    },
+    {
+      "step_index": 2,
+      "timestamp": "2026-11-05T13:46:26.257719",
+      "name": "Master Order Placement",
+      "action": "POST /trade/placeorder.php",
+      "endpoint": "",
+      "method": "",
+      "latency_ms": 0.0,
+      "request": {
+        "symbol": "X:BTCUSD",
+        "side": "buy",
+        "lot": 1.0
+      },
+      "response": {
+        "status": "success",
+        "message": "Order accepted for processing",
+        "data": {
+          "orderId": "53957",
+          "intentId": "36f651718d825b7ff2058ce0d635e337",
+          "executionStatus": "queued",
+          "fanoutJobId": 6012,
+          "fanoutStatus": "queued",
+          "requestId": "legacy_6347cde66f315b06e7ec5bb14d582f0c",
+          "placementReplayProtected": true
+        },
+        "_duration_ms": 267.15,
+        "_request_url": "https://stage.wavexone.com/trade/placeorder.php?type=market&bs=buy&lot=1.00&sl=&target=&symbol=X:BTCUSD&token=UHZIKS5BXD&clicked=yes&fingerprint=060d191b0e0707726a777e74726273641f45415621_226"
+      },
+      "extra": {}
+    },
+    {
+      "step_index": 3,
+      "timestamp": "2026-11-05T13:46:29.844346",
+      "name": "In-Trade Withdraw Limit Check",
+      "action": "GET /client-portal/apiRedeemConfig",
+      "endpoint": "",
+      "method": "",
+      "latency_ms": 0.0,
+      "request": {},
+      "response": {
+        "available": 9778116.86,
+        "open_orders": 1,
+        "ratio": 0.8,
+        "pending_withdraw": 0,
+        "pamm_follower_reserve": 0
+      },
+      "extra": {}
+    },
+    {
+      "step_index": 4,
+      "timestamp": "2026-11-05T13:46:30.246561",
+      "name": "Excessive Withdrawal Attempt",
+      "action": "POST /client-portal/apiSendWithdrawOtp",
+      "endpoint": "",
+      "method": "",
+      "latency_ms": 0.0,
+      "request": {
+        "amount": 59778116.86,
+        "method": "USDT TRC20"
+      },
+      "response": {
+        "status": "fail",
+        "message": "Insufficient fund. Maximum withdraw is 0.00"
+      },
+      "extra": {}
+    },
+    {
+      "step_index": 5,
+      "timestamp": "2026-11-05T13:46:35.145926",
+      "name": "Post-Trade Withdraw Limit Check",
+      "action": "GET /client-portal/apiRedeemConfig",
+      "endpoint": "",
+      "method": "",
+      "latency_ms": 0.0,
+      "request": {},
+      "response": {
+        "available": 12223079.84,
+        "open_orders": 0,
+        "ratio": 1,
+        "pending_withdraw": 0,
+        "pamm_follower_reserve": 0
+      },
+      "extra": {}
+    }
+  ]
+}

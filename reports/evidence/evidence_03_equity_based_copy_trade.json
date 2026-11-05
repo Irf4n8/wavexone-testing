@@ -1,0 +1,139 @@
+{
+  "meta": {
+    "test_id": "evidence_03_equity_based_copy_trade",
+    "title": "Copy Trading: Proportional Equity-Based Lot Sizing",
+    "description": "Verify that updating copy method to 'equity' scales follower order lot size proportionally to follower live equity vs. master live equity.",
+    "environment": "https://stage.wavexone.com",
+    "started_at": "2026-11-05T13:45:49.115787",
+    "completed_at": "2026-11-05T13:45:56.035101",
+    "duration_seconds": 6.92,
+    "status": "PASS",
+    "error": null
+  },
+  "summary": {
+    "total_steps": 5,
+    "total_assertions": 2,
+    "passed_assertions": 2,
+    "failed_assertions": 0
+  },
+  "assertions": [
+    {
+      "assertion_index": 1,
+      "name": "Method Update Status",
+      "expected": "success",
+      "actual": "success",
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 2,
+      "name": "Equity Proportional Lot Match",
+      "expected": 0.11,
+      "actual": 0.11,
+      "passed": true,
+      "notes": "Scaled accurately from equity ratio 0.1099"
+    }
+  ],
+  "execution_steps": [
+    {
+      "step_index": 1,
+      "timestamp": "2026-11-05T13:45:49.535684",
+      "name": "Update Copy Method to Equity",
+      "action": "GET /user/updateCopyTradingMethod.php",
+      "endpoint": "",
+      "method": "",
+      "latency_ms": 0.0,
+      "request": {
+        "method": "equity"
+      },
+      "response": {
+        "status": "success",
+        "message": "Update Successfully",
+        "data": []
+      },
+      "extra": {}
+    },
+    {
+      "step_index": 2,
+      "timestamp": "2026-11-05T13:45:49.966206",
+      "name": "Ratio Calculation",
+      "action": "Computed expected equity scaling",
+      "endpoint": "",
+      "method": "",
+      "latency_ms": 0.0,
+      "request": {},
+      "response": {},
+      "extra": {
+        "master_equity": 111198232.42,
+        "follower_equity": 12223200.54,
+        "ratio": 0.10992261544079676,
+        "expected_lot": 0.11
+      }
+    },
+    {
+      "step_index": 3,
+      "timestamp": "2026-11-05T13:45:50.446528",
+      "name": "Master Order Placement",
+      "action": "POST /trade/placeorder.php",
+      "endpoint": "",
+      "method": "",
+      "latency_ms": 0.0,
+      "request": {
+        "symbol": "X:BTCUSD",
+        "side": "buy",
+        "lot": 1.0
+      },
+      "response": {
+        "status": "success",
+        "message": "Order accepted for processing",
+        "data": {
+          "orderId": "53934",
+          "intentId": "1edd2b81cf8b97573a182ca30c8510d3",
+          "executionStatus": "queued",
+          "fanoutJobId": 6008,
+          "fanoutStatus": "queued",
+          "requestId": "legacy_fc603cb6c882a8844d24e1d995cd036b",
+          "placementReplayProtected": true
+        },
+        "_duration_ms": 251.87,
+        "_request_url": "https://stage.wavexone.com/trade/placeorder.php?type=market&bs=buy&lot=1.00&sl=&target=&symbol=X:BTCUSD&token=UHZIKS5BXD&clicked=yes&fingerprint=060d191b0e0707726a777e74726273641f45415621_218"
+      },
+      "extra": {}
+    },
+    {
+      "step_index": 4,
+      "timestamp": "2026-11-05T13:45:51.587498",
+      "name": "Follower Order Snapshot",
+      "action": "GET /book/orders.php?snapshot=1",
+      "endpoint": "",
+      "method": "",
+      "latency_ms": 0.0,
+      "request": {},
+      "response": {},
+      "extra": {
+        "order_id": "53939",
+        "actual_lot": 0.11,
+        "expected_lot": 0.11
+      }
+    },
+    {
+      "step_index": 5,
+      "timestamp": "2026-11-05T13:45:54.558171",
+      "name": "Restore Multiplier Method",
+      "action": "GET /user/updateCopyTradingMethod.php",
+      "endpoint": "",
+      "method": "",
+      "latency_ms": 0.0,
+      "request": {
+        "method": "multiplier",
+        "value": "3.0"
+      },
+      "response": {
+        "status": "success",
+        "message": "Update Successfully",
+        "data": []
+      },
+      "extra": {}
+    }
+  ]
+}
