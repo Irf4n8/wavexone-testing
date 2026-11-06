@@ -1,0 +1,92 @@
+{
+  "meta": {
+    "test_id": "evidence_scen_05_mult_stop_buy_1lot_auto_exit",
+    "title": "Multiplier Mode: Stop HFT BUY 1.00 Lot (Trigger & Auto-Exit)",
+    "description": "Master places 1.00 whole lot Stop HFT BUY (type=1) with trigger 4.0 pts above CMP. Follower replicates 3.00 lots. Fills and auto-exits via TP/SL.",
+    "environment": "https://stage.wavexone.com",
+    "started_at": "2026-11-05T18:27:46.586792",
+    "completed_at": "2026-11-05T18:28:31.716190",
+    "duration_seconds": 45.13,
+    "status": "PASS",
+    "error": null
+  },
+  "summary": {
+    "total_steps": 1,
+    "total_assertions": 5,
+    "passed_assertions": 5,
+    "failed_assertions": 0
+  },
+  "assertions": [
+    {
+      "assertion_index": 1,
+      "name": "Follower Replicated 3.0 Lots Pending Stop BUY",
+      "expected": 3.0,
+      "actual": 3.0,
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 2,
+      "name": "Follower Trigger (79565.98) Replicated",
+      "expected": "79565.98",
+      "actual": "79565.98",
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 3,
+      "name": "Stop BUY Triggered & Filled into Position",
+      "expected": true,
+      "actual": true,
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 4,
+      "name": "Master Automatic Exit via TP/SL Hit",
+      "expected": true,
+      "actual": true,
+      "passed": true,
+      "notes": "Order auto-closed in 0.2s without manual close."
+    },
+    {
+      "assertion_index": 5,
+      "name": "Follower Synchronous Automatic Exit via TP/SL Hit",
+      "expected": true,
+      "actual": true,
+      "passed": true,
+      "notes": "Follower must auto-close when Master position is terminated by TP/SL hit."
+    }
+  ],
+  "execution_steps": [
+    {
+      "step_index": 1,
+      "timestamp": "2026-11-05T18:27:47.795883",
+      "name": "Master Multiplier Mode: Stop HFT BUY 1.00 Lot (Trigger & Auto-Exit) Placement",
+      "action": "POST /trade/placeorder.php",
+      "endpoint": "",
+      "method": "",
+      "latency_ms": 0.0,
+      "request": {
+        "lot": 1.0,
+        "levels": {
+          "trigger": "79565.98",
+          "sl": "79557.98",
+          "tp": "79573.98",
+          "price": "79561.98"
+        }
+      },
+      "response": {
+        "status": "success",
+        "message": "Order Placed Successfully",
+        "data": {
+          "orderId": 59729,
+          "time": 0.07268285751342773
+        },
+        "_duration_ms": 288.53,
+        "_request_url": "https://stage.wavexone.com/trade/placeorder.php?type=stop&bs=buy&lotb=1.00&slb=79557.98&targetb=79573.98&triggerb=79565.98&lots=1.00&sls=&targets=&triggers=&symbol=X:BTCUSD&stop_hft_type=1&token=UHZIKS5BXD&clicked=yes&fingerprint=060d191b0e0707726a777e74726273641f45415621_1406"
+      },
+      "extra": {}
+    }
+  ]
+}

@@ -1,0 +1,141 @@
+{
+  "meta": {
+    "test_id": "evidence_scen_22_auto_squareoff_tp_hit_all_followers",
+    "title": "Copy Trading: Auto Squareoff on Take Profit Hit Across All 5 Followers",
+    "description": "Master places 1.00 whole lot Market BUY with tight Take Profit offset (10 pts). When market ticks and hits TP, brokerage engine triggers auto squareoff on Master and all 5 followers auto square off synchronously.",
+    "environment": "https://stage.wavexone.com",
+    "started_at": "2026-11-05T18:44:01.683847",
+    "completed_at": "2026-11-05T18:44:26.751649",
+    "duration_seconds": 25.07,
+    "status": "PASS",
+    "error": null
+  },
+  "summary": {
+    "total_steps": 1,
+    "total_assertions": 11,
+    "passed_assertions": 11,
+    "failed_assertions": 0
+  },
+  "assertions": [
+    {
+      "assertion_index": 1,
+      "name": "Follower ctf1 TP (79574) Propagated",
+      "expected": "79574",
+      "actual": "79574",
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 2,
+      "name": "Follower ctf2 TP (79574) Propagated",
+      "expected": "79574",
+      "actual": "79574",
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 3,
+      "name": "Follower ctf3 TP (79574) Propagated",
+      "expected": "79574",
+      "actual": "79574",
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 4,
+      "name": "Follower ctf4 TP (79574) Propagated",
+      "expected": "79574",
+      "actual": "79574",
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 5,
+      "name": "Follower ctf5 TP (79574) Propagated",
+      "expected": "79574",
+      "actual": "79574",
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 6,
+      "name": "Master Auto Squareoff on TP Hit",
+      "expected": true,
+      "actual": true,
+      "passed": true,
+      "notes": "Closed in 16.86s"
+    },
+    {
+      "assertion_index": 7,
+      "name": "Follower ctf1 Auto Squared Off on Master TP Hit",
+      "expected": true,
+      "actual": true,
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 8,
+      "name": "Follower ctf2 Auto Squared Off on Master TP Hit",
+      "expected": true,
+      "actual": true,
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 9,
+      "name": "Follower ctf3 Auto Squared Off on Master TP Hit",
+      "expected": true,
+      "actual": true,
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 10,
+      "name": "Follower ctf4 Auto Squared Off on Master TP Hit",
+      "expected": true,
+      "actual": true,
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 11,
+      "name": "Follower ctf5 Auto Squared Off on Master TP Hit",
+      "expected": true,
+      "actual": true,
+      "passed": true,
+      "notes": ""
+    }
+  ],
+  "execution_steps": [
+    {
+      "step_index": 1,
+      "timestamp": "2026-11-05T18:44:03.536844",
+      "name": "Master 1.00 Lot Placement with TP",
+      "action": "POST /trade/placeorder.php",
+      "endpoint": "",
+      "method": "",
+      "latency_ms": 0.0,
+      "request": {
+        "lot": 1.0,
+        "tp": "79574.25",
+        "sl": "79064.25"
+      },
+      "response": {
+        "status": "success",
+        "message": "Order accepted for processing",
+        "data": {
+          "orderId": "59969",
+          "intentId": "25296bda3ee59b0aa455c25195802af9",
+          "executionStatus": "queued",
+          "fanoutJobId": 6982,
+          "fanoutStatus": "queued",
+          "requestId": "legacy_f2113d72dcf1741ebe997c9bf849558f",
+          "placementReplayProtected": true
+        },
+        "_duration_ms": 229.31,
+        "_request_url": "https://stage.wavexone.com/trade/placeorder.php?type=market&bs=buy&lot=1.00&sl=79064.25&target=79574.25&symbol=X:BTCUSD&token=UHZIKS5BXD&clicked=yes&fingerprint=060d191b0e0707726a777e74726273641f45415621_1487"
+      },
+      "extra": {}
+    }
+  ]
+}

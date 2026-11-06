@@ -1,0 +1,57 @@
+{
+  "meta": {
+    "scenario_id": "CT-BAL-MKT-SELL-NO-TPSL",
+    "title": "Balance-Based Market SELL WITHOUT TP/SL",
+    "category": "Balance Market Orders",
+    "environment": "https://stage.wavexone.com",
+    "started_at": "2026-11-06T14:27:38.676223",
+    "completed_at": "2026-11-06T14:27:43.547239",
+    "duration_seconds": 4.87,
+    "status": "PASS",
+    "error": null
+  },
+  "summary": {
+    "total_steps": 1,
+    "total_assertions": 1,
+    "passed_assertions": 1,
+    "failed_assertions": 0
+  },
+  "assertions": [
+    {
+      "assertion_index": 1,
+      "name": "All 5 Followers Replicated (0.05 Lots)",
+      "expected": true,
+      "actual": true,
+      "passed": true,
+      "notes": ""
+    }
+  ],
+  "execution_steps": [
+    {
+      "step_index": 1,
+      "timestamp": "2026-11-06T14:27:40.996643",
+      "name": "Master Market SELL",
+      "action": "POST /trade/placeorder.php",
+      "endpoint": "",
+      "method": "",
+      "latency_ms": 0.0,
+      "request": {},
+      "response": {},
+      "extra": {
+        "status": "success",
+        "message": "Order accepted for processing",
+        "data": {
+          "orderId": "75116",
+          "intentId": "cd8f2b3c337a93ce8b9201f35b1f8acb",
+          "executionStatus": "queued",
+          "fanoutJobId": 9429,
+          "fanoutStatus": "queued",
+          "requestId": "legacy_035ecf0bf0b8ab678010ed00bc4179bf",
+          "placementReplayProtected": true
+        },
+        "_duration_ms": 290.4,
+        "_request_url": "https://stage.wavexone.com/trade/placeorder.php?type=market&bs=sell&lot=0.50&sl=&target=&symbol=X:BTCUSD&token=[REDACTED]&clicked=yes&fingerprint=[REDACTED]"
+      }
+    }
+  ]
+}

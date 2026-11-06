@@ -1,0 +1,52 @@
+{
+  "meta": {
+    "scenario_id": "CT-EQU-LMT-BUY-WITH-TPSL",
+    "title": "Equity-Based Limit BUY WITH TP/SL",
+    "category": "Equity Limit Orders",
+    "environment": "https://stage.wavexone.com",
+    "started_at": "2026-11-06T14:31:21.484017",
+    "completed_at": "2026-11-06T14:31:29.389780",
+    "duration_seconds": 7.91,
+    "status": "PASS",
+    "error": null
+  },
+  "summary": {
+    "total_steps": 1,
+    "total_assertions": 1,
+    "passed_assertions": 1,
+    "failed_assertions": 0
+  },
+  "assertions": [
+    {
+      "assertion_index": 1,
+      "name": "Followers Replicated Limit BUY (0.05 Lots)",
+      "expected": 5,
+      "actual": 5,
+      "passed": true,
+      "notes": ""
+    }
+  ],
+  "execution_steps": [
+    {
+      "step_index": 1,
+      "timestamp": "2026-11-06T14:31:23.764613",
+      "name": "Master Limit BUY",
+      "action": "POST /trade/placeorder.php",
+      "endpoint": "",
+      "method": "",
+      "latency_ms": 0.0,
+      "request": {},
+      "response": {},
+      "extra": {
+        "status": "success",
+        "message": "Order Placed Successfully",
+        "data": {
+          "orderId": 75242,
+          "time": 0.04217100143432617
+        },
+        "_duration_ms": 243.99,
+        "_request_url": "https://stage.wavexone.com/trade/placeorder.php?type=limit&bs=buy&lot=0.50&sl=75244.44&target=75644.44&trigger=75444.44&symbol=X:BTCUSD&token=[REDACTED]&clicked=yes&fingerprint=[REDACTED]"
+      }
+    }
+  ]
+}

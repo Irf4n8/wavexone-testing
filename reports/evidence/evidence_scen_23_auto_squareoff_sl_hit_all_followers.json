@@ -1,0 +1,141 @@
+{
+  "meta": {
+    "test_id": "evidence_scen_23_auto_squareoff_sl_hit_all_followers",
+    "title": "Copy Trading: Auto Squareoff on Stop Loss Hit Across All 5 Followers",
+    "description": "Master places 1.00 whole lot Market BUY with tight Stop Loss offset (10 pts). When market ticks and hits SL, brokerage engine triggers auto squareoff on Master and all 5 followers auto square off synchronously.",
+    "environment": "https://stage.wavexone.com",
+    "started_at": "2026-11-05T18:44:30.396221",
+    "completed_at": "2026-11-05T18:44:40.768785",
+    "duration_seconds": 10.37,
+    "status": "PASS",
+    "error": null
+  },
+  "summary": {
+    "total_steps": 1,
+    "total_assertions": 11,
+    "passed_assertions": 11,
+    "failed_assertions": 0
+  },
+  "assertions": [
+    {
+      "assertion_index": 1,
+      "name": "Follower ctf1 SL (79567) Propagated",
+      "expected": "79567",
+      "actual": "79567",
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 2,
+      "name": "Follower ctf2 SL (79567) Propagated",
+      "expected": "79567",
+      "actual": "79567",
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 3,
+      "name": "Follower ctf3 SL (79567) Propagated",
+      "expected": "79567",
+      "actual": "79567",
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 4,
+      "name": "Follower ctf4 SL (79567) Propagated",
+      "expected": "79567",
+      "actual": "79567",
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 5,
+      "name": "Follower ctf5 SL (79567) Propagated",
+      "expected": "79567",
+      "actual": "79567",
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 6,
+      "name": "Master Auto Squareoff on SL Hit",
+      "expected": true,
+      "actual": true,
+      "passed": true,
+      "notes": "Closed in 2.55s"
+    },
+    {
+      "assertion_index": 7,
+      "name": "Follower ctf1 Auto Squared Off on Master SL Hit",
+      "expected": true,
+      "actual": true,
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 8,
+      "name": "Follower ctf2 Auto Squared Off on Master SL Hit",
+      "expected": true,
+      "actual": true,
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 9,
+      "name": "Follower ctf3 Auto Squared Off on Master SL Hit",
+      "expected": true,
+      "actual": true,
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 10,
+      "name": "Follower ctf4 Auto Squared Off on Master SL Hit",
+      "expected": true,
+      "actual": true,
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 11,
+      "name": "Follower ctf5 Auto Squared Off on Master SL Hit",
+      "expected": true,
+      "actual": true,
+      "passed": true,
+      "notes": ""
+    }
+  ],
+  "execution_steps": [
+    {
+      "step_index": 1,
+      "timestamp": "2026-11-05T18:44:32.198954",
+      "name": "Master 1.00 Lot Placement with SL",
+      "action": "POST /trade/placeorder.php",
+      "endpoint": "",
+      "method": "",
+      "latency_ms": 0.0,
+      "request": {
+        "lot": 1.0,
+        "sl": "79567.30",
+        "tp": "80077.30"
+      },
+      "response": {
+        "status": "success",
+        "message": "Order accepted for processing",
+        "data": {
+          "orderId": "59975",
+          "intentId": "f1de8e66bb08e487f8ebd634fd70f236",
+          "executionStatus": "queued",
+          "fanoutJobId": 6983,
+          "fanoutStatus": "queued",
+          "requestId": "legacy_a6c111301bdb6f6c2f6820ede04cd155",
+          "placementReplayProtected": true
+        },
+        "_duration_ms": 229.7,
+        "_request_url": "https://stage.wavexone.com/trade/placeorder.php?type=market&bs=buy&lot=1.00&sl=79567.30&target=80077.30&symbol=X:BTCUSD&token=UHZIKS5BXD&clicked=yes&fingerprint=060d191b0e0707726a777e74726273641f45415621_1489"
+      },
+      "extra": {}
+    }
+  ]
+}

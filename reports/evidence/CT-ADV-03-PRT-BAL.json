@@ -1,0 +1,62 @@
+{
+  "meta": {
+    "scenario_id": "CT-ADV-03-PRT-BAL",
+    "title": "Partial Close Proportional Reduction (Balance Mode: 0.50 -> 0.30 => Follower 0.05 -> 0.03)",
+    "category": "Trade Management",
+    "environment": "https://stage.wavexone.com",
+    "started_at": "2026-11-06T17:35:48.710443",
+    "completed_at": "2026-11-06T17:36:02.112949",
+    "duration_seconds": 13.4,
+    "status": "PASS",
+    "error": null
+  },
+  "summary": {
+    "total_steps": 0,
+    "total_assertions": 5,
+    "passed_assertions": 5,
+    "failed_assertions": 0
+  },
+  "assertions": [
+    {
+      "assertion_index": 1,
+      "name": "ctf1 Balance Mode Remaining Lot == 0.03",
+      "expected": 0.03,
+      "actual": 0.03,
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 2,
+      "name": "ctf2 Balance Mode Remaining Lot == 0.03",
+      "expected": 0.03,
+      "actual": 0.03,
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 3,
+      "name": "ctf3 Balance Mode Remaining Lot == 0.03",
+      "expected": 0.03,
+      "actual": 0.03,
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 4,
+      "name": "ctf4 Balance Mode Remaining Lot == 0.03",
+      "expected": 0.03,
+      "actual": 0.03,
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 5,
+      "name": "ctf5 Balance Mode Remaining Lot == 0.03",
+      "expected": 0.03,
+      "actual": 0.03,
+      "passed": true,
+      "notes": ""
+    }
+  ],
+  "execution_steps": []
+}

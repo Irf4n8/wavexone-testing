@@ -1,0 +1,52 @@
+{
+  "meta": {
+    "scenario_id": "CT-MUL-LMT-BUY-NO-TPSL",
+    "title": "Multiplier Limit BUY WITHOUT TP/SL",
+    "category": "Multiplier Limit Orders",
+    "environment": "https://stage.wavexone.com",
+    "started_at": "2026-11-06T14:25:02.111098",
+    "completed_at": "2026-11-06T14:25:09.780589",
+    "duration_seconds": 7.67,
+    "status": "PASS",
+    "error": null
+  },
+  "summary": {
+    "total_steps": 1,
+    "total_assertions": 1,
+    "passed_assertions": 1,
+    "failed_assertions": 0
+  },
+  "assertions": [
+    {
+      "assertion_index": 1,
+      "name": "Followers Replicated Limit BUY (1.50 Lots)",
+      "expected": 5,
+      "actual": 5,
+      "passed": true,
+      "notes": ""
+    }
+  ],
+  "execution_steps": [
+    {
+      "step_index": 1,
+      "timestamp": "2026-11-06T14:25:04.248544",
+      "name": "Master Limit BUY",
+      "action": "POST /trade/placeorder.php",
+      "endpoint": "",
+      "method": "",
+      "latency_ms": 0.0,
+      "request": {},
+      "response": {},
+      "extra": {
+        "status": "success",
+        "message": "Order Placed Successfully",
+        "data": {
+          "orderId": 75033,
+          "time": 0.04695487022399902
+        },
+        "_duration_ms": 244.47,
+        "_request_url": "https://stage.wavexone.com/trade/placeorder.php?type=limit&bs=buy&lot=0.50&sl=&target=&trigger=75356.25&symbol=X:BTCUSD&token=[REDACTED]&clicked=yes&fingerprint=[REDACTED]"
+      }
+    }
+  ]
+}

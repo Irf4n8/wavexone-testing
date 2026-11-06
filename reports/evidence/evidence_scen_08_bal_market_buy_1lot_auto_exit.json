@@ -1,0 +1,112 @@
+{
+  "meta": {
+    "test_id": "evidence_scen_08_bal_market_buy_1lot_auto_exit",
+    "title": "Balance Mode: Market BUY 1.00 Lot (Auto-Exit)",
+    "description": "Master places 1.00 whole lot Market BUY with tight TP/SL. Follower scales by balance ratio (~0.11 lots). Position auto-exits via TP/SL.",
+    "environment": "https://stage.wavexone.com",
+    "started_at": "2026-11-05T18:30:32.898733",
+    "completed_at": "2026-11-05T18:30:41.230464",
+    "duration_seconds": 8.33,
+    "status": "PASS",
+    "error": null
+  },
+  "summary": {
+    "total_steps": 1,
+    "total_assertions": 7,
+    "passed_assertions": 7,
+    "failed_assertions": 0
+  },
+  "assertions": [
+    {
+      "assertion_index": 1,
+      "name": "Master Placed 1.00 Whole Lot (No Decimals)",
+      "expected": 1.0,
+      "actual": 1.0,
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 2,
+      "name": "Follower Replicated 0.11 Lots (Balance Mode)",
+      "expected": 0.11,
+      "actual": 0.11,
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 3,
+      "name": "Replication Entry Latency (<2.0s)",
+      "expected": 2.0,
+      "actual": 1.989,
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 4,
+      "name": "Follower SL (79626) Propagated",
+      "expected": "79626",
+      "actual": "79626",
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 5,
+      "name": "Follower TP (79642) Propagated",
+      "expected": "79642",
+      "actual": "79642",
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 6,
+      "name": "Master Automatic Exit via TP/SL Hit",
+      "expected": true,
+      "actual": true,
+      "passed": true,
+      "notes": "Order auto-closed in 1.41s without manual close."
+    },
+    {
+      "assertion_index": 7,
+      "name": "Follower Synchronous Automatic Exit via TP/SL Hit",
+      "expected": true,
+      "actual": true,
+      "passed": true,
+      "notes": "Follower must auto-close when Master position is terminated by TP/SL hit."
+    }
+  ],
+  "execution_steps": [
+    {
+      "step_index": 1,
+      "timestamp": "2026-11-05T18:30:35.852882",
+      "name": "Master Balance Mode: Market BUY 1.00 Lot (Auto-Exit) Placement",
+      "action": "POST /trade/placeorder.php",
+      "endpoint": "",
+      "method": "",
+      "latency_ms": 0.0,
+      "request": {
+        "lot": 1.0,
+        "levels": {
+          "sl": "79626.97",
+          "tp": "79642.97",
+          "price": "79634.97"
+        }
+      },
+      "response": {
+        "status": "success",
+        "message": "Order accepted for processing",
+        "data": {
+          "orderId": "59760",
+          "intentId": "0f6ddeeaeb9aa5dfcc93e46f5bbbc958",
+          "executionStatus": "queued",
+          "fanoutJobId": 6961,
+          "fanoutStatus": "queued",
+          "requestId": "legacy_313aa2f4fb46ec305f37cba294d94a2c",
+          "placementReplayProtected": true
+        },
+        "_duration_ms": 242.99,
+        "_request_url": "https://stage.wavexone.com/trade/placeorder.php?type=market&bs=buy&lot=1.00&sl=79626.97&target=79642.97&symbol=X:BTCUSD&token=UHZIKS5BXD&clicked=yes&fingerprint=060d191b0e0707726a777e74726273641f45415621_1419"
+      },
+      "extra": {}
+    }
+  ]
+}

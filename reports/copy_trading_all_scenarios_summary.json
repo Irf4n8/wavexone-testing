@@ -1,0 +1,128 @@
+{
+  "project": "WavexOne Staging Copy Trading Automation",
+  "generated_at": "2026-11-06T13:03:00+05:30",
+  "environment": "https://stage.wavexone.com",
+  "master_account": {
+    "username": "ctmaster",
+    "uid": 1060,
+    "trading_account_id": "11060"
+  },
+  "follower_accounts": [
+    {"username": "ctf1", "uid": 1041, "trading_account_id": "11041"},
+    {"username": "ctf2", "uid": 1043, "trading_account_id": "11043"},
+    {"username": "ctf3", "uid": 1045, "trading_account_id": "11045"},
+    {"username": "ctf4", "uid": 1048, "trading_account_id": "11048"},
+    {"username": "ctf5", "uid": 1050, "trading_account_id": "11050"}
+  ],
+  "suites": {
+    "playwright_ui_automation": {
+      "command": "pytest tests/test_copy_trading_playwright.py -v -s",
+      "status": "PASS",
+      "passed": 4,
+      "failed": 0,
+      "duration_seconds": 71.87,
+      "scenarios": [
+        {
+          "id": "PW-ACC-01",
+          "name": "Multi-Account UI Login & Badge Validation",
+          "status": "PASS",
+          "master_badge": "11060",
+          "follower_badge": "11041",
+          "evidence": "reports/screenshots/pw_master_login_11060.png"
+        },
+        {
+          "id": "PW-MUL-01",
+          "name": "Multiplier 3.0x Proportional UI Replication",
+          "status": "PASS",
+          "master_lot": 0.50,
+          "expected_follower_lot": 1.50,
+          "actual_follower_lot": 1.50,
+          "evidence": "reports/screenshots/pw_mul_follower_replicated_position.png"
+        },
+        {
+          "id": "PW-BAL-01",
+          "name": "Balance-Based Dynamic Sizing UI Replication",
+          "status": "PASS",
+          "master_lot": 0.50,
+          "expected_follower_lot": 0.05,
+          "actual_follower_lot": 0.05,
+          "evidence": "reports/screenshots/pw_bal_follower_replicated_005_lot.png"
+        },
+        {
+          "id": "PW-EQU-01",
+          "name": "Equity-Based Dynamic Sizing UI Replication",
+          "status": "PASS",
+          "master_lot": 0.50,
+          "expected_follower_lot": 0.05,
+          "actual_follower_lot": 0.05,
+          "evidence": "reports/screenshots/pw_equ_follower_replicated_005_lot.png"
+        }
+      ]
+    },
+    "backend_p0_suite": {
+      "command": "pytest tests/test_copy_trading_p0.py -v -s",
+      "status": "PASS",
+      "passed": 6,
+      "failed": 0,
+      "duration_seconds": 70.11,
+      "scenarios": [
+        {
+          "id": "CT-ACC-01",
+          "name": "Authentication and Account ID Validation",
+          "status": "PASS",
+          "evidence": "reports/evidence/CT-ACC-01.json"
+        },
+        {
+          "id": "CT-FOL-01",
+          "name": "Follower Subscription Verification",
+          "status": "PASS",
+          "evidence": "reports/evidence/CT-FOL-01.json"
+        },
+        {
+          "id": "CT-MUL-01",
+          "name": "Multiplier 3.0x Replication",
+          "status": "PASS",
+          "master_lot": 0.50,
+          "expected_follower_lot": 1.50,
+          "actual_follower_lot": 1.50,
+          "evidence": "reports/evidence/CT-MUL-01.json"
+        },
+        {
+          "id": "CT-BAL-01",
+          "name": "Balance-Based Copying (Market BUY)",
+          "status": "PASS",
+          "master_lot": 0.50,
+          "expected_follower_lot": 0.05,
+          "actual_follower_lot": 0.05,
+          "evidence": "reports/evidence/CT-BAL-01.json"
+        },
+        {
+          "id": "CT-EQU-01",
+          "name": "Equity-Based Copying (Market BUY)",
+          "status": "PASS",
+          "master_lot": 0.50,
+          "expected_follower_lot": 0.05,
+          "actual_follower_lot": 0.05,
+          "evidence": "reports/evidence/CT-EQU-01.json"
+        },
+        {
+          "id": "CT-BAL-02",
+          "name": "Balance-Based Copying (Market SELL)",
+          "status": "PASS",
+          "master_lot": 0.50,
+          "expected_follower_lot": 0.05,
+          "actual_follower_lot": 0.05,
+          "evidence": "reports/evidence/CT-BAL-02.json"
+        }
+      ]
+    }
+  },
+  "overall_summary": {
+    "total_tests_run": 10,
+    "total_passed": 10,
+    "total_failed": 0,
+    "success_rate": "100%",
+    "clean_slate_verified": true,
+    "residual_orders_count": 0
+  }
+}

@@ -1,0 +1,57 @@
+{
+  "meta": {
+    "scenario_id": "CT-EQU-MKT-SELL-NO-TPSL",
+    "title": "Equity-Based Market SELL WITHOUT TP/SL",
+    "category": "Equity Market Orders",
+    "environment": "https://stage.wavexone.com",
+    "started_at": "2026-11-06T14:30:44.882117",
+    "completed_at": "2026-11-06T14:30:49.771357",
+    "duration_seconds": 4.89,
+    "status": "PASS",
+    "error": null
+  },
+  "summary": {
+    "total_steps": 1,
+    "total_assertions": 1,
+    "passed_assertions": 1,
+    "failed_assertions": 0
+  },
+  "assertions": [
+    {
+      "assertion_index": 1,
+      "name": "All 5 Followers Replicated (0.05 Lots)",
+      "expected": true,
+      "actual": true,
+      "passed": true,
+      "notes": ""
+    }
+  ],
+  "execution_steps": [
+    {
+      "step_index": 1,
+      "timestamp": "2026-11-06T14:30:47.302737",
+      "name": "Master Market SELL",
+      "action": "POST /trade/placeorder.php",
+      "endpoint": "",
+      "method": "",
+      "latency_ms": 0.0,
+      "request": {},
+      "response": {},
+      "extra": {
+        "status": "success",
+        "message": "Order accepted for processing",
+        "data": {
+          "orderId": "75219",
+          "intentId": "22d0c13e2f514d6c20c3057fd2054235",
+          "executionStatus": "queued",
+          "fanoutJobId": 9434,
+          "fanoutStatus": "queued",
+          "requestId": "legacy_6c9c156a1c97ca150395b8cc717d90ec",
+          "placementReplayProtected": true
+        },
+        "_duration_ms": 222.75,
+        "_request_url": "https://stage.wavexone.com/trade/placeorder.php?type=market&bs=sell&lot=0.50&sl=&target=&symbol=X:BTCUSD&token=[REDACTED]&clicked=yes&fingerprint=[REDACTED]"
+      }
+    }
+  ]
+}

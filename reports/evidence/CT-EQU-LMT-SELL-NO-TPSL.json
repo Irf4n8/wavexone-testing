@@ -1,0 +1,52 @@
+{
+  "meta": {
+    "scenario_id": "CT-EQU-LMT-SELL-NO-TPSL",
+    "title": "Equity-Based Limit SELL WITHOUT TP/SL",
+    "category": "Equity Limit Orders",
+    "environment": "https://stage.wavexone.com",
+    "started_at": "2026-11-06T14:31:35.353008",
+    "completed_at": "2026-11-06T14:31:43.281133",
+    "duration_seconds": 7.93,
+    "status": "PASS",
+    "error": null
+  },
+  "summary": {
+    "total_steps": 1,
+    "total_assertions": 1,
+    "passed_assertions": 1,
+    "failed_assertions": 0
+  },
+  "assertions": [
+    {
+      "assertion_index": 1,
+      "name": "Followers Replicated Limit SELL (0.05 Lots)",
+      "expected": 5,
+      "actual": 5,
+      "passed": true,
+      "notes": ""
+    }
+  ],
+  "execution_steps": [
+    {
+      "step_index": 1,
+      "timestamp": "2026-11-06T14:31:37.633111",
+      "name": "Master Limit SELL",
+      "action": "POST /trade/placeorder.php",
+      "endpoint": "",
+      "method": "",
+      "latency_ms": 0.0,
+      "request": {},
+      "response": {},
+      "extra": {
+        "status": "success",
+        "message": "Order Placed Successfully",
+        "data": {
+          "orderId": 75248,
+          "time": 0.042881011962890625
+        },
+        "_duration_ms": 237.14,
+        "_request_url": "https://stage.wavexone.com/trade/placeorder.php?type=limit&bs=sell&lot=0.50&sl=&target=&trigger=75946.71&symbol=X:BTCUSD&token=[REDACTED]&clicked=yes&fingerprint=[REDACTED]"
+      }
+    }
+  ]
+}

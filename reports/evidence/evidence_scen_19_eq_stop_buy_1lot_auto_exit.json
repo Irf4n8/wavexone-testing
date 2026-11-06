@@ -1,0 +1,21 @@
+{
+  "meta": {
+    "test_id": "evidence_scen_19_eq_stop_buy_1lot_auto_exit",
+    "title": "Equity Mode: Stop HFT BUY 1.00 Lot (Trigger & Auto-Exit, Guarded)",
+    "description": "Master places 1.00 whole lot Stop HFT BUY under Equity mode with Inconclusive guard.",
+    "environment": "https://stage.wavexone.com",
+    "started_at": "2026-11-05T18:33:54.225259",
+    "completed_at": "2026-11-05T18:33:56.365807",
+    "duration_seconds": 2.14,
+    "status": "FAIL",
+    "error": null
+  },
+  "summary": {
+    "total_steps": 0,
+    "total_assertions": 0,
+    "passed_assertions": 0,
+    "failed_assertions": 0
+  },
+  "assertions": [],
+  "execution_steps": []
+}

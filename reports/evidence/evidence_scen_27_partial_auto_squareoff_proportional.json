@@ -1,0 +1,50 @@
+{
+  "meta": {
+    "test_id": "evidence_scen_27_partial_auto_squareoff_proportional",
+    "title": "Copy Trading: Partial Auto Squareoff Proportional Lot Reduction",
+    "description": "Master places 1.00 lot BUY. Follower 1 replicates 3.00 lots. Master squares off 0.50 lots (50%). Verify follower position auto squares off proportionally to 1.50 lots.",
+    "environment": "https://stage.wavexone.com",
+    "started_at": "2026-11-05T18:48:07.732585",
+    "completed_at": "2026-11-05T18:48:16.757333",
+    "duration_seconds": 9.02,
+    "status": "PASS",
+    "error": null
+  },
+  "summary": {
+    "total_steps": 1,
+    "total_assertions": 1,
+    "passed_assertions": 1,
+    "failed_assertions": 0
+  },
+  "assertions": [
+    {
+      "assertion_index": 1,
+      "name": "Initial Follower Replicated 3.00 Lots",
+      "expected": 3.0,
+      "actual": 3.0,
+      "passed": true,
+      "notes": ""
+    }
+  ],
+  "execution_steps": [
+    {
+      "step_index": 1,
+      "timestamp": "2026-11-05T18:48:10.798753",
+      "name": "Master Partial Squareoff (0.50 Lot)",
+      "action": "GET /book/squareoff.php?id=59999&close_mode=partial&partial_lot=0.50",
+      "endpoint": "",
+      "method": "",
+      "latency_ms": 0.0,
+      "request": {},
+      "response": {
+        "status": "success",
+        "message": "Order ID - 59999  Sent to for Closing",
+        "data": {
+          "exitMsg": "Exited 'BTCUSD' , 0.50 Lots transit"
+        },
+        "_duration_ms": 334.91
+      },
+      "extra": {}
+    }
+  ]
+}

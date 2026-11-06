@@ -2,18 +2,18 @@
   "meta": {
     "test_id": "evidence_scen_02_market_sell_1lot_auto_exit",
     "title": "Copy Trading: Market SELL 1.00 Lot with Easy-to-Hit TP/SL & Automatic Exit",
-    "description": "Master places 1.00 whole lot Market SELL with tight 5.0 pt TP/SL offsets. Follower replicates exactly 3.00 lots. Test exits ONLY when TP or SL is triggered automatically.",
+    "description": "Master places 1.00 whole lot Market SELL with tight TP/SL offsets. Follower replicates exactly 3.00 lots. Test exits ONLY when TP or SL is triggered automatically.",
     "environment": "https://stage.wavexone.com",
-    "started_at": "2026-11-05T17:14:55.854091",
-    "completed_at": "2026-11-05T17:15:03.262907",
-    "duration_seconds": 7.41,
-    "status": "PASS",
+    "started_at": "2026-11-05T17:33:19.397182",
+    "completed_at": "2026-11-05T17:33:31.283149",
+    "duration_seconds": 11.89,
+    "status": "FAIL",
     "error": null
   },
   "summary": {
     "total_steps": 1,
-    "total_assertions": 6,
-    "passed_assertions": 6,
+    "total_assertions": 1,
+    "passed_assertions": 1,
     "failed_assertions": 0
   },
   "assertions": [
@@ -24,52 +24,12 @@
       "actual": 1.0,
       "passed": true,
       "notes": ""
-    },
-    {
-      "assertion_index": 2,
-      "name": "Follower Replicated 3.00 Lots (3.0x Multiplier)",
-      "expected": 3.0,
-      "actual": 3.0,
-      "passed": true,
-      "notes": ""
-    },
-    {
-      "assertion_index": 3,
-      "name": "Follower SL (80274.45) Propagated",
-      "expected": "80274.45",
-      "actual": "80274.45",
-      "passed": true,
-      "notes": ""
-    },
-    {
-      "assertion_index": 4,
-      "name": "Follower TP (80264.45) Propagated",
-      "expected": "80264.45",
-      "actual": "80264.45",
-      "passed": true,
-      "notes": ""
-    },
-    {
-      "assertion_index": 5,
-      "name": "Master Automatic Exit via TP/SL Hit",
-      "expected": true,
-      "actual": true,
-      "passed": true,
-      "notes": "Order auto-closed in 2.57s without manual close."
-    },
-    {
-      "assertion_index": 6,
-      "name": "Follower Synchronous Automatic Exit via TP/SL Hit",
-      "expected": true,
-      "actual": true,
-      "passed": true,
-      "notes": "Follower must auto-close when Master position is terminated by TP/SL hit."
     }
   ],
   "execution_steps": [
     {
       "step_index": 1,
-      "timestamp": "2026-11-05T17:14:56.836112",
+      "timestamp": "2026-11-05T17:33:20.591922",
       "name": "Master Market SELL Placement (1.00 Lot)",
       "action": "POST /trade/placeorder.php",
       "endpoint": "",
@@ -77,23 +37,26 @@
       "latency_ms": 0.0,
       "request": {
         "lot": 1.0,
-        "sl": "80274.45",
-        "tp": "80264.45"
+        "levels": {
+          "sl": "80145.80",
+          "tp": "80129.80",
+          "price": "80137.8"
+        }
       },
       "response": {
         "status": "success",
         "message": "Order accepted for processing",
         "data": {
-          "orderId": "58715",
-          "intentId": "34655e38876f7f79735b43c26ac6093b",
+          "orderId": "59098",
+          "intentId": "9fb29c784091abc6efdf1babd086f759",
           "executionStatus": "queued",
-          "fanoutJobId": 6784,
+          "fanoutJobId": 6871,
           "fanoutStatus": "queued",
-          "requestId": "legacy_f5e2256f0ded10ad3dd59b6d4b9841e6",
+          "requestId": "legacy_c80a8a402e15b8d7414e0482e37ed1ca",
           "placementReplayProtected": true
         },
-        "_duration_ms": 233.87,
-        "_request_url": "https://stage.wavexone.com/trade/placeorder.php?type=market&bs=sell&lot=1.00&sl=80274.45&target=80264.45&symbol=X:BTCUSD&token=UHZIKS5BXD&clicked=yes&fingerprint=060d191b0e0707726a777e74726273641f45415621_1226"
+        "_duration_ms": 537.29,
+        "_request_url": "https://stage.wavexone.com/trade/placeorder.php?type=market&bs=sell&lot=1.00&sl=80145.80&target=80129.80&symbol=X:BTCUSD&token=UHZIKS5BXD&clicked=yes&fingerprint=060d191b0e0707726a777e74726273641f45415621_1332"
       },
       "extra": {}
     }

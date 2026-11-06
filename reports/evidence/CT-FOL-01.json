@@ -1,0 +1,171 @@
+{
+  "meta": {
+    "scenario_id": "CT-FOL-01",
+    "title": "Multi-Follower Subscription & Relationship Verification",
+    "category": "Follow/Unfollow Lifecycle",
+    "environment": "https://stage.wavexone.com",
+    "started_at": "2026-11-06T13:00:26.178944",
+    "completed_at": "2026-11-06T13:00:27.898120",
+    "duration_seconds": 1.72,
+    "status": "PASS",
+    "error": null
+  },
+  "summary": {
+    "total_steps": 1,
+    "total_assertions": 12,
+    "passed_assertions": 12,
+    "failed_assertions": 0
+  },
+  "assertions": [
+    {
+      "assertion_index": 1,
+      "name": "Total Followers Count >= 5",
+      "expected": true,
+      "actual": true,
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 2,
+      "name": "All 5 Target Followers Active",
+      "expected": true,
+      "actual": true,
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 3,
+      "name": "ctf1 In Master Follower List",
+      "expected": true,
+      "actual": true,
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 4,
+      "name": "ctf1 In Follower Following List",
+      "expected": true,
+      "actual": true,
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 5,
+      "name": "ctf2 In Master Follower List",
+      "expected": true,
+      "actual": true,
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 6,
+      "name": "ctf2 In Follower Following List",
+      "expected": true,
+      "actual": true,
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 7,
+      "name": "ctf3 In Master Follower List",
+      "expected": true,
+      "actual": true,
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 8,
+      "name": "ctf3 In Follower Following List",
+      "expected": true,
+      "actual": true,
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 9,
+      "name": "ctf4 In Master Follower List",
+      "expected": true,
+      "actual": true,
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 10,
+      "name": "ctf4 In Follower Following List",
+      "expected": true,
+      "actual": true,
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 11,
+      "name": "ctf5 In Master Follower List",
+      "expected": true,
+      "actual": true,
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 12,
+      "name": "ctf5 In Follower Following List",
+      "expected": true,
+      "actual": true,
+      "passed": true,
+      "notes": ""
+    }
+  ],
+  "execution_steps": [
+    {
+      "step_index": 1,
+      "timestamp": "2026-11-06T13:00:27.898120",
+      "name": "Query Master and Follower Subscription Lists",
+      "action": "GET /user/userCopyFollowers.php",
+      "endpoint": "https://stage.wavexone.com/user/userCopyFollowers.php",
+      "method": "GET",
+      "latency_ms": 0.0,
+      "request": {},
+      "response": {},
+      "extra": {
+        "all_active": true,
+        "details": {
+          "ctf1": {
+            "account_id": "11041",
+            "user_id": "1041",
+            "in_master_list": true,
+            "in_follower_list": true,
+            "is_active": true
+          },
+          "ctf2": {
+            "account_id": "11043",
+            "user_id": "1043",
+            "in_master_list": true,
+            "in_follower_list": true,
+            "is_active": true
+          },
+          "ctf3": {
+            "account_id": "11045",
+            "user_id": "1045",
+            "in_master_list": true,
+            "in_follower_list": true,
+            "is_active": true
+          },
+          "ctf4": {
+            "account_id": "11048",
+            "user_id": "1048",
+            "in_master_list": true,
+            "in_follower_list": true,
+            "is_active": true
+          },
+          "ctf5": {
+            "account_id": "11050",
+            "user_id": "1050",
+            "in_master_list": true,
+            "in_follower_list": true,
+            "is_active": true
+          }
+        },
+        "total_followers_count": 5
+      }
+    }
+  ]
+}

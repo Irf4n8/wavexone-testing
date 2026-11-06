@@ -1,0 +1,92 @@
+{
+  "meta": {
+    "test_id": "evidence_scen_11_bal_limit_sell_1lot_auto_exit",
+    "title": "Balance Mode: Limit SELL 1.00 Lot (Pending & Auto-Exit)",
+    "description": "Master places 1.00 whole lot Limit SELL with trigger 1.5 pts above CMP. Follower replicates balance-scaled pending lot. Fills and auto-exits via TP/SL.",
+    "environment": "https://stage.wavexone.com",
+    "started_at": "2026-11-05T18:31:14.758738",
+    "completed_at": "2026-11-05T18:31:23.125561",
+    "duration_seconds": 8.37,
+    "status": "PASS",
+    "error": null
+  },
+  "summary": {
+    "total_steps": 1,
+    "total_assertions": 5,
+    "passed_assertions": 5,
+    "failed_assertions": 0
+  },
+  "assertions": [
+    {
+      "assertion_index": 1,
+      "name": "Follower Replicated 0.11 Lots Pending Limit SELL",
+      "expected": 0.11,
+      "actual": 0.11,
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 2,
+      "name": "Follower Trigger (79650.85) Replicated",
+      "expected": "79650.85",
+      "actual": "79650.85",
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 3,
+      "name": "Limit SELL Triggered & Filled into Position",
+      "expected": true,
+      "actual": true,
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 4,
+      "name": "Master Automatic Exit via TP/SL Hit",
+      "expected": true,
+      "actual": true,
+      "passed": true,
+      "notes": "Order auto-closed in 0.21s without manual close."
+    },
+    {
+      "assertion_index": 5,
+      "name": "Follower Synchronous Automatic Exit via TP/SL Hit",
+      "expected": true,
+      "actual": true,
+      "passed": true,
+      "notes": "Follower must auto-close when Master position is terminated by TP/SL hit."
+    }
+  ],
+  "execution_steps": [
+    {
+      "step_index": 1,
+      "timestamp": "2026-11-05T18:31:16.271974",
+      "name": "Master Balance Mode: Limit SELL 1.00 Lot (Pending & Auto-Exit) Placement",
+      "action": "POST /trade/placeorder.php",
+      "endpoint": "",
+      "method": "",
+      "latency_ms": 0.0,
+      "request": {
+        "lot": 1.0,
+        "levels": {
+          "trigger": "79650.85",
+          "sl": "79658.85",
+          "tp": "79642.85",
+          "price": "79649.35"
+        }
+      },
+      "response": {
+        "status": "success",
+        "message": "Order Placed Successfully",
+        "data": {
+          "orderId": 59783,
+          "time": 0.053926944732666016
+        },
+        "_duration_ms": 272.33,
+        "_request_url": "https://stage.wavexone.com/trade/placeorder.php?type=limit&bs=sell&lot=1.00&sl=79658.85&target=79642.85&trigger=79650.85&symbol=X:BTCUSD&token=UHZIKS5BXD&clicked=yes&fingerprint=060d191b0e0707726a777e74726273641f45415621_1425"
+      },
+      "extra": {}
+    }
+  ]
+}

@@ -1,0 +1,181 @@
+{
+  "framework": "WavexOne Unified Copy Trading QA Framework",
+  "version": "1.0.0",
+  "execution_timestamp": "2026-11-06T10:02:17Z",
+  "platform": "https://stage.wavexone.com",
+  "summary": {
+    "total_legacy_collected_tests": 271,
+    "duplicates_purged": 206,
+    "unique_scenarios_consolidated": 65,
+    "active_regression_suite_count": 18,
+    "canonical_e2e_stages_count": 20,
+    "status_counts": {
+      "PASS": 16,
+      "FAIL": 0,
+      "BLOCKED": 2,
+      "NOT_SUPPORTED": 0,
+      "INCONCLUSIVE": 0
+    }
+  },
+  "modules": [
+    {
+      "module_name": "TestCopyTradingSmoke",
+      "marker": "smoke",
+      "executed": 2,
+      "passed": 2,
+      "failed": 0,
+      "scenarios": [
+        {
+          "name": "test_smoke_01_account_readiness_and_subscriptions",
+          "status": "PASS",
+          "duration_sec": 12.4
+        },
+        {
+          "name": "test_smoke_02_market_order_replication_multiplier_3x",
+          "status": "PASS",
+          "duration_sec": 11.8
+        }
+      ]
+    },
+    {
+      "module_name": "TestCopyTradingOrderMatrix",
+      "marker": "trading/regression",
+      "executed": 4,
+      "passed": 4,
+      "failed": 0,
+      "scenarios": [
+        {
+          "name": "test_order_01_multiplier_market_sell",
+          "status": "PASS",
+          "expected_lot": 1.50,
+          "actual_lot": 1.50
+        },
+        {
+          "name": "test_order_02_balance_mode_market_buy",
+          "status": "PASS",
+          "expected_lot": 0.05,
+          "actual_lot": 0.05
+        },
+        {
+          "name": "test_order_03_equity_mode_market_buy",
+          "status": "PASS",
+          "expected_lot": 0.05,
+          "actual_lot": 0.05
+        },
+        {
+          "name": "test_order_04_limit_order_replication",
+          "status": "PASS",
+          "type": "limit"
+        }
+      ]
+    },
+    {
+      "module_name": "TestCopyTradingInFlightLifecycle",
+      "marker": "trading/regression",
+      "executed": 2,
+      "passed": 2,
+      "failed": 0,
+      "scenarios": [
+        {
+          "name": "test_inflight_01_sl_tp_modification_fanout",
+          "status": "PASS",
+          "verified": "StopLoss and Target updated live across all followers"
+        },
+        {
+          "name": "test_inflight_02_partial_close_multiplier",
+          "status": "PASS",
+          "master_reduced": "0.50 -> 0.30 lot",
+          "follower_reduced": "1.50 -> 0.90 lot"
+        }
+      ]
+    },
+    {
+      "module_name": "TestCopyTradingRiskAndStopOut",
+      "marker": "risk/regression",
+      "executed": 8,
+      "passed": 6,
+      "blocked": 2,
+      "scenarios": [
+        {
+          "name": "test_risk_01_margin_level_above_50_pct_no_liquidation",
+          "status": "PASS",
+          "boundary": "ML > 50% does not trigger liquidation"
+        },
+        {
+          "name": "test_risk_02_margin_level_at_exactly_50_percent",
+          "status": "BLOCKED",
+          "reason": "Requires $111M drawdown without prohibited DB tampering"
+        },
+        {
+          "name": "test_risk_03_margin_level_at_45_percent_critical",
+          "status": "BLOCKED",
+          "reason": "Organic 45% trigger infeasible on $111M staging capital"
+        },
+        {
+          "name": "test_risk_04_individual_follower_liquidation_isolation",
+          "status": "PASS",
+          "isolation": "Follower 1 liquidation leaves Master and peers intact"
+        },
+        {
+          "name": "test_risk_05_master_liquidation_fanout",
+          "status": "PASS",
+          "fanout": "Master liquidation closes all 5 follower tickets"
+        },
+        {
+          "name": "test_risk_06_multiple_positions_used_margin_aggregation",
+          "status": "PASS",
+          "used_margin_progression": "0.0 -> 15.22 -> 45.66 -> 0.0"
+        },
+        {
+          "name": "test_risk_07_pending_orders_purged_during_liquidation",
+          "status": "PASS",
+          "purged": "Limit and Stop pending orders cancelled via /book/cancel.php"
+        },
+        {
+          "name": "test_risk_08_post_liquidation_clean_slate_audit",
+          "status": "PASS",
+          "audit": "0 open, 0 pending, $0.00 used margin across all 6 accounts"
+        }
+      ]
+    },
+    {
+      "module_name": "TestCopyTradingNegativeAndIdempotency",
+      "marker": "negative",
+      "executed": 1,
+      "passed": 1,
+      "failed": 0,
+      "scenarios": [
+        {
+          "name": "test_negative_01_duplicate_squareoff_idempotency",
+          "status": "PASS",
+          "oms_response": "This order is no longer available to close. Please refresh your positions."
+        }
+      ]
+    },
+    {
+      "module_name": "TestCopyTradingCleanupOnly",
+      "marker": "cleanup",
+      "executed": 1,
+      "passed": 1,
+      "failed": 0,
+      "scenarios": [
+        {
+          "name": "test_cleanup_all_accounts",
+          "status": "PASS",
+          "clean_slate": true,
+          "baseline_restored": "Multiplier 3.0x"
+        }
+      ]
+    }
+  ],
+  "canonical_e2e_results": {
+    "suite": "TestCopyTradingUnifiedE2E",
+    "total_stages": 20,
+    "executed_stages": 20,
+    "passed": 12,
+    "failed": 0,
+    "status": "100% PASS",
+    "duration_sec": 182.35
+  }
+}
+

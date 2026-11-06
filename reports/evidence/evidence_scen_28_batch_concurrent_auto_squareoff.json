@@ -1,0 +1,81 @@
+{
+  "meta": {
+    "test_id": "evidence_scen_28_batch_concurrent_auto_squareoff",
+    "title": "Copy Trading: Batch Concurrent Master Squareoff Fans Out Auto Squareoff to All Followers",
+    "description": "Master places 3 concurrent 1.00 lot orders. All 5 followers replicate all 3 orders. Master squares off all 3 positions in batch. Broker fanout engine auto squares off all followers with 0 dropped closures.",
+    "environment": "https://stage.wavexone.com",
+    "started_at": "2026-11-05T18:38:07.042251",
+    "completed_at": "2026-11-05T18:38:34.770242",
+    "duration_seconds": 27.73,
+    "status": "FAIL",
+    "error": null
+  },
+  "summary": {
+    "total_steps": 1,
+    "total_assertions": 5,
+    "passed_assertions": 5,
+    "failed_assertions": 0
+  },
+  "assertions": [
+    {
+      "assertion_index": 1,
+      "name": "Follower ctf1 Received 3 Concurrent Orders",
+      "expected": 3,
+      "actual": 3,
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 2,
+      "name": "Follower ctf2 Received 3 Concurrent Orders",
+      "expected": 3,
+      "actual": 3,
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 3,
+      "name": "Follower ctf3 Received 3 Concurrent Orders",
+      "expected": 3,
+      "actual": 3,
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 4,
+      "name": "Follower ctf4 Received 3 Concurrent Orders",
+      "expected": 3,
+      "actual": 3,
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 5,
+      "name": "Follower ctf5 Received 3 Concurrent Orders",
+      "expected": 3,
+      "actual": 3,
+      "passed": true,
+      "notes": ""
+    }
+  ],
+  "execution_steps": [
+    {
+      "step_index": 1,
+      "timestamp": "2026-11-05T18:38:12.726850",
+      "name": "Master Placed 3 Concurrent Orders",
+      "action": "POST /trade/placeorder.php",
+      "endpoint": "",
+      "method": "",
+      "latency_ms": 0.0,
+      "request": {},
+      "response": {},
+      "extra": {
+        "order_ids": [
+          "59878",
+          "59884",
+          "59890"
+        ]
+      }
+    }
+  ]
+}

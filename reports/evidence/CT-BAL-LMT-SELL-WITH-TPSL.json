@@ -1,0 +1,52 @@
+{
+  "meta": {
+    "scenario_id": "CT-BAL-LMT-SELL-WITH-TPSL",
+    "title": "Balance-Based Limit SELL WITH TP/SL",
+    "category": "Balance Limit Orders",
+    "environment": "https://stage.wavexone.com",
+    "started_at": "2026-11-06T14:28:41.180589",
+    "completed_at": "2026-11-06T14:28:49.276381",
+    "duration_seconds": 8.1,
+    "status": "PASS",
+    "error": null
+  },
+  "summary": {
+    "total_steps": 1,
+    "total_assertions": 1,
+    "passed_assertions": 1,
+    "failed_assertions": 0
+  },
+  "assertions": [
+    {
+      "assertion_index": 1,
+      "name": "Followers Replicated Limit SELL (0.05 Lots)",
+      "expected": 5,
+      "actual": 5,
+      "passed": true,
+      "notes": ""
+    }
+  ],
+  "execution_steps": [
+    {
+      "step_index": 1,
+      "timestamp": "2026-11-06T14:28:43.608220",
+      "name": "Master Limit SELL",
+      "action": "POST /trade/placeorder.php",
+      "endpoint": "",
+      "method": "",
+      "latency_ms": 0.0,
+      "request": {},
+      "response": {},
+      "extra": {
+        "status": "success",
+        "message": "Order Placed Successfully",
+        "data": {
+          "orderId": 75157,
+          "time": 0.047165870666503906
+        },
+        "_duration_ms": 254.66,
+        "_request_url": "https://stage.wavexone.com/trade/placeorder.php?type=limit&bs=sell&lot=0.50&sl=76049.58&target=75649.58&trigger=75849.58&symbol=X:BTCUSD&token=[REDACTED]&clicked=yes&fingerprint=[REDACTED]"
+      }
+    }
+  ]
+}

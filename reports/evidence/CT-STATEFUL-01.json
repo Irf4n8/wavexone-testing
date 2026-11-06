@@ -1,0 +1,737 @@
+{
+  "meta": {
+    "scenario_id": "CT-STATEFUL-01",
+    "title": "Copy Trading Finite State Machine (FSM) Lifecycle & Invariant Validation",
+    "category": "Stateful Automation",
+    "environment": "https://stage.wavexone.com",
+    "started_at": "2026-11-06T13:08:52.286085",
+    "completed_at": "2026-11-06T13:09:08.145113",
+    "duration_seconds": 15.86,
+    "status": "PASS",
+    "error": null
+  },
+  "summary": {
+    "total_steps": 12,
+    "total_assertions": 19,
+    "passed_assertions": 19,
+    "failed_assertions": 0
+  },
+  "assertions": [
+    {
+      "assertion_index": 1,
+      "name": "State 0: Zero Open Positions",
+      "expected": true,
+      "actual": true,
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 2,
+      "name": "State 1: Heterogeneous Config Persisted",
+      "expected": true,
+      "actual": true,
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 3,
+      "name": "State 2: All 5 Heterogeneous Followers Replicated",
+      "expected": true,
+      "actual": true,
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 4,
+      "name": "State 2: ctf2 (mode) lot == 0.05",
+      "expected": 0.05,
+      "actual": 0.05,
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 5,
+      "name": "State 2: ctf5 (mode) lot == 0.05",
+      "expected": 0.05,
+      "actual": 0.05,
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 6,
+      "name": "State 2: ctf3 (mode) lot == 0.05",
+      "expected": 0.05,
+      "actual": 0.05,
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 7,
+      "name": "State 2: ctf4 (mode) lot == 1.50",
+      "expected": 1.5,
+      "actual": 1.5,
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 8,
+      "name": "State 2: ctf1 (mode) lot == 1.50",
+      "expected": 1.5,
+      "actual": 1.5,
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 9,
+      "name": "State 2 Invariant: Total Ecosystem Open Orders == 6",
+      "expected": 6,
+      "actual": 6,
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 10,
+      "name": "State 3: ctf1 Order Closed in Own Book",
+      "expected": true,
+      "actual": true,
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 11,
+      "name": "State 3 Invariant: Master Order Remains Active",
+      "expected": true,
+      "actual": true,
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 12,
+      "name": "State 3 Invariant: Peer ctf2 Remains Active",
+      "expected": true,
+      "actual": true,
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 13,
+      "name": "State 3 Invariant: Peer ctf3 Remains Active",
+      "expected": true,
+      "actual": true,
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 14,
+      "name": "State 3 Invariant: Peer ctf4 Remains Active",
+      "expected": true,
+      "actual": true,
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 15,
+      "name": "State 3 Invariant: Peer ctf5 Remains Active",
+      "expected": true,
+      "actual": true,
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 16,
+      "name": "State 4: Unfollow API Succeeded",
+      "expected": "success",
+      "actual": "success",
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 17,
+      "name": "State 5 Invariant: All Positions Cleanly Liquidated",
+      "expected": true,
+      "actual": true,
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 18,
+      "name": "State 6 Invariant: All 5 Followers Replicated SELL 1.50 Lots",
+      "expected": true,
+      "actual": true,
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 19,
+      "name": "State 7 Invariant: Final Clean Slate Verified",
+      "expected": true,
+      "actual": true,
+      "passed": true,
+      "notes": ""
+    }
+  ],
+  "execution_steps": [
+    {
+      "step_index": 1,
+      "timestamp": "2026-11-06T13:08:53.381611",
+      "name": "STATE_0: Assert Clean Slate",
+      "action": "Query /book/orders.php across all 6 accounts",
+      "endpoint": "https://stage.wavexone.com/book/orders.php",
+      "method": "",
+      "latency_ms": 0.0,
+      "request": {},
+      "response": {},
+      "extra": {
+        "status": "clean",
+        "pre_existing_orders": {}
+      }
+    },
+    {
+      "step_index": 2,
+      "timestamp": "2026-11-06T13:08:55.608822",
+      "name": "STATE_1: Heterogeneous Mode Assignment",
+      "action": "Set ctf1=3x, ctf2=bal, ctf3=eq, ctf4=3x, ctf5=bal",
+      "endpoint": "https://stage.wavexone.com/user/updateCopyTradingMethod.php",
+      "method": "",
+      "latency_ms": 0.0,
+      "request": {},
+      "response": {},
+      "extra": {
+        "expected_lots": {
+          "ctf1": 1.5,
+          "ctf2": 0.05,
+          "ctf3": 0.05,
+          "ctf4": 1.5,
+          "ctf5": 0.05
+        }
+      }
+    },
+    {
+      "step_index": 3,
+      "timestamp": "2026-11-06T13:08:56.046531",
+      "name": "STATE_2: Master Place Market BUY 0.50 Lot",
+      "action": "POST /trade/placeorder.php",
+      "endpoint": "https://stage.wavexone.com/trade/placeorder.php",
+      "method": "POST",
+      "latency_ms": 0.0,
+      "request": {
+        "symbol": "X:BTCUSD",
+        "side": "buy",
+        "lot": 0.5,
+        "type": "market"
+      },
+      "response": {
+        "status": "success",
+        "message": "Order accepted for processing",
+        "data": {
+          "orderId": "74694",
+          "intentId": "a70242d42c094f3867ac08edd7a3e8cc",
+          "executionStatus": "queued",
+          "fanoutJobId": 9403,
+          "fanoutStatus": "queued",
+          "requestId": "legacy_c597093e43e8390150f07b6a713c3566",
+          "placementReplayProtected": true
+        },
+        "_duration_ms": 245.34,
+        "_request_url": "https://stage.wavexone.com/trade/placeorder.php?type=market&bs=buy&lot=0.50&sl=&target=&symbol=X:BTCUSD&token=[REDACTED]&clicked=yes&fingerprint=[REDACTED]"
+      },
+      "extra": {}
+    },
+    {
+      "step_index": 4,
+      "timestamp": "2026-11-06T13:08:57.163805",
+      "name": "STATE_2: Multi-Mode Replications Captured",
+      "action": "Poll /book/orders.php",
+      "endpoint": "https://stage.wavexone.com/book/orders.php",
+      "method": "",
+      "latency_ms": 0.0,
+      "request": {},
+      "response": {},
+      "extra": {
+        "all_replicated": true,
+        "replicated_count": 5,
+        "expected_count": 5,
+        "replicated_orders": {
+          "ctf2": {
+            "order_id": "74697",
+            "symbol": "X:BTCUSD",
+            "side": "BUY",
+            "lot": 0.05,
+            "open_price": 75338.5,
+            "sl": "---",
+            "target": null,
+            "latency_ms": 189.54,
+            "raw_order": {
+              "id": "74697",
+              "symbol": "X:BTCUSD",
+              "formated_symbol": "BTCUSD",
+              "pair": "xxx",
+              "time": "2026-11-06 07:38:56",
+              "trigger": "0",
+              "type": "market",
+              "lot": "0.05",
+              "bs": "BUY",
+              "sl": "---",
+              "tp": "---",
+              "avg": "75338.5",
+              "t_swap": "0.00",
+              "commission": "0.00",
+              "status": "open",
+              "partiallot": "---",
+              "follower_placement": null,
+              "provider_symbol": "X:BTCUSD",
+              "display_symbol": "X:BTCUSD"
+            }
+          },
+          "ctf5": {
+            "order_id": "74699",
+            "symbol": "X:BTCUSD",
+            "side": "BUY",
+            "lot": 0.05,
+            "open_price": 75338.5,
+            "sl": "---",
+            "target": null,
+            "latency_ms": 194.32,
+            "raw_order": {
+              "id": "74699",
+              "symbol": "X:BTCUSD",
+              "formated_symbol": "BTCUSD",
+              "pair": "xxx",
+              "time": "2026-11-06 07:38:56",
+              "trigger": "0",
+              "type": "market",
+              "lot": "0.05",
+              "bs": "BUY",
+              "sl": "---",
+              "tp": "---",
+              "avg": "75338.5",
+              "t_swap": "0.00",
+              "commission": "0.00",
+              "status": "open",
+              "partiallot": "---",
+              "follower_placement": null,
+              "provider_symbol": "X:BTCUSD",
+              "display_symbol": "X:BTCUSD"
+            }
+          },
+          "ctf3": {
+            "order_id": "74696",
+            "symbol": "X:BTCUSD",
+            "side": "BUY",
+            "lot": 0.05,
+            "open_price": 75338.5,
+            "sl": "---",
+            "target": null,
+            "latency_ms": 216.78,
+            "raw_order": {
+              "id": "74696",
+              "symbol": "X:BTCUSD",
+              "formated_symbol": "BTCUSD",
+              "pair": "xxx",
+              "time": "2026-11-06 07:38:56",
+              "trigger": "0",
+              "type": "market",
+              "lot": "0.05",
+              "bs": "BUY",
+              "sl": "---",
+              "tp": "---",
+              "avg": "75338.5",
+              "t_swap": "0.00",
+              "commission": "0.00",
+              "status": "open",
+              "partiallot": "---",
+              "follower_placement": null,
+              "provider_symbol": "X:BTCUSD",
+              "display_symbol": "X:BTCUSD"
+            }
+          },
+          "ctf4": {
+            "order_id": "74695",
+            "symbol": "X:BTCUSD",
+            "side": "BUY",
+            "lot": 1.5,
+            "open_price": 75340.1,
+            "sl": "---",
+            "target": null,
+            "latency_ms": 216.78,
+            "raw_order": {
+              "id": "74695",
+              "symbol": "X:BTCUSD",
+              "formated_symbol": "BTCUSD",
+              "pair": "xxx",
+              "time": "2026-11-06 07:38:56",
+              "trigger": "0",
+              "type": "market",
+              "lot": "1.5",
+              "bs": "BUY",
+              "sl": "---",
+              "tp": "---",
+              "avg": "75340.1",
+              "t_swap": "0.00",
+              "commission": "0.00",
+              "status": "open",
+              "partiallot": "---",
+              "follower_placement": null,
+              "provider_symbol": "X:BTCUSD",
+              "display_symbol": "X:BTCUSD"
+            }
+          },
+          "ctf1": {
+            "order_id": "74698",
+            "symbol": "X:BTCUSD",
+            "side": "BUY",
+            "lot": 1.5,
+            "open_price": 75340.1,
+            "sl": "---",
+            "target": null,
+            "latency_ms": 217.84,
+            "raw_order": {
+              "id": "74698",
+              "symbol": "X:BTCUSD",
+              "formated_symbol": "BTCUSD",
+              "pair": "xxx",
+              "time": "2026-11-06 07:38:56",
+              "trigger": "0",
+              "type": "market",
+              "lot": "1.5",
+              "bs": "BUY",
+              "sl": "---",
+              "tp": "---",
+              "avg": "75340.1",
+              "t_swap": "0.00",
+              "commission": "0.00",
+              "status": "open",
+              "partiallot": "---",
+              "follower_placement": null,
+              "provider_symbol": "X:BTCUSD",
+              "display_symbol": "X:BTCUSD"
+            }
+          }
+        },
+        "missing_followers": [],
+        "total_wait_sec": 0.22
+      }
+    },
+    {
+      "step_index": 5,
+      "timestamp": "2026-11-06T13:08:57.564888",
+      "name": "STATE_3: Follower ctf1 Manual Close",
+      "action": "GET /book/squareoff.php (Follower Peer Exit)",
+      "endpoint": "https://stage.wavexone.com/book/squareoff.php",
+      "method": "",
+      "latency_ms": 0.0,
+      "request": {},
+      "response": {},
+      "extra": {
+        "order_id": "74698",
+        "response": {
+          "status": "success",
+          "message": "Order ID - 74698  Sent to for Closing",
+          "data": [],
+          "_duration_ms": 211.37
+        }
+      }
+    },
+    {
+      "step_index": 6,
+      "timestamp": "2026-11-06T13:08:59.570095",
+      "name": "STATE_4: ctf5 Unfollows Master While Trade Open",
+      "action": "GET /user/follow.php?type=unfollow",
+      "endpoint": "https://stage.wavexone.com/user/follow.php",
+      "method": "",
+      "latency_ms": 0.0,
+      "request": {},
+      "response": {},
+      "extra": {
+        "status": "success",
+        "message": "Successfully unfollowed to this user",
+        "data": []
+      }
+    },
+    {
+      "step_index": 7,
+      "timestamp": "2026-11-06T13:09:01.229933",
+      "name": "STATE_5: Master Square-Off (Fanout Trigger)",
+      "action": "GET /book/squareoff.php",
+      "endpoint": "https://stage.wavexone.com/book/squareoff.php",
+      "method": "",
+      "latency_ms": 0.0,
+      "request": {},
+      "response": {},
+      "extra": {
+        "master_order_id": "74694",
+        "response": {
+          "status": "success",
+          "message": "Order ID - 74694  Sent to for Closing",
+          "data": [],
+          "_duration_ms": 238.7
+        }
+      }
+    },
+    {
+      "step_index": 8,
+      "timestamp": "2026-11-06T13:09:02.141861",
+      "name": "STATE_5: Fanout Closure Verification",
+      "action": "Poll /book/orders.php across all accounts",
+      "endpoint": "https://stage.wavexone.com/book/orders.php",
+      "method": "",
+      "latency_ms": 0.0,
+      "request": {},
+      "response": {},
+      "extra": {
+        "all_closed": true,
+        "closed_latencies_ms": {
+          "ctf5": 189.2,
+          "ctf1": 215.32,
+          "ctf2": 880.45,
+          "ctf3": 896.21,
+          "ctf4": 896.21,
+          "ctmaster": 896.21
+        },
+        "unclosed_accounts": [],
+        "total_wait_sec": 0.91
+      }
+    },
+    {
+      "step_index": 9,
+      "timestamp": "2026-11-06T13:09:02.319470",
+      "name": "STATE_6: ctf5 Re-Follows Master",
+      "action": "GET /user/follow.php?type=follow",
+      "endpoint": "https://stage.wavexone.com/user/follow.php",
+      "method": "",
+      "latency_ms": 0.0,
+      "request": {},
+      "response": {},
+      "extra": {
+        "status": "success",
+        "message": "Successfully followed this user. Master profit share: 10.00%",
+        "data": {
+          "profit_share": 10
+        }
+      }
+    },
+    {
+      "step_index": 10,
+      "timestamp": "2026-11-06T13:09:05.979574",
+      "name": "STATE_6: SELL Replication After Re-Follow",
+      "action": "Poll /book/orders.php for SELL 1.50 lots",
+      "endpoint": "https://stage.wavexone.com/book/orders.php",
+      "method": "",
+      "latency_ms": 0.0,
+      "request": {},
+      "response": {},
+      "extra": {
+        "all_replicated": true,
+        "replicated_count": 5,
+        "expected_count": 5,
+        "replicated_orders": {
+          "ctf2": {
+            "order_id": "74703",
+            "symbol": "X:BTCUSD",
+            "side": "SELL",
+            "lot": 1.5,
+            "open_price": 75315.5,
+            "sl": "---",
+            "target": null,
+            "latency_ms": 216.16,
+            "raw_order": {
+              "id": "74703",
+              "symbol": "X:BTCUSD",
+              "formated_symbol": "BTCUSD",
+              "pair": "xxx",
+              "time": "2026-11-06 07:39:05",
+              "trigger": "0",
+              "type": "market",
+              "lot": "1.5",
+              "bs": "SELL",
+              "sl": "---",
+              "tp": "---",
+              "avg": "75315.5",
+              "t_swap": "0.00",
+              "commission": "0.00",
+              "status": "open",
+              "partiallot": "---",
+              "follower_placement": null,
+              "provider_symbol": "X:BTCUSD",
+              "display_symbol": "X:BTCUSD"
+            }
+          },
+          "ctf5": {
+            "order_id": "74705",
+            "symbol": "X:BTCUSD",
+            "side": "SELL",
+            "lot": 1.5,
+            "open_price": 75315.5,
+            "sl": "---",
+            "target": null,
+            "latency_ms": 216.16,
+            "raw_order": {
+              "id": "74705",
+              "symbol": "X:BTCUSD",
+              "formated_symbol": "BTCUSD",
+              "pair": "xxx",
+              "time": "2026-11-06 07:39:05",
+              "trigger": "0",
+              "type": "market",
+              "lot": "1.5",
+              "bs": "SELL",
+              "sl": "---",
+              "tp": "---",
+              "avg": "75315.5",
+              "t_swap": "0.00",
+              "commission": "0.00",
+              "status": "open",
+              "partiallot": "---",
+              "follower_placement": null,
+              "provider_symbol": "X:BTCUSD",
+              "display_symbol": "X:BTCUSD"
+            }
+          },
+          "ctf3": {
+            "order_id": "74702",
+            "symbol": "X:BTCUSD",
+            "side": "SELL",
+            "lot": 1.5,
+            "open_price": 75315.5,
+            "sl": "---",
+            "target": null,
+            "latency_ms": 240.07,
+            "raw_order": {
+              "id": "74702",
+              "symbol": "X:BTCUSD",
+              "formated_symbol": "BTCUSD",
+              "pair": "xxx",
+              "time": "2026-11-06 07:39:05",
+              "trigger": "0",
+              "type": "market",
+              "lot": "1.5",
+              "bs": "SELL",
+              "sl": "---",
+              "tp": "---",
+              "avg": "75315.5",
+              "t_swap": "0.00",
+              "commission": "0.00",
+              "status": "open",
+              "partiallot": "---",
+              "follower_placement": null,
+              "provider_symbol": "X:BTCUSD",
+              "display_symbol": "X:BTCUSD"
+            }
+          },
+          "ctf1": {
+            "order_id": "74704",
+            "symbol": "X:BTCUSD",
+            "side": "SELL",
+            "lot": 1.5,
+            "open_price": 75315.5,
+            "sl": "---",
+            "target": null,
+            "latency_ms": 243.29,
+            "raw_order": {
+              "id": "74704",
+              "symbol": "X:BTCUSD",
+              "formated_symbol": "BTCUSD",
+              "pair": "xxx",
+              "time": "2026-11-06 07:39:05",
+              "trigger": "0",
+              "type": "market",
+              "lot": "1.5",
+              "bs": "SELL",
+              "sl": "---",
+              "tp": "---",
+              "avg": "75315.5",
+              "t_swap": "0.00",
+              "commission": "0.00",
+              "status": "open",
+              "partiallot": "---",
+              "follower_placement": null,
+              "provider_symbol": "X:BTCUSD",
+              "display_symbol": "X:BTCUSD"
+            }
+          },
+          "ctf4": {
+            "order_id": "74701",
+            "symbol": "X:BTCUSD",
+            "side": "SELL",
+            "lot": 1.5,
+            "open_price": 75315.5,
+            "sl": "---",
+            "target": null,
+            "latency_ms": 243.29,
+            "raw_order": {
+              "id": "74701",
+              "symbol": "X:BTCUSD",
+              "formated_symbol": "BTCUSD",
+              "pair": "xxx",
+              "time": "2026-11-06 07:39:05",
+              "trigger": "0",
+              "type": "market",
+              "lot": "1.5",
+              "bs": "SELL",
+              "sl": "---",
+              "tp": "---",
+              "avg": "75315.5",
+              "t_swap": "0.00",
+              "commission": "0.00",
+              "status": "open",
+              "partiallot": "---",
+              "follower_placement": null,
+              "provider_symbol": "X:BTCUSD",
+              "display_symbol": "X:BTCUSD"
+            }
+          }
+        },
+        "missing_followers": [],
+        "total_wait_sec": 0.24
+      }
+    },
+    {
+      "step_index": 11,
+      "timestamp": "2026-11-06T13:09:08.145113",
+      "name": "STATE_7: Final Master Square-Off",
+      "action": "GET /book/squareoff.php",
+      "endpoint": "https://stage.wavexone.com/book/squareoff.php",
+      "method": "",
+      "latency_ms": 0.0,
+      "request": {},
+      "response": {},
+      "extra": {
+        "all_closed": true,
+        "closed_latencies_ms": {
+          "ctf2": 908.09,
+          "ctf3": 925.87,
+          "ctmaster": 925.87,
+          "ctf4": 925.87,
+          "ctf5": 1635.66,
+          "ctf1": 1663.69
+        },
+        "unclosed_accounts": [],
+        "total_wait_sec": 1.66
+      }
+    },
+    {
+      "step_index": 12,
+      "timestamp": "2026-11-06T13:09:08.145113",
+      "name": "FSM Traversal Complete",
+      "action": "State History Recorded",
+      "endpoint": "",
+      "method": "",
+      "latency_ms": 0.0,
+      "request": {},
+      "response": {},
+      "extra": {
+        "traversed_states": [
+          "STATE_0_IDLE_CLEAN_SLATE",
+          "STATE_1_HETEROGENEOUS_CONFIGURATION",
+          "STATE_2_MASTER_BUY_OPEN",
+          "STATE_3_PEER_ISOLATION_EXIT",
+          "STATE_4_UNFOLLOW_IN_FLIGHT",
+          "STATE_5_MASTER_SQUAREOFF_FANOUT",
+          "STATE_6_RE_FOLLOW_AND_SELL_OPEN",
+          "STATE_7_FINAL_SQUAREOFF_AND_BASELINE"
+        ],
+        "final_state": "STATE_7_FINAL_SQUAREOFF_AND_BASELINE"
+      }
+    }
+  ]
+}

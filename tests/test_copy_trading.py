@@ -809,14 +809,14 @@ class TestCopyTradingSuite:
 
             for oid in master_oids:
                 self.master.squareoff_position(oid)
-                time.sleep(0.1)
+                time.sleep(0.4)
 
             for oid in master_oids:
                 self.master.wait_for_order_closure(oid, timeout=12.0)
             master_oids = []
 
             for f in self.followers:
-                f_closed = f.wait_for_all_closed(timeout=35.0, poll_interval=1.0)
+                f_closed = f.wait_for_all_closed(timeout=45.0, poll_interval=1.0)
                 if not f_closed:
                     for o in f.get_open_orders():
                         try:

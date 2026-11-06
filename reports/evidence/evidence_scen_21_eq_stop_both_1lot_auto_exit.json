@@ -1,0 +1,21 @@
+{
+  "meta": {
+    "test_id": "evidence_scen_21_eq_stop_both_1lot_auto_exit",
+    "title": "Equity Mode: Stop HFT BOTH 1.00 Lot (Dual Breakout & Auto-Exit, Guarded)",
+    "description": "Master places 1.00 whole lot Stop HFT BOTH under Equity mode with Inconclusive guard.",
+    "environment": "https://stage.wavexone.com",
+    "started_at": "2026-11-05T18:34:10.899762",
+    "completed_at": "2026-11-05T18:34:13.063031",
+    "duration_seconds": 2.16,
+    "status": "FAIL",
+    "error": null
+  },
+  "summary": {
+    "total_steps": 0,
+    "total_assertions": 0,
+    "passed_assertions": 0,
+    "failed_assertions": 0
+  },
+  "assertions": [],
+  "execution_steps": []
+}

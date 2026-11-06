@@ -1,0 +1,145 @@
+{
+  "meta": {
+    "audit_title": "WavexOne Copy Trading Phase 1 (P0) Final Pre-Trade Safety Audit",
+    "target_platform": "https://stage.wavexone.com",
+    "timestamp": "2026-11-06T10:31:30.000000",
+    "overall_status": "PASS",
+    "gating_status": "GATED_AWAITING_EXPLICIT_APPROVAL"
+  },
+  "pytest_execution_verification": {
+    "command": "pytest tests/test_copy_trading_p0.py -m non_trading -v -s",
+    "exit_code": 0,
+    "duration_seconds": 15.08,
+    "total_collected": 8,
+    "passed_count": 2,
+    "failed_count": 0,
+    "deselected_count": 6,
+    "passed_scenarios": [
+      "CT-ACC-01: Authentication & Live Staging Account ID Validation",
+      "CT-FOL-01: Multi-Follower Subscription & Relationship Verification"
+    ],
+    "gated_trading_scenarios": [
+      "CT-MUL-01: Multiplier 3.0x Replication",
+      "CT-MKT-01: Market BUY Replication & SLA",
+      "CT-MKT-02: Market SELL Replication & SLA",
+      "CT-SQO-01: Full Position Square-Off Lifecycle",
+      "CT-FAN-01: Master Square-Off Fanout Completeness",
+      "CT-ISO-01: Follower Peer Isolation"
+    ]
+  },
+  "accounts_and_subscriptions_verification": {
+    "environment_guard": {
+      "base_url": "https://stage.wavexone.com",
+      "host": "stage.wavexone.com",
+      "is_approved_staging": true,
+      "production_switch_prevented": true
+    },
+    "account_identity_lock": {
+      "master": {
+        "configured_name": "ctmaster",
+        "expected_account_id": "11060",
+        "live_account_id": "11060",
+        "uid": "1060",
+        "status": "VERIFIED_LOCKED"
+      },
+      "followers": {
+        "ctf1": { "expected": "11041", "live": "11041", "uid": "1041", "status": "VERIFIED_LOCKED" },
+        "ctf2": { "expected": "11043", "live": "11043", "uid": "1043", "status": "VERIFIED_LOCKED" },
+        "ctf3": { "expected": "11045", "live": "11045", "uid": "1045", "status": "VERIFIED_LOCKED" },
+        "ctf4": { "expected": "11048", "live": "11048", "uid": "1048", "status": "VERIFIED_LOCKED" },
+        "ctf5": { "expected": "11050", "live": "11050", "uid": "1050", "status": "VERIFIED_LOCKED" }
+      }
+    },
+    "subscription_audit": {
+      "verified_endpoint": "/user/copyFollowingList.php",
+      "total_followers_subscribed": 5,
+      "all_target_followers_active": true,
+      "active_copy_method": "multiplier",
+      "active_multiplier_value": "3.0"
+    }
+  },
+  "first_trading_order_risk_assessment": {
+    "target_scenario": "CT-MUL-01 / CT-MKT-01",
+    "symbol": "X:BTCUSD",
+    "direction": "BUY",
+    "order_type": "MARKET",
+    "contract_size": "1.0 BTC per lot",
+    "account_leverage": "1:500",
+    "estimated_cmp": 75500.0,
+    "sizing": {
+      "master_lots": 1.00,
+      "follower_lots_per_account": 3.00,
+      "follower_accounts_count": 5,
+      "total_replicated_lots": 15.00,
+      "total_aggregate_exposure_lots": 16.00
+    },
+    "exposure_and_margin_calculations": {
+      "master": {
+        "notional_value_usd": 75500.00,
+        "required_margin_usd": 151.00,
+        "available_free_margin_usd": 111229634.85,
+        "margin_utilization_pct": 0.000136
+      },
+      "per_follower": {
+        "notional_value_usd": 226500.00,
+        "required_margin_usd": 453.00,
+        "available_free_margin_usd_min": 12113610.04,
+        "margin_utilization_pct": 0.003740
+      },
+      "portfolio_aggregate": {
+        "total_notional_usd": 1208000.00,
+        "total_margin_required_usd": 2416.00,
+        "total_available_capital_usd": 172225912.33,
+        "aggregate_margin_utilization_pct": 0.001403
+      }
+    },
+    "platform_limits_and_safeguards": {
+      "max_lot_restriction": "Allowable (Limit is 50.00-100.00 lots; 1.00 and 3.00 well within range)",
+      "min_lot_restriction": "Allowable (Min is 0.01; step is 0.01)",
+      "spread_markup_buffer": "Follower spread markup is ~5.5 pts on X:BTCUSD. No tight TP/SL placed on initial entry.",
+      "liquidation_risk": "Effectively Zero (Margin utilization is < 0.004%)"
+    },
+    "risk_verdict": "SAFE_TO_EXECUTE_UNDER_GATED_SUPERVISION"
+  },
+  "teardown_verification": {
+    "handler_class": "SafeTeardownHandler",
+    "source_file": "core/copy_trading/safe_teardown.py",
+    "checks_verified": {
+      "market_positions_closed": true,
+      "pending_orders_cancelled": true,
+      "stop_both_residual_bracket_purged": true,
+      "independent_book_polling_verified": true,
+      "hard_failure_on_unclean_state": true,
+      "baseline_multiplier_3x_restored": true
+    }
+  },
+  "preflight_assertions_log": [
+    { "name": "Environment is Staging", "passed": true },
+    { "name": "Master Live Account ID Match (11060)", "passed": true },
+    { "name": "ctf1 Live Account ID Match (11041)", "passed": true },
+    { "name": "ctf2 Live Account ID Match (11043)", "passed": true },
+    { "name": "ctf3 Live Account ID Match (11045)", "passed": true },
+    { "name": "ctf4 Live Account ID Match (11048)", "passed": true },
+    { "name": "ctf5 Live Account ID Match (11050)", "passed": true },
+    { "name": "All 5 Target Followers Active in Subscriptions", "passed": true },
+    { "name": "Initial Open/Pending Orders Count == 0", "passed": true }
+  ],
+  "outstanding_risks_and_limitations": [
+    {
+      "id": "ARCH-01",
+      "severity": "LOW (Documented)",
+      "description": "No user-configurable auto square-off threshold endpoint on Staging (returns 404). Staging relies on broker stop-out."
+    },
+    {
+      "id": "BUG-03",
+      "severity": "MEDIUM (Defensively Mitigated)",
+      "description": "Stop BOTH orders leave residual pending bracket leg upon market auto-close. Mitigated via automated teardown cancellation."
+    },
+    {
+      "id": "PERF-01",
+      "severity": "LOW (Mitigated)",
+      "description": "Staging Apache/PHP connection pool saturation on rapid bursts. Mitigated via mandatory 3.0s inter-test cooling delay."
+    }
+  ]
+}
+

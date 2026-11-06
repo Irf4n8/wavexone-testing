@@ -1,0 +1,141 @@
+{
+  "meta": {
+    "test_id": "evidence_scen_26_auto_squareoff_sl_hit_sell_all_followers",
+    "title": "Copy Trading: Auto Squareoff on Stop Loss Hit (SELL) Across All 5 Followers",
+    "description": "Master places 1.00 whole lot Market SELL with tight Stop Loss offset (10 pts above CMP). When market ticks up to SL, broker engine triggers auto squareoff on Master and all 5 followers auto square off synchronously.",
+    "environment": "https://stage.wavexone.com",
+    "started_at": "2026-11-05T18:46:31.512983",
+    "completed_at": "2026-11-05T18:48:04.105833",
+    "duration_seconds": 92.59,
+    "status": "PASS",
+    "error": null
+  },
+  "summary": {
+    "total_steps": 1,
+    "total_assertions": 11,
+    "passed_assertions": 11,
+    "failed_assertions": 0
+  },
+  "assertions": [
+    {
+      "assertion_index": 1,
+      "name": "Follower ctf1 SL (79588) Propagated",
+      "expected": "79588",
+      "actual": "79588",
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 2,
+      "name": "Follower ctf2 SL (79588) Propagated",
+      "expected": "79588",
+      "actual": "79588",
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 3,
+      "name": "Follower ctf3 SL (79588) Propagated",
+      "expected": "79588",
+      "actual": "79588",
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 4,
+      "name": "Follower ctf4 SL (79588) Propagated",
+      "expected": "79588",
+      "actual": "79588",
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 5,
+      "name": "Follower ctf5 SL (79588) Propagated",
+      "expected": "79588",
+      "actual": "79588",
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 6,
+      "name": "Master Auto Squareoff on SELL SL Hit",
+      "expected": true,
+      "actual": true,
+      "passed": true,
+      "notes": "Closed in 80.03s"
+    },
+    {
+      "assertion_index": 7,
+      "name": "Follower ctf1 Auto Squared Off on Master SELL SL Hit",
+      "expected": true,
+      "actual": true,
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 8,
+      "name": "Follower ctf2 Auto Squared Off on Master SELL SL Hit",
+      "expected": true,
+      "actual": true,
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 9,
+      "name": "Follower ctf3 Auto Squared Off on Master SELL SL Hit",
+      "expected": true,
+      "actual": true,
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 10,
+      "name": "Follower ctf4 Auto Squared Off on Master SELL SL Hit",
+      "expected": true,
+      "actual": true,
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 11,
+      "name": "Follower ctf5 Auto Squared Off on Master SELL SL Hit",
+      "expected": true,
+      "actual": true,
+      "passed": true,
+      "notes": ""
+    }
+  ],
+  "execution_steps": [
+    {
+      "step_index": 1,
+      "timestamp": "2026-11-05T18:46:33.340700",
+      "name": "Master 1.00 Lot SELL with SL",
+      "action": "POST /trade/placeorder.php",
+      "endpoint": "",
+      "method": "",
+      "latency_ms": 0.0,
+      "request": {
+        "lot": 1.0,
+        "sl": "79588.61",
+        "tp": "79078.61"
+      },
+      "response": {
+        "status": "success",
+        "message": "Order accepted for processing",
+        "data": {
+          "orderId": "59993",
+          "intentId": "0eab81d7054cfa35ec875b1dc468c0fe",
+          "executionStatus": "queued",
+          "fanoutJobId": 6986,
+          "fanoutStatus": "queued",
+          "requestId": "legacy_b46cbb50284eec9168b5892ad81c61f1",
+          "placementReplayProtected": true
+        },
+        "_duration_ms": 224.58,
+        "_request_url": "https://stage.wavexone.com/trade/placeorder.php?type=market&bs=sell&lot=1.00&sl=79588.61&target=79078.61&symbol=X:BTCUSD&token=UHZIKS5BXD&clicked=yes&fingerprint=060d191b0e0707726a777e74726273641f45415621_1496"
+      },
+      "extra": {}
+    }
+  ]
+}

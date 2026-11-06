@@ -1,0 +1,161 @@
+{
+  "meta": {
+    "scenario_id": "CT-ADV-01-MOD",
+    "title": "Mid-Trade Order Modification Fanout (Live SL/TP Update)",
+    "category": "Trade Management",
+    "environment": "https://stage.wavexone.com",
+    "started_at": "2026-11-06T17:35:17.884073",
+    "completed_at": "2026-11-06T17:35:29.751010",
+    "duration_seconds": 11.87,
+    "status": "PASS",
+    "error": null
+  },
+  "summary": {
+    "total_steps": 3,
+    "total_assertions": 11,
+    "passed_assertions": 11,
+    "failed_assertions": 0
+  },
+  "assertions": [
+    {
+      "assertion_index": 1,
+      "name": "Initial SL/TP Replicated on All Followers",
+      "expected": true,
+      "actual": true,
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 2,
+      "name": "ctf1 Updated SL Propagated (75692.92)",
+      "expected": "75692.92",
+      "actual": "75692.92",
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 3,
+      "name": "ctf1 Updated TP Propagated (77692.92)",
+      "expected": "77692.92",
+      "actual": "77692.92",
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 4,
+      "name": "ctf2 Updated SL Propagated (75692.92)",
+      "expected": "75692.92",
+      "actual": "75692.92",
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 5,
+      "name": "ctf2 Updated TP Propagated (77692.92)",
+      "expected": "77692.92",
+      "actual": "77692.92",
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 6,
+      "name": "ctf3 Updated SL Propagated (75692.92)",
+      "expected": "75692.92",
+      "actual": "75692.92",
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 7,
+      "name": "ctf3 Updated TP Propagated (77692.92)",
+      "expected": "77692.92",
+      "actual": "77692.92",
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 8,
+      "name": "ctf4 Updated SL Propagated (75692.92)",
+      "expected": "75692.92",
+      "actual": "75692.92",
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 9,
+      "name": "ctf4 Updated TP Propagated (77692.92)",
+      "expected": "77692.92",
+      "actual": "77692.92",
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 10,
+      "name": "ctf5 Updated SL Propagated (75692.92)",
+      "expected": "75692.92",
+      "actual": "75692.92",
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 11,
+      "name": "ctf5 Updated TP Propagated (77692.92)",
+      "expected": "77692.92",
+      "actual": "77692.92",
+      "passed": true,
+      "notes": ""
+    }
+  ],
+  "execution_steps": [
+    {
+      "step_index": 1,
+      "timestamp": "2026-11-06T17:35:22.209280",
+      "name": "Master Placed 0.50 BUY",
+      "action": "POST /trade/placeorder.php",
+      "endpoint": "",
+      "method": "",
+      "latency_ms": 0.0,
+      "request": {},
+      "response": {},
+      "extra": {
+        "order_id": "77694",
+        "sl": "75092.92",
+        "tp": "77092.92"
+      }
+    },
+    {
+      "step_index": 2,
+      "timestamp": "2026-11-06T17:35:23.781408",
+      "name": "Master Modified StopLoss",
+      "action": "GET /book/modify.php?id=77694&name=StopLoss&val=75692.92",
+      "endpoint": "",
+      "method": "",
+      "latency_ms": 0.0,
+      "request": {},
+      "response": {},
+      "extra": {
+        "status": "success",
+        "message": "Stop Loss for ID - 77694  Updated to 75692.92",
+        "data": [],
+        "_duration_ms": 328.27
+      }
+    },
+    {
+      "step_index": 3,
+      "timestamp": "2026-11-06T17:35:24.296640",
+      "name": "Master Modified Target",
+      "action": "GET /book/modify.php?id=77694&name=Target&val=77692.92",
+      "endpoint": "",
+      "method": "",
+      "latency_ms": 0.0,
+      "request": {},
+      "response": {},
+      "extra": {
+        "status": "success",
+        "message": "Target for ID - 77694  Updated to 77692.92",
+        "data": [],
+        "_duration_ms": 307.65
+      }
+    }
+  ]
+}

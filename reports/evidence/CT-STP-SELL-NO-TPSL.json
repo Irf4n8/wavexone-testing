@@ -1,0 +1,52 @@
+{
+  "meta": {
+    "scenario_id": "CT-STP-SELL-NO-TPSL",
+    "title": "Stop HFT SELL WITHOUT TP/SL (0.50 Master -> 1.50 Follower)",
+    "category": "Stop HFT Orders",
+    "environment": "https://stage.wavexone.com",
+    "started_at": "2026-11-06T14:20:50.814884",
+    "completed_at": "2026-11-06T14:20:55.983905",
+    "duration_seconds": 5.17,
+    "status": "PASS",
+    "error": null
+  },
+  "summary": {
+    "total_steps": 1,
+    "total_assertions": 1,
+    "passed_assertions": 1,
+    "failed_assertions": 0
+  },
+  "assertions": [
+    {
+      "assertion_index": 1,
+      "name": "Followers Replicated Stop HFT SELL",
+      "expected": 5,
+      "actual": 5,
+      "passed": true,
+      "notes": ""
+    }
+  ],
+  "execution_steps": [
+    {
+      "step_index": 1,
+      "timestamp": "2026-11-06T14:20:52.760261",
+      "name": "Master Stop HFT SELL",
+      "action": "POST /trade/placeorder.php",
+      "endpoint": "",
+      "method": "",
+      "latency_ms": 0.0,
+      "request": {},
+      "response": {},
+      "extra": {
+        "status": "success",
+        "message": "Order Placed Successfully",
+        "data": {
+          "orderId": 74964,
+          "time": 0.038522958755493164
+        },
+        "_duration_ms": 235.24,
+        "_request_url": "https://stage.wavexone.com/trade/placeorder.php?type=stop&bs=sell&lotb=1.00&slb=&targetb=&triggerb=&lots=0.50&sls=&targets=&triggers=75334.07&symbol=X:BTCUSD&stop_hft_type=0&token=[REDACTED]&clicked=yes&fingerprint=[REDACTED]"
+      }
+    }
+  ]
+}

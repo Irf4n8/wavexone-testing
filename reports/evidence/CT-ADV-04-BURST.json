@@ -1,0 +1,93 @@
+{
+  "meta": {
+    "scenario_id": "CT-ADV-04-BURST",
+    "title": "Rapid-Fire Scalping Burst Concurrency Test (4 Fast Orders)",
+    "category": "Stress & Concurrency",
+    "environment": "https://stage.wavexone.com",
+    "started_at": "2026-11-06T17:36:09.152147",
+    "completed_at": "2026-11-06T17:36:24.912429",
+    "duration_seconds": 15.76,
+    "status": "PASS",
+    "error": null
+  },
+  "summary": {
+    "total_steps": 1,
+    "total_assertions": 7,
+    "passed_assertions": 7,
+    "failed_assertions": 0
+  },
+  "assertions": [
+    {
+      "assertion_index": 1,
+      "name": "Master Has 4 Open Positions",
+      "expected": 4,
+      "actual": 4,
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 2,
+      "name": "ctf1 Replicated All 4 Burst Orders",
+      "expected": 4,
+      "actual": 4,
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 3,
+      "name": "ctf2 Replicated All 4 Burst Orders",
+      "expected": 4,
+      "actual": 4,
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 4,
+      "name": "ctf3 Replicated All 4 Burst Orders",
+      "expected": 4,
+      "actual": 4,
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 5,
+      "name": "ctf4 Replicated All 4 Burst Orders",
+      "expected": 4,
+      "actual": 4,
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 6,
+      "name": "ctf5 Replicated All 4 Burst Orders",
+      "expected": 4,
+      "actual": 4,
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 7,
+      "name": "Mass Square-Off Clean Slate Verified",
+      "expected": true,
+      "actual": true,
+      "passed": true,
+      "notes": ""
+    }
+  ],
+  "execution_steps": [
+    {
+      "step_index": 1,
+      "timestamp": "2026-11-06T17:36:13.413627",
+      "name": "Fired 4 Rapid Orders",
+      "action": "POST /trade/placeorder.php x4",
+      "endpoint": "",
+      "method": "",
+      "latency_ms": 0.0,
+      "request": {},
+      "response": {},
+      "extra": {
+        "burst_duration_sec": 3.09
+      }
+    }
+  ]
+}

@@ -179,9 +179,10 @@ class WavexUserSession:
         expected_lot: Optional[float] = None,
         order_type: Optional[str] = None,
         timeout: float = 10.0,
-        poll_interval: float = 0.5
+        poll_interval: float = 0.5,
+        require_price: bool = True
     ) -> Optional[Dict[str, Any]]:
-        """Poll /book/orders.php every 500ms until order is verified in book."""
+        """Poll /book/orders.php every 500ms until order is verified in book with filled price."""
         start_time = time.time()
         while time.time() - start_time < timeout:
             orders = self.get_open_orders()
@@ -195,6 +196,14 @@ class WavexUserSession:
                 if expected_lot is not None:
                     actual_lot = float(o.get("lot", 0))
                     if abs(actual_lot - expected_lot) > 0.001:
+                        continue
+                if require_price and str(o.get("type", "")).lower() == "market":
+                    raw_p = o.get("avg") or o.get("open_price") or o.get("price") or ""
+                    try:
+                        p_val = float(raw_p)
+                        if p_val <= 0.0:
+                            continue
+                    except (ValueError, TypeError):
                         continue
                 return o
             time.sleep(poll_interval)
@@ -277,10 +286,13 @@ class WavexUserSession:
             dur = round((time.time() - start_t) * 1000, 2)
             try:
                 data = res.json()
+                if isinstance(data, list):
+                    data = {"status": "success", "data": data}
             except Exception:
                 data = {"status": "raw", "text": res.text}
-            data["_duration_ms"] = dur
-            data["_request_url"] = url
+            if isinstance(data, dict):
+                data["_duration_ms"] = dur
+                data["_request_url"] = url
             self._log_call(WavexSettings.PLACE_ORDER_ENDPOINT, "GET", dur, res.status_code, query, data)
             return data
         except Exception as e:
@@ -488,9 +500,9 @@ class WavexUserSession:
             return {"status": "error", "message": str(e)}
 
     def get_copy_followers(self) -> List[Dict[str, Any]]:
-        """Get Copy Trading followers subscribed to this master."""
+        """Get Copy Trading followers subscribed to this master via copyFollowingList.php."""
         try:
-            res = self.session.get(f"{WavexSettings.COPY_MASTER_FOLLOWERS_ENDPOINT}?token={self.token}", timeout=10)
+            res = self.session.get(f"{WavexSettings.COPY_FOLLOWERS_ENDPOINT}?token={self.token}", timeout=10)
             data = res.json()
             followers_raw = data.get("data", {}).get("copyFollowersList", "[]")
             return json.loads(followers_raw) if isinstance(followers_raw, str) else followers_raw

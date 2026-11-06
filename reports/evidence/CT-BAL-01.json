@@ -1,0 +1,590 @@
+{
+  "meta": {
+    "scenario_id": "CT-BAL-01",
+    "title": "Proportional Balance-Based Copy Trading (0.50 Master Lot -> Dynamic Balance Ratio Sizing)",
+    "category": "Balance-Based Copy Trading",
+    "environment": "https://stage.wavexone.com",
+    "started_at": "2026-11-06T13:00:39.770309",
+    "completed_at": "2026-11-06T13:00:46.807637",
+    "duration_seconds": 7.04,
+    "status": "PASS",
+    "error": null
+  },
+  "summary": {
+    "total_steps": 7,
+    "total_assertions": 34,
+    "passed_assertions": 34,
+    "failed_assertions": 0
+  },
+  "assertions": [
+    {
+      "assertion_index": 1,
+      "name": "Pre-Flight Zero Open Orders",
+      "expected": true,
+      "actual": true,
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 2,
+      "name": "All Followers Switched to Balance Mode",
+      "expected": true,
+      "actual": true,
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 3,
+      "name": "ctf1 Balance Ratio Lot Calculation",
+      "expected": "0.05",
+      "actual": "0.05",
+      "passed": true,
+      "notes": "Master Bal: $111,221,391.58, Follower Bal: $12,176,071.42, Ratio: 0.1095"
+    },
+    {
+      "assertion_index": 4,
+      "name": "ctf2 Balance Ratio Lot Calculation",
+      "expected": "0.05",
+      "actual": "0.05",
+      "passed": true,
+      "notes": "Master Bal: $111,221,391.58, Follower Bal: $12,148,831.62, Ratio: 0.1092"
+    },
+    {
+      "assertion_index": 5,
+      "name": "ctf3 Balance Ratio Lot Calculation",
+      "expected": "0.05",
+      "actual": "0.05",
+      "passed": true,
+      "notes": "Master Bal: $111,221,391.58, Follower Bal: $12,051,658.73, Ratio: 0.1084"
+    },
+    {
+      "assertion_index": 6,
+      "name": "ctf4 Balance Ratio Lot Calculation",
+      "expected": "0.05",
+      "actual": "0.05",
+      "passed": true,
+      "notes": "Master Bal: $111,221,391.58, Follower Bal: $12,052,297.64, Ratio: 0.1084"
+    },
+    {
+      "assertion_index": 7,
+      "name": "ctf5 Balance Ratio Lot Calculation",
+      "expected": "0.05",
+      "actual": "0.05",
+      "passed": true,
+      "notes": "Master Bal: $111,221,391.58, Follower Bal: $12,051,370.44, Ratio: 0.1084"
+    },
+    {
+      "assertion_index": 8,
+      "name": "Master Order Found in Book",
+      "expected": true,
+      "actual": true,
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 9,
+      "name": "Master Lot Size is 0.50",
+      "expected": 0.5,
+      "actual": 0.5,
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 10,
+      "name": "Master Fill Price Valid",
+      "expected": true,
+      "actual": true,
+      "passed": true,
+      "notes": "Master price: 75206.1"
+    },
+    {
+      "assertion_index": 11,
+      "name": "All 5 Followers Replicated",
+      "expected": true,
+      "actual": true,
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 12,
+      "name": "Replicated Count == 5",
+      "expected": 5,
+      "actual": 5,
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 13,
+      "name": "ctf2 Balance Mode Lot Size == 0.05",
+      "expected": 0.05,
+      "actual": 0.05,
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 14,
+      "name": "ctf2 Replication Latency <= 2.5s",
+      "expected": "<= 2500ms",
+      "actual": "202.03ms",
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 15,
+      "name": "ctf2 Price Spread Markup Buffer Valid",
+      "expected": "<= 12.0 pts",
+      "actual": "1.0 pts",
+      "passed": true,
+      "notes": "Master: 75206.1, Follower: 75207.1"
+    },
+    {
+      "assertion_index": 16,
+      "name": "ctf1 Balance Mode Lot Size == 0.05",
+      "expected": 0.05,
+      "actual": 0.05,
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 17,
+      "name": "ctf1 Replication Latency <= 2.5s",
+      "expected": "<= 2500ms",
+      "actual": "202.03ms",
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 18,
+      "name": "ctf1 Price Spread Markup Buffer Valid",
+      "expected": "<= 12.0 pts",
+      "actual": "0.2 pts",
+      "passed": true,
+      "notes": "Master: 75206.1, Follower: 75206.3"
+    },
+    {
+      "assertion_index": 19,
+      "name": "ctf4 Balance Mode Lot Size == 0.05",
+      "expected": 0.05,
+      "actual": 0.05,
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 20,
+      "name": "ctf4 Replication Latency <= 2.5s",
+      "expected": "<= 2500ms",
+      "actual": "203.26ms",
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 21,
+      "name": "ctf4 Price Spread Markup Buffer Valid",
+      "expected": "<= 12.0 pts",
+      "actual": "0.2 pts",
+      "passed": true,
+      "notes": "Master: 75206.1, Follower: 75206.3"
+    },
+    {
+      "assertion_index": 22,
+      "name": "ctf5 Balance Mode Lot Size == 0.05",
+      "expected": 0.05,
+      "actual": 0.05,
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 23,
+      "name": "ctf5 Replication Latency <= 2.5s",
+      "expected": "<= 2500ms",
+      "actual": "203.26ms",
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 24,
+      "name": "ctf5 Price Spread Markup Buffer Valid",
+      "expected": "<= 12.0 pts",
+      "actual": "1.0 pts",
+      "passed": true,
+      "notes": "Master: 75206.1, Follower: 75207.1"
+    },
+    {
+      "assertion_index": 25,
+      "name": "ctf3 Balance Mode Lot Size == 0.05",
+      "expected": 0.05,
+      "actual": 0.05,
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 26,
+      "name": "ctf3 Replication Latency <= 2.5s",
+      "expected": "<= 2500ms",
+      "actual": "218.62ms",
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 27,
+      "name": "ctf3 Price Spread Markup Buffer Valid",
+      "expected": "<= 12.0 pts",
+      "actual": "0.2 pts",
+      "passed": true,
+      "notes": "Master: 75206.1, Follower: 75206.3"
+    },
+    {
+      "assertion_index": 28,
+      "name": "All Positions Cleanly Liquidated",
+      "expected": true,
+      "actual": true,
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 29,
+      "name": "ctmaster Closure Latency <= 3.5s",
+      "expected": "<= 3500ms",
+      "actual": "923.33ms",
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 30,
+      "name": "ctf5 Closure Latency <= 3.5s",
+      "expected": "<= 3500ms",
+      "actual": "924.35ms",
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 31,
+      "name": "ctf4 Closure Latency <= 3.5s",
+      "expected": "<= 3500ms",
+      "actual": "924.35ms",
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 32,
+      "name": "ctf1 Closure Latency <= 3.5s",
+      "expected": "<= 3500ms",
+      "actual": "924.35ms",
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 33,
+      "name": "ctf2 Closure Latency <= 3.5s",
+      "expected": "<= 3500ms",
+      "actual": "924.35ms",
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 34,
+      "name": "ctf3 Closure Latency <= 3.5s",
+      "expected": "<= 3500ms",
+      "actual": "948.51ms",
+      "passed": true,
+      "notes": ""
+    }
+  ],
+  "execution_steps": [
+    {
+      "step_index": 1,
+      "timestamp": "2026-11-06T13:00:39.770309",
+      "name": "Pre-Flight Order Book Verification",
+      "action": "Check 0 open orders",
+      "endpoint": "https://stage.wavexone.com/book/orders.php",
+      "method": "",
+      "latency_ms": 0.0,
+      "request": {},
+      "response": {},
+      "extra": {}
+    },
+    {
+      "step_index": 2,
+      "timestamp": "2026-11-06T13:00:40.925354",
+      "name": "Switch Followers to Balance Mode",
+      "action": "GET /user/updateCopyTradingMethod.php?method=balance",
+      "endpoint": "https://stage.wavexone.com/user/updateCopyTradingMethod.php",
+      "method": "",
+      "latency_ms": 0.0,
+      "request": {},
+      "response": {},
+      "extra": {}
+    },
+    {
+      "step_index": 3,
+      "timestamp": "2026-11-06T13:00:43.611790",
+      "name": "Capture Balances & Compute Expected Lots",
+      "action": "GET /book/balance.php",
+      "endpoint": "https://stage.wavexone.com/book/balance.php",
+      "method": "",
+      "latency_ms": 0.0,
+      "request": {},
+      "response": {},
+      "extra": {
+        "master_balance": 111221391.58,
+        "expected_lots": {
+          "ctf1": 0.05,
+          "ctf2": 0.05,
+          "ctf3": 0.05,
+          "ctf4": 0.05,
+          "ctf5": 0.05
+        }
+      }
+    },
+    {
+      "step_index": 4,
+      "timestamp": "2026-11-06T13:00:44.024910",
+      "name": "Master Place Market BUY 0.50 Lot",
+      "action": "POST /trade/placeorder.php",
+      "endpoint": "https://stage.wavexone.com/trade/placeorder.php",
+      "method": "POST",
+      "latency_ms": 412.1,
+      "request": {
+        "symbol": "X:BTCUSD",
+        "side": "buy",
+        "lot": 0.5,
+        "type": "market"
+      },
+      "response": {
+        "status": "success",
+        "message": "Order accepted for processing",
+        "data": {
+          "orderId": "74662",
+          "intentId": "2ab3eddd0a2056888df056b6d61bd015",
+          "executionStatus": "queued",
+          "fanoutJobId": 9398,
+          "fanoutStatus": "queued",
+          "requestId": "legacy_45f8db336858424076b110a640492782",
+          "placementReplayProtected": true
+        },
+        "_duration_ms": 222.34,
+        "_request_url": "https://stage.wavexone.com/trade/placeorder.php?type=market&bs=buy&lot=0.50&sl=&target=&symbol=X:BTCUSD&token=[REDACTED]&clicked=yes&fingerprint=[REDACTED]"
+      },
+      "extra": {}
+    },
+    {
+      "step_index": 5,
+      "timestamp": "2026-11-06T13:00:45.428088",
+      "name": "Poll Follower Order Books for Dynamic Balance Replication",
+      "action": "Concurrent separate read polling /book/orders.php",
+      "endpoint": "https://stage.wavexone.com/book/orders.php",
+      "method": "GET",
+      "latency_ms": 219.76,
+      "request": {},
+      "response": {},
+      "extra": {
+        "all_replicated": true,
+        "replicated_count": 5,
+        "expected_count": 5,
+        "replicated_orders": {
+          "ctf2": {
+            "order_id": "74666",
+            "symbol": "X:BTCUSD",
+            "side": "BUY",
+            "lot": 0.05,
+            "open_price": 75207.1,
+            "sl": "---",
+            "target": null,
+            "latency_ms": 202.03,
+            "raw_order": {
+              "id": "74666",
+              "symbol": "X:BTCUSD",
+              "formated_symbol": "BTCUSD",
+              "pair": "xxx",
+              "time": "2026-11-06 07:30:44",
+              "trigger": "0",
+              "type": "market",
+              "lot": "0.05",
+              "bs": "BUY",
+              "sl": "---",
+              "tp": "---",
+              "avg": "75207.1",
+              "t_swap": "0.00",
+              "commission": "0.00",
+              "status": "open",
+              "partiallot": "---",
+              "follower_placement": null,
+              "provider_symbol": "X:BTCUSD",
+              "display_symbol": "X:BTCUSD"
+            }
+          },
+          "ctf1": {
+            "order_id": "74667",
+            "symbol": "X:BTCUSD",
+            "side": "BUY",
+            "lot": 0.05,
+            "open_price": 75206.3,
+            "sl": "---",
+            "target": null,
+            "latency_ms": 202.03,
+            "raw_order": {
+              "id": "74667",
+              "symbol": "X:BTCUSD",
+              "formated_symbol": "BTCUSD",
+              "pair": "xxx",
+              "time": "2026-11-06 07:30:44",
+              "trigger": "0",
+              "type": "market",
+              "lot": "0.05",
+              "bs": "BUY",
+              "sl": "---",
+              "tp": "---",
+              "avg": "75206.3",
+              "t_swap": "0.00",
+              "commission": "0.00",
+              "status": "open",
+              "partiallot": "---",
+              "follower_placement": null,
+              "provider_symbol": "X:BTCUSD",
+              "display_symbol": "X:BTCUSD"
+            }
+          },
+          "ctf4": {
+            "order_id": "74664",
+            "symbol": "X:BTCUSD",
+            "side": "BUY",
+            "lot": 0.05,
+            "open_price": 75206.3,
+            "sl": "---",
+            "target": null,
+            "latency_ms": 203.26,
+            "raw_order": {
+              "id": "74664",
+              "symbol": "X:BTCUSD",
+              "formated_symbol": "BTCUSD",
+              "pair": "xxx",
+              "time": "2026-11-06 07:30:44",
+              "trigger": "0",
+              "type": "market",
+              "lot": "0.05",
+              "bs": "BUY",
+              "sl": "---",
+              "tp": "---",
+              "avg": "75206.3",
+              "t_swap": "0.00",
+              "commission": "0.00",
+              "status": "open",
+              "partiallot": "---",
+              "follower_placement": null,
+              "provider_symbol": "X:BTCUSD",
+              "display_symbol": "X:BTCUSD"
+            }
+          },
+          "ctf5": {
+            "order_id": "74663",
+            "symbol": "X:BTCUSD",
+            "side": "BUY",
+            "lot": 0.05,
+            "open_price": 75207.1,
+            "sl": "---",
+            "target": null,
+            "latency_ms": 203.26,
+            "raw_order": {
+              "id": "74663",
+              "symbol": "X:BTCUSD",
+              "formated_symbol": "BTCUSD",
+              "pair": "xxx",
+              "time": "2026-11-06 07:30:44",
+              "trigger": "0",
+              "type": "market",
+              "lot": "0.05",
+              "bs": "BUY",
+              "sl": "---",
+              "tp": "---",
+              "avg": "75207.1",
+              "t_swap": "0.00",
+              "commission": "0.00",
+              "status": "open",
+              "partiallot": "---",
+              "follower_placement": null,
+              "provider_symbol": "X:BTCUSD",
+              "display_symbol": "X:BTCUSD"
+            }
+          },
+          "ctf3": {
+            "order_id": "74665",
+            "symbol": "X:BTCUSD",
+            "side": "BUY",
+            "lot": 0.05,
+            "open_price": 75206.3,
+            "sl": "---",
+            "target": null,
+            "latency_ms": 218.62,
+            "raw_order": {
+              "id": "74665",
+              "symbol": "X:BTCUSD",
+              "formated_symbol": "BTCUSD",
+              "pair": "xxx",
+              "time": "2026-11-06 07:30:44",
+              "trigger": "0",
+              "type": "market",
+              "lot": "0.05",
+              "bs": "BUY",
+              "sl": "---",
+              "tp": "---",
+              "avg": "75206.3",
+              "t_swap": "0.00",
+              "commission": "0.00",
+              "status": "open",
+              "partiallot": "---",
+              "follower_placement": null,
+              "provider_symbol": "X:BTCUSD",
+              "display_symbol": "X:BTCUSD"
+            }
+          }
+        },
+        "missing_followers": [],
+        "total_wait_sec": 0.22
+      }
+    },
+    {
+      "step_index": 6,
+      "timestamp": "2026-11-06T13:00:45.859126",
+      "name": "Master Square-Off Position",
+      "action": "GET /book/squareoff.php",
+      "endpoint": "https://stage.wavexone.com/book/squareoff.php",
+      "method": "GET",
+      "latency_ms": 0.0,
+      "request": {},
+      "response": {},
+      "extra": {
+        "master_order_id": "74662",
+        "response": {
+          "status": "success",
+          "message": "Order ID - 74662  Sent to for Closing",
+          "data": [],
+          "_duration_ms": 230.72
+        }
+      }
+    },
+    {
+      "step_index": 7,
+      "timestamp": "2026-11-06T13:00:46.807637",
+      "name": "Verify Clean Full Liquidation",
+      "action": "Poll /book/orders.php across all 6 accounts",
+      "endpoint": "https://stage.wavexone.com/book/orders.php",
+      "method": "GET",
+      "latency_ms": 0.0,
+      "request": {},
+      "response": {},
+      "extra": {
+        "all_closed": true,
+        "closed_latencies_ms": {
+          "ctmaster": 923.33,
+          "ctf5": 924.35,
+          "ctf4": 924.35,
+          "ctf1": 924.35,
+          "ctf2": 924.35,
+          "ctf3": 948.51
+        },
+        "unclosed_accounts": [],
+        "total_wait_sec": 0.95
+      }
+    }
+  ]
+}

@@ -1,0 +1,911 @@
+{
+  "timestamp": "2026-11-05T19:08:31.630563",
+  "total_scenarios": 100,
+  "pass_count": 36,
+  "fail_count": 12,
+  "inconclusive_count": 51,
+  "blocked_count": 1,
+  "execution_duration_sec": 603.96,
+  "scenarios": [
+    {
+      "scenario_id": "BS01",
+      "title": "Balance above configured threshold",
+      "category": "A",
+      "priority": "P0",
+      "status": "INCONCLUSIVE",
+      "duration_sec": 2.18,
+      "notes": "INCONCLUSIVE: WavexOne staging does not have a user/account-level balance threshold configuration endpoint."
+    },
+    {
+      "scenario_id": "BS02",
+      "title": "Balance exactly equal to threshold",
+      "category": "A",
+      "priority": "P0",
+      "status": "INCONCLUSIVE",
+      "duration_sec": 2.13,
+      "notes": "INCONCLUSIVE: WavexOne staging lacks a balance threshold configuration API."
+    },
+    {
+      "scenario_id": "BS03",
+      "title": "Balance below threshold",
+      "category": "A",
+      "priority": "P0",
+      "status": "INCONCLUSIVE",
+      "duration_sec": 2.16,
+      "notes": "INCONCLUSIVE: WavexOne staging lacks a balance threshold configuration API."
+    },
+    {
+      "scenario_id": "BS04",
+      "title": "Balance significantly below threshold",
+      "category": "A",
+      "priority": "P0",
+      "status": "INCONCLUSIVE",
+      "duration_sec": 2.13,
+      "notes": "INCONCLUSIVE: WavexOne staging lacks a balance threshold configuration API."
+    },
+    {
+      "scenario_id": "BS05",
+      "title": "Balance slightly above threshold",
+      "category": "A",
+      "priority": "P0",
+      "status": "INCONCLUSIVE",
+      "duration_sec": 2.17,
+      "notes": "INCONCLUSIVE: WavexOne staging lacks a balance threshold configuration API."
+    },
+    {
+      "scenario_id": "BS06",
+      "title": "Balance slightly below threshold",
+      "category": "A",
+      "priority": "P0",
+      "status": "INCONCLUSIVE",
+      "duration_sec": 2.14,
+      "notes": "INCONCLUSIVE: WavexOne staging lacks a balance threshold configuration API."
+    },
+    {
+      "scenario_id": "BS07",
+      "title": "Threshold set to zero",
+      "category": "A",
+      "priority": "P1",
+      "status": "INCONCLUSIVE",
+      "duration_sec": 2.11,
+      "notes": "INCONCLUSIVE: Balance threshold configuration endpoint unavailable on Staging."
+    },
+    {
+      "scenario_id": "BS08",
+      "title": "Negative threshold validation",
+      "category": "A",
+      "priority": "P1",
+      "status": "INCONCLUSIVE",
+      "duration_sec": 2.11,
+      "notes": "INCONCLUSIVE: Balance threshold configuration endpoint unavailable on Staging."
+    },
+    {
+      "scenario_id": "BS09",
+      "title": "Threshold greater than current balance",
+      "category": "A",
+      "priority": "P1",
+      "status": "INCONCLUSIVE",
+      "duration_sec": 2.11,
+      "notes": "INCONCLUSIVE: Balance threshold configuration endpoint unavailable on Staging."
+    },
+    {
+      "scenario_id": "BS10",
+      "title": "Change threshold while positions are open",
+      "category": "A",
+      "priority": "P1",
+      "status": "INCONCLUSIVE",
+      "duration_sec": 2.15,
+      "notes": "INCONCLUSIVE: Balance threshold configuration endpoint unavailable on Staging."
+    },
+    {
+      "scenario_id": "BS11",
+      "title": "Balance decreases after a losing trade is closed",
+      "category": "B",
+      "priority": "P1",
+      "status": "PASS",
+      "duration_sec": 6.31,
+      "notes": ""
+    },
+    {
+      "scenario_id": "BS12",
+      "title": "Balance decreases after multiple losing trades",
+      "category": "B",
+      "priority": "P1",
+      "status": "PASS",
+      "duration_sec": 11.01,
+      "notes": ""
+    },
+    {
+      "scenario_id": "BS13",
+      "title": "Balance decreases after a profitable trade and charges",
+      "category": "B",
+      "priority": "P1",
+      "status": "PASS",
+      "duration_sec": 2.33,
+      "notes": ""
+    },
+    {
+      "scenario_id": "BS14",
+      "title": "Balance increases after a profitable trade",
+      "category": "B",
+      "priority": "P1",
+      "status": "PASS",
+      "duration_sec": 2.38,
+      "notes": ""
+    },
+    {
+      "scenario_id": "BS15",
+      "title": "Balance changes after deposit",
+      "category": "B",
+      "priority": "P1",
+      "status": "INCONCLUSIVE",
+      "duration_sec": 2.15,
+      "notes": "INCONCLUSIVE: Staging deposit requires approved payment gateway transaction."
+    },
+    {
+      "scenario_id": "BS16",
+      "title": "Balance changes after withdrawal",
+      "category": "B",
+      "priority": "P1",
+      "status": "INCONCLUSIVE",
+      "duration_sec": 2.21,
+      "notes": "INCONCLUSIVE: Staging withdrawal requires OTP and manual portal approval."
+    },
+    {
+      "scenario_id": "BS17",
+      "title": "Balance changes due to commission",
+      "category": "B",
+      "priority": "P1",
+      "status": "PASS",
+      "duration_sec": 2.29,
+      "notes": ""
+    },
+    {
+      "scenario_id": "BS18",
+      "title": "Balance changes due to swap charges",
+      "category": "B",
+      "priority": "P1",
+      "status": "INCONCLUSIVE",
+      "duration_sec": 2.12,
+      "notes": "INCONCLUSIVE: Swap charges require overnight 00:00 server rollover."
+    },
+    {
+      "scenario_id": "BS19",
+      "title": "Balance changes due to broker adjustments",
+      "category": "B",
+      "priority": "P1",
+      "status": "INCONCLUSIVE",
+      "duration_sec": 2.2,
+      "notes": "INCONCLUSIVE: Broker balance adjustment requires administrator portal access."
+    },
+    {
+      "scenario_id": "BS20",
+      "title": "Multiple balance changes occur rapidly",
+      "category": "B",
+      "priority": "P1",
+      "status": "PASS",
+      "duration_sec": 5.38,
+      "notes": ""
+    },
+    {
+      "scenario_id": "BS21",
+      "title": "Balance above threshold but equity below threshold",
+      "category": "C",
+      "priority": "P0",
+      "status": "INCONCLUSIVE",
+      "duration_sec": 2.21,
+      "notes": "INCONCLUSIVE: Threshold configuration endpoint unavailable; Staging returns static equity==balance."
+    },
+    {
+      "scenario_id": "BS22",
+      "title": "Balance below threshold but equity above threshold",
+      "category": "C",
+      "priority": "P0",
+      "status": "INCONCLUSIVE",
+      "duration_sec": 2.22,
+      "notes": "INCONCLUSIVE: Threshold configuration endpoint unavailable on Staging."
+    },
+    {
+      "scenario_id": "BS23",
+      "title": "Balance unchanged while floating loss increases",
+      "category": "C",
+      "priority": "P0",
+      "status": "PASS",
+      "duration_sec": 7.35,
+      "notes": ""
+    },
+    {
+      "scenario_id": "BS24",
+      "title": "Balance unchanged while floating profit increases",
+      "category": "C",
+      "priority": "P0",
+      "status": "PASS",
+      "duration_sec": 7.37,
+      "notes": ""
+    },
+    {
+      "scenario_id": "BS25",
+      "title": "Balance and equity both below threshold",
+      "category": "C",
+      "priority": "P0",
+      "status": "INCONCLUSIVE",
+      "duration_sec": 2.11,
+      "notes": "INCONCLUSIVE: Balance threshold configuration endpoint unavailable on Staging."
+    },
+    {
+      "scenario_id": "BS26",
+      "title": "Balance and equity both above threshold",
+      "category": "C",
+      "priority": "P0",
+      "status": "INCONCLUSIVE",
+      "duration_sec": 2.11,
+      "notes": "INCONCLUSIVE: Balance threshold configuration endpoint unavailable on Staging."
+    },
+    {
+      "scenario_id": "BS27",
+      "title": "Free margin below threshold while balance remains above",
+      "category": "C",
+      "priority": "P0",
+      "status": "PASS",
+      "duration_sec": 2.3,
+      "notes": ""
+    },
+    {
+      "scenario_id": "BS28",
+      "title": "Master balance reaches threshold",
+      "category": "D",
+      "priority": "P0",
+      "status": "INCONCLUSIVE",
+      "duration_sec": 2.12,
+      "notes": "INCONCLUSIVE: Balance threshold configuration endpoint unavailable on Staging."
+    },
+    {
+      "scenario_id": "BS29",
+      "title": "Master balance falls below threshold with multiple positions",
+      "category": "D",
+      "priority": "P0",
+      "status": "INCONCLUSIVE",
+      "duration_sec": 2.19,
+      "notes": "INCONCLUSIVE: Balance threshold configuration endpoint unavailable on Staging."
+    },
+    {
+      "scenario_id": "BS30",
+      "title": "Master triggers square-off with five followers",
+      "category": "D",
+      "priority": "P0",
+      "status": "PASS",
+      "duration_sec": 7.97,
+      "notes": ""
+    },
+    {
+      "scenario_id": "BS31",
+      "title": "Master square-off with followers using different multipliers",
+      "category": "D",
+      "priority": "P1",
+      "status": "PASS",
+      "duration_sec": 8.53,
+      "notes": ""
+    },
+    {
+      "scenario_id": "BS32",
+      "title": "Master reaches threshold with no open positions",
+      "category": "D",
+      "priority": "P1",
+      "status": "INCONCLUSIVE",
+      "duration_sec": 2.12,
+      "notes": "INCONCLUSIVE: Threshold configuration endpoint unavailable."
+    },
+    {
+      "scenario_id": "BS33",
+      "title": "Master balance recovers after square-off",
+      "category": "D",
+      "priority": "P1",
+      "status": "PASS",
+      "duration_sec": 2.31,
+      "notes": ""
+    },
+    {
+      "scenario_id": "BS34",
+      "title": "Master reaches threshold while a new order is being placed",
+      "category": "D",
+      "priority": "P1",
+      "status": "INCONCLUSIVE",
+      "duration_sec": 2.12,
+      "notes": "INCONCLUSIVE: Threshold configuration endpoint unavailable."
+    },
+    {
+      "scenario_id": "BS35",
+      "title": "Master square-off triggered repeatedly",
+      "category": "D",
+      "priority": "P1",
+      "status": "PASS",
+      "duration_sec": 5.72,
+      "notes": ""
+    },
+    {
+      "scenario_id": "BS36",
+      "title": "Individual follower balance reaches threshold",
+      "category": "E",
+      "priority": "P0",
+      "status": "INCONCLUSIVE",
+      "duration_sec": 2.12,
+      "notes": "INCONCLUSIVE: Balance threshold configuration endpoint unavailable on Staging."
+    },
+    {
+      "scenario_id": "BS37",
+      "title": "Follower reaches threshold while master remains above threshold",
+      "category": "E",
+      "priority": "P0",
+      "status": "INCONCLUSIVE",
+      "duration_sec": 2.14,
+      "notes": "INCONCLUSIVE: Balance threshold configuration endpoint unavailable on Staging."
+    },
+    {
+      "scenario_id": "BS38",
+      "title": "One follower reaches threshold while other followers remain healthy",
+      "category": "E",
+      "priority": "P0",
+      "status": "INCONCLUSIVE",
+      "duration_sec": 2.13,
+      "notes": "INCONCLUSIVE: Balance threshold configuration endpoint unavailable on Staging."
+    },
+    {
+      "scenario_id": "BS39",
+      "title": "All followers reach their thresholds simultaneously",
+      "category": "E",
+      "priority": "P0",
+      "status": "INCONCLUSIVE",
+      "duration_sec": 2.13,
+      "notes": "INCONCLUSIVE: Balance threshold configuration endpoint unavailable on Staging."
+    },
+    {
+      "scenario_id": "BS40",
+      "title": "Follower has multiple copied positions",
+      "category": "E",
+      "priority": "P1",
+      "status": "PASS",
+      "duration_sec": 25.38,
+      "notes": ""
+    },
+    {
+      "scenario_id": "BS41",
+      "title": "Follower has manually opened positions",
+      "category": "E",
+      "priority": "P1",
+      "status": "FAIL",
+      "duration_sec": 3.1,
+      "notes": "Unhandled Exception: 'list' object has no attribute 'get'"
+    },
+    {
+      "scenario_id": "BS42",
+      "title": "Follower balance recovers after square-off",
+      "category": "E",
+      "priority": "P1",
+      "status": "PASS",
+      "duration_sec": 2.45,
+      "notes": ""
+    },
+    {
+      "scenario_id": "BS43",
+      "title": "Follower reaches threshold while unfollowed",
+      "category": "E",
+      "priority": "P1",
+      "status": "PASS",
+      "duration_sec": 8.14,
+      "notes": ""
+    },
+    {
+      "scenario_id": "BS44",
+      "title": "Follower reaches threshold with a different multiplier",
+      "category": "E",
+      "priority": "P1",
+      "status": "INCONCLUSIVE",
+      "duration_sec": 2.27,
+      "notes": "INCONCLUSIVE: Balance threshold configuration endpoint unavailable."
+    },
+    {
+      "scenario_id": "BS45",
+      "title": "Follower has insufficient margin",
+      "category": "E",
+      "priority": "P1",
+      "status": "INCONCLUSIVE",
+      "duration_sec": 2.22,
+      "notes": "INCONCLUSIVE: Follower accounts have ~$12.2M balance with 1:500 leverage; margin cannot be exhausted safely."
+    },
+    {
+      "scenario_id": "BS46",
+      "title": "Only BUY positions are open",
+      "category": "F",
+      "priority": "P0",
+      "status": "PASS",
+      "duration_sec": 6.39,
+      "notes": ""
+    },
+    {
+      "scenario_id": "BS47",
+      "title": "Only SELL positions are open",
+      "category": "F",
+      "priority": "P0",
+      "status": "PASS",
+      "duration_sec": 5.82,
+      "notes": ""
+    },
+    {
+      "scenario_id": "BS48",
+      "title": "BUY and SELL positions open simultaneously",
+      "category": "F",
+      "priority": "P0",
+      "status": "FAIL",
+      "duration_sec": 18.34,
+      "notes": ""
+    },
+    {
+      "scenario_id": "BS49",
+      "title": "Multiple symbols are open",
+      "category": "F",
+      "priority": "P0",
+      "status": "FAIL",
+      "duration_sec": 13.45,
+      "notes": ""
+    },
+    {
+      "scenario_id": "BS50",
+      "title": "Multiple positions on the same symbol",
+      "category": "F",
+      "priority": "P0",
+      "status": "PASS",
+      "duration_sec": 8.69,
+      "notes": ""
+    },
+    {
+      "scenario_id": "BS51",
+      "title": "Positions with different lot sizes",
+      "category": "F",
+      "priority": "P0",
+      "status": "PASS",
+      "duration_sec": 6.22,
+      "notes": ""
+    },
+    {
+      "scenario_id": "BS52",
+      "title": "Position has TP configured",
+      "category": "F",
+      "priority": "P0",
+      "status": "FAIL",
+      "duration_sec": 5.98,
+      "notes": ""
+    },
+    {
+      "scenario_id": "BS53",
+      "title": "Position has SL configured",
+      "category": "F",
+      "priority": "P0",
+      "status": "INCONCLUSIVE",
+      "duration_sec": 72.75,
+      "notes": "INCONCLUSIVE: Live price did not tick 10 pts to hit SL (79490.00) within 60s."
+    },
+    {
+      "scenario_id": "BS54",
+      "title": "Position has both TP and SL",
+      "category": "F",
+      "priority": "P0",
+      "status": "FAIL",
+      "duration_sec": 6.09,
+      "notes": ""
+    },
+    {
+      "scenario_id": "BS55",
+      "title": "Position is partially closed before auto square-off",
+      "category": "F",
+      "priority": "P0",
+      "status": "PASS",
+      "duration_sec": 8.51,
+      "notes": ""
+    },
+    {
+      "scenario_id": "BS56",
+      "title": "Position is already fully closed before auto square-off",
+      "category": "F",
+      "priority": "P1",
+      "status": "PASS",
+      "duration_sec": 6.19,
+      "notes": ""
+    },
+    {
+      "scenario_id": "BS57",
+      "title": "Pending BUY limit order exists",
+      "category": "G",
+      "priority": "P1",
+      "status": "FAIL",
+      "duration_sec": 8.15,
+      "notes": "Unhandled Exception: 'WavexUserSession' object has no attribute 'cancel_pending_order'"
+    },
+    {
+      "scenario_id": "BS58",
+      "title": "Pending SELL limit order exists",
+      "category": "G",
+      "priority": "P1",
+      "status": "FAIL",
+      "duration_sec": 5.91,
+      "notes": ""
+    },
+    {
+      "scenario_id": "BS59",
+      "title": "Pending BUY stop order exists",
+      "category": "G",
+      "priority": "P1",
+      "status": "FAIL",
+      "duration_sec": 5.99,
+      "notes": ""
+    },
+    {
+      "scenario_id": "BS60",
+      "title": "Pending SELL stop order exists",
+      "category": "G",
+      "priority": "P1",
+      "status": "FAIL",
+      "duration_sec": 5.76,
+      "notes": ""
+    },
+    {
+      "scenario_id": "BS61",
+      "title": "Pending order gets filled during square-off",
+      "category": "G",
+      "priority": "P1",
+      "status": "INCONCLUSIVE",
+      "duration_sec": 2.18,
+      "notes": "INCONCLUSIVE: Requires millisecond-level market fill synchronization during cancellation."
+    },
+    {
+      "scenario_id": "BS62",
+      "title": "Square-off API returns HTTP 200",
+      "category": "G",
+      "priority": "P0",
+      "status": "PASS",
+      "duration_sec": 5.37,
+      "notes": ""
+    },
+    {
+      "scenario_id": "BS63",
+      "title": "Square-off API returns an error",
+      "category": "G",
+      "priority": "P0",
+      "status": "PASS",
+      "duration_sec": 2.49,
+      "notes": ""
+    },
+    {
+      "scenario_id": "BS64",
+      "title": "Network disconnects during execution",
+      "category": "G",
+      "priority": "P0",
+      "status": "BLOCKED",
+      "duration_sec": 2.14,
+      "notes": "INCONCLUSIVE: Simulating physical socket drop during staging flight is blocked in automated harness."
+    },
+    {
+      "scenario_id": "BS65",
+      "title": "Square-off takes longer than expected",
+      "category": "G",
+      "priority": "P0",
+      "status": "PASS",
+      "duration_sec": 5.57,
+      "notes": ""
+    },
+    {
+      "scenario_id": "BS66",
+      "title": "Multiple positions close simultaneously",
+      "category": "G",
+      "priority": "P0",
+      "status": "FAIL",
+      "duration_sec": 18.17,
+      "notes": ""
+    },
+    {
+      "scenario_id": "BS67",
+      "title": "One follower's square-off fails",
+      "category": "G",
+      "priority": "P0",
+      "status": "INCONCLUSIVE",
+      "duration_sec": 2.11,
+      "notes": "INCONCLUSIVE: Staging does not support injecting arbitrary failure into individual follower OMS."
+    },
+    {
+      "scenario_id": "BS68",
+      "title": "Market is closed during trigger",
+      "category": "G",
+      "priority": "P2",
+      "status": "INCONCLUSIVE",
+      "duration_sec": 2.13,
+      "notes": "INCONCLUSIVE: Tested symbol is 24/7 crypto (X:BTCUSD). Forex symbols require Saturday/Sunday execution."
+    },
+    {
+      "scenario_id": "BS69",
+      "title": "Insufficient liquidity during square-off",
+      "category": "G",
+      "priority": "P2",
+      "status": "INCONCLUSIVE",
+      "duration_sec": 2.12,
+      "notes": "INCONCLUSIVE: Simulated brokerage book liquidity depth cannot be modified via client API."
+    },
+    {
+      "scenario_id": "BS70",
+      "title": "Auto square-off enabled",
+      "category": "H",
+      "priority": "P1",
+      "status": "INCONCLUSIVE",
+      "duration_sec": 2.12,
+      "notes": "INCONCLUSIVE: Custom auto square-off threshold configuration endpoint unavailable."
+    },
+    {
+      "scenario_id": "BS71",
+      "title": "Auto square-off disabled",
+      "category": "H",
+      "priority": "P1",
+      "status": "INCONCLUSIVE",
+      "duration_sec": 2.12,
+      "notes": "INCONCLUSIVE: Custom auto square-off threshold configuration endpoint unavailable."
+    },
+    {
+      "scenario_id": "BS72",
+      "title": "Enable auto square-off with existing positions",
+      "category": "H",
+      "priority": "P1",
+      "status": "INCONCLUSIVE",
+      "duration_sec": 2.13,
+      "notes": "INCONCLUSIVE: Custom auto square-off threshold configuration endpoint unavailable."
+    },
+    {
+      "scenario_id": "BS73",
+      "title": "Disable auto square-off while positions are open",
+      "category": "H",
+      "priority": "P1",
+      "status": "INCONCLUSIVE",
+      "duration_sec": 2.15,
+      "notes": "INCONCLUSIVE: Custom auto square-off threshold configuration endpoint unavailable."
+    },
+    {
+      "scenario_id": "BS74",
+      "title": "Decimal threshold configuration",
+      "category": "H",
+      "priority": "P1",
+      "status": "INCONCLUSIVE",
+      "duration_sec": 2.12,
+      "notes": "INCONCLUSIVE: Custom auto square-off threshold configuration endpoint unavailable."
+    },
+    {
+      "scenario_id": "BS75",
+      "title": "Extremely large threshold",
+      "category": "H",
+      "priority": "P1",
+      "status": "INCONCLUSIVE",
+      "duration_sec": 2.12,
+      "notes": "INCONCLUSIVE: Custom auto square-off threshold configuration endpoint unavailable."
+    },
+    {
+      "scenario_id": "BS76",
+      "title": "Empty threshold validation",
+      "category": "H",
+      "priority": "P1",
+      "status": "INCONCLUSIVE",
+      "duration_sec": 2.13,
+      "notes": "INCONCLUSIVE: Custom auto square-off threshold configuration endpoint unavailable."
+    },
+    {
+      "scenario_id": "BS77",
+      "title": "Non-numeric threshold validation",
+      "category": "H",
+      "priority": "P1",
+      "status": "INCONCLUSIVE",
+      "duration_sec": 2.12,
+      "notes": "INCONCLUSIVE: Custom auto square-off threshold configuration endpoint unavailable."
+    },
+    {
+      "scenario_id": "BS78",
+      "title": "Excessive decimal precision",
+      "category": "H",
+      "priority": "P1",
+      "status": "INCONCLUSIVE",
+      "duration_sec": 2.14,
+      "notes": "INCONCLUSIVE: Custom auto square-off threshold configuration endpoint unavailable."
+    },
+    {
+      "scenario_id": "BS79",
+      "title": "Different thresholds for different accounts",
+      "category": "H",
+      "priority": "P1",
+      "status": "INCONCLUSIVE",
+      "duration_sec": 2.13,
+      "notes": "INCONCLUSIVE: Custom auto square-off threshold configuration endpoint unavailable."
+    },
+    {
+      "scenario_id": "BS80",
+      "title": "Change threshold multiple times",
+      "category": "H",
+      "priority": "P1",
+      "status": "INCONCLUSIVE",
+      "duration_sec": 2.14,
+      "notes": "INCONCLUSIVE: Custom auto square-off threshold configuration endpoint unavailable."
+    },
+    {
+      "scenario_id": "BS81",
+      "title": "Balance fluctuates around threshold",
+      "category": "I",
+      "priority": "P2",
+      "status": "INCONCLUSIVE",
+      "duration_sec": 2.13,
+      "notes": "INCONCLUSIVE: Threshold configuration endpoint unavailable."
+    },
+    {
+      "scenario_id": "BS82",
+      "title": "Balance reaches threshold briefly",
+      "category": "I",
+      "priority": "P2",
+      "status": "INCONCLUSIVE",
+      "duration_sec": 2.13,
+      "notes": "INCONCLUSIVE: Threshold configuration endpoint unavailable."
+    },
+    {
+      "scenario_id": "BS83",
+      "title": "Balance falls below threshold and immediately recovers",
+      "category": "I",
+      "priority": "P2",
+      "status": "INCONCLUSIVE",
+      "duration_sec": 2.12,
+      "notes": "INCONCLUSIVE: Threshold configuration endpoint unavailable."
+    },
+    {
+      "scenario_id": "BS84",
+      "title": "Account reaches zero balance",
+      "category": "I",
+      "priority": "P2",
+      "status": "INCONCLUSIVE",
+      "duration_sec": 2.12,
+      "notes": "INCONCLUSIVE: Accounts have ~$12M to ~$111M; zero balance cannot be induced safely."
+    },
+    {
+      "scenario_id": "BS85",
+      "title": "Account has negative balance",
+      "category": "I",
+      "priority": "P2",
+      "status": "INCONCLUSIVE",
+      "duration_sec": 2.13,
+      "notes": "INCONCLUSIVE: Staging accounts cannot be driven into negative balance."
+    },
+    {
+      "scenario_id": "BS86",
+      "title": "Account has no trading activity",
+      "category": "I",
+      "priority": "P2",
+      "status": "FAIL",
+      "duration_sec": 2.31,
+      "notes": ""
+    },
+    {
+      "scenario_id": "BS87",
+      "title": "Account is logged out when threshold is reached",
+      "category": "I",
+      "priority": "P2",
+      "status": "INCONCLUSIVE",
+      "duration_sec": 2.12,
+      "notes": "INCONCLUSIVE: Threshold configuration endpoint unavailable."
+    },
+    {
+      "scenario_id": "BS88",
+      "title": "Application restarts during square-off",
+      "category": "I",
+      "priority": "P2",
+      "status": "INCONCLUSIVE",
+      "duration_sec": 2.13,
+      "notes": "INCONCLUSIVE: Staging web server restart is outside client automation scope."
+    },
+    {
+      "scenario_id": "BS89",
+      "title": "Two square-off triggers occur simultaneously",
+      "category": "I",
+      "priority": "P2",
+      "status": "PASS",
+      "duration_sec": 5.17,
+      "notes": ""
+    },
+    {
+      "scenario_id": "BS90",
+      "title": "Account reconnects after square-off",
+      "category": "I",
+      "priority": "P2",
+      "status": "PASS",
+      "duration_sec": 2.69,
+      "notes": ""
+    },
+    {
+      "scenario_id": "BS91",
+      "title": "Verify balance after square-off",
+      "category": "J",
+      "priority": "P0",
+      "status": "PASS",
+      "duration_sec": 2.33,
+      "notes": ""
+    },
+    {
+      "scenario_id": "BS92",
+      "title": "Verify equity after square-off",
+      "category": "J",
+      "priority": "P0",
+      "status": "PASS",
+      "duration_sec": 2.31,
+      "notes": ""
+    },
+    {
+      "scenario_id": "BS93",
+      "title": "Verify used margin after square-off",
+      "category": "J",
+      "priority": "P0",
+      "status": "FAIL",
+      "duration_sec": 2.31,
+      "notes": "Expected 0 open orders after squareoff"
+    },
+    {
+      "scenario_id": "BS94",
+      "title": "Verify free margin after square-off",
+      "category": "J",
+      "priority": "P0",
+      "status": "PASS",
+      "duration_sec": 2.3,
+      "notes": ""
+    },
+    {
+      "scenario_id": "BS95",
+      "title": "Verify realized P&L",
+      "category": "J",
+      "priority": "P0",
+      "status": "PASS",
+      "duration_sec": 2.31,
+      "notes": ""
+    },
+    {
+      "scenario_id": "BS96",
+      "title": "Verify transaction history",
+      "category": "J",
+      "priority": "P0",
+      "status": "PASS",
+      "duration_sec": 2.49,
+      "notes": ""
+    },
+    {
+      "scenario_id": "BS97",
+      "title": "Verify master-follower transaction consistency",
+      "category": "J",
+      "priority": "P0",
+      "status": "PASS",
+      "duration_sec": 2.33,
+      "notes": ""
+    },
+    {
+      "scenario_id": "BS98",
+      "title": "Verify square-off timestamps",
+      "category": "J",
+      "priority": "P0",
+      "status": "PASS",
+      "duration_sec": 2.12,
+      "notes": ""
+    },
+    {
+      "scenario_id": "BS99",
+      "title": "Verify audit logs and trigger reasons",
+      "category": "J",
+      "priority": "P0",
+      "status": "PASS",
+      "duration_sec": 2.12,
+      "notes": ""
+    },
+    {
+      "scenario_id": "BS100",
+      "title": "Verify square-off notifications",
+      "category": "J",
+      "priority": "P2",
+      "status": "PASS",
+      "duration_sec": 2.56,
+      "notes": ""
+    }
+  ]
+}

@@ -1,0 +1,141 @@
+{
+  "meta": {
+    "test_id": "evidence_scen_25_auto_squareoff_tp_hit_sell_all_followers",
+    "title": "Copy Trading: Auto Squareoff on Take Profit Hit (SELL) Across All 5 Followers",
+    "description": "Master places 1.00 whole lot Market SELL with tight Take Profit offset (10 pts below CMP). When market ticks down to TP, broker engine triggers auto squareoff on Master and all 5 followers auto square off synchronously.",
+    "environment": "https://stage.wavexone.com",
+    "started_at": "2026-11-05T18:45:18.850275",
+    "completed_at": "2026-11-05T18:46:27.858661",
+    "duration_seconds": 69.01,
+    "status": "PASS",
+    "error": null
+  },
+  "summary": {
+    "total_steps": 1,
+    "total_assertions": 11,
+    "passed_assertions": 11,
+    "failed_assertions": 0
+  },
+  "assertions": [
+    {
+      "assertion_index": 1,
+      "name": "Follower ctf1 TP (79596) Propagated",
+      "expected": "79596",
+      "actual": "79596",
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 2,
+      "name": "Follower ctf2 TP (79596) Propagated",
+      "expected": "79596",
+      "actual": "79596",
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 3,
+      "name": "Follower ctf3 TP (79596) Propagated",
+      "expected": "79596",
+      "actual": "79596",
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 4,
+      "name": "Follower ctf4 TP (79596) Propagated",
+      "expected": "79596",
+      "actual": "79596",
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 5,
+      "name": "Follower ctf5 TP (79596) Propagated",
+      "expected": "79596",
+      "actual": "79596",
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 6,
+      "name": "Master Auto Squareoff on SELL TP Hit",
+      "expected": true,
+      "actual": true,
+      "passed": true,
+      "notes": "Closed in 61.07s"
+    },
+    {
+      "assertion_index": 7,
+      "name": "Follower ctf1 Auto Squared Off on Master SELL TP Hit",
+      "expected": true,
+      "actual": true,
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 8,
+      "name": "Follower ctf2 Auto Squared Off on Master SELL TP Hit",
+      "expected": true,
+      "actual": true,
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 9,
+      "name": "Follower ctf3 Auto Squared Off on Master SELL TP Hit",
+      "expected": true,
+      "actual": true,
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 10,
+      "name": "Follower ctf4 Auto Squared Off on Master SELL TP Hit",
+      "expected": true,
+      "actual": true,
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 11,
+      "name": "Follower ctf5 Auto Squared Off on Master SELL TP Hit",
+      "expected": true,
+      "actual": true,
+      "passed": true,
+      "notes": ""
+    }
+  ],
+  "execution_steps": [
+    {
+      "step_index": 1,
+      "timestamp": "2026-11-05T18:45:20.677051",
+      "name": "Master 1.00 Lot SELL with TP",
+      "action": "POST /trade/placeorder.php",
+      "endpoint": "",
+      "method": "",
+      "latency_ms": 0.0,
+      "request": {
+        "lot": 1.0,
+        "tp": "79596.71",
+        "sl": "80106.71"
+      },
+      "response": {
+        "status": "success",
+        "message": "Order accepted for processing",
+        "data": {
+          "orderId": "59987",
+          "intentId": "42d0d738926a9ba3008f443735a4f40b",
+          "executionStatus": "queued",
+          "fanoutJobId": 6985,
+          "fanoutStatus": "queued",
+          "requestId": "legacy_7b380e2a66c13713d1a6eb0f0f651412",
+          "placementReplayProtected": true
+        },
+        "_duration_ms": 245.55,
+        "_request_url": "https://stage.wavexone.com/trade/placeorder.php?type=market&bs=sell&lot=1.00&sl=80106.71&target=79596.71&symbol=X:BTCUSD&token=UHZIKS5BXD&clicked=yes&fingerprint=060d191b0e0707726a777e74726273641f45415621_1494"
+      },
+      "extra": {}
+    }
+  ]
+}

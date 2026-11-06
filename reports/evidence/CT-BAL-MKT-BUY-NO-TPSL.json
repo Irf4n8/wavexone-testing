@@ -1,0 +1,57 @@
+{
+  "meta": {
+    "scenario_id": "CT-BAL-MKT-BUY-NO-TPSL",
+    "title": "Balance-Based Market BUY WITHOUT TP/SL",
+    "category": "Balance Market Orders",
+    "environment": "https://stage.wavexone.com",
+    "started_at": "2026-11-06T14:27:17.729992",
+    "completed_at": "2026-11-06T14:27:22.543000",
+    "duration_seconds": 4.81,
+    "status": "PASS",
+    "error": null
+  },
+  "summary": {
+    "total_steps": 1,
+    "total_assertions": 1,
+    "passed_assertions": 1,
+    "failed_assertions": 0
+  },
+  "assertions": [
+    {
+      "assertion_index": 1,
+      "name": "All 5 Followers Replicated (0.05 Lots)",
+      "expected": true,
+      "actual": true,
+      "passed": true,
+      "notes": ""
+    }
+  ],
+  "execution_steps": [
+    {
+      "step_index": 1,
+      "timestamp": "2026-11-06T14:27:20.063701",
+      "name": "Master Market BUY",
+      "action": "POST /trade/placeorder.php",
+      "endpoint": "",
+      "method": "",
+      "latency_ms": 0.0,
+      "request": {},
+      "response": {},
+      "extra": {
+        "status": "success",
+        "message": "Order accepted for processing",
+        "data": {
+          "orderId": "75104",
+          "intentId": "6126ec6a1cccb119c4792b1111d28466",
+          "executionStatus": "queued",
+          "fanoutJobId": 9427,
+          "fanoutStatus": "queued",
+          "requestId": "legacy_e621014b72d2f783fa0fb9438a3e97ef",
+          "placementReplayProtected": true
+        },
+        "_duration_ms": 326.47,
+        "_request_url": "https://stage.wavexone.com/trade/placeorder.php?type=market&bs=buy&lot=0.50&sl=&target=&symbol=X:BTCUSD&token=[REDACTED]&clicked=yes&fingerprint=[REDACTED]"
+      }
+    }
+  ]
+}

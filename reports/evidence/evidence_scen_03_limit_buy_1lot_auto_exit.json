@@ -2,11 +2,11 @@
   "meta": {
     "test_id": "evidence_scen_03_limit_buy_1lot_auto_exit",
     "title": "Copy Trading: Limit BUY 1.00 Lot with Easy-to-Hit Trigger, TP/SL & Automatic Exit",
-    "description": "Master places 1.00 whole lot Limit BUY with trigger 2.0 pts below CMP. Follower replicates 3.00 lots pending. When filled, auto-exits via TP/SL.",
+    "description": "Master places 1.00 whole lot Limit BUY with trigger 1.5 pts below CMP. Follower replicates 3.00 lots pending. When filled, auto-exits via TP/SL.",
     "environment": "https://stage.wavexone.com",
-    "started_at": "2026-11-05T17:15:04.404132",
-    "completed_at": "2026-11-05T17:15:19.843465",
-    "duration_seconds": 15.44,
+    "started_at": "2026-11-05T17:33:38.907245",
+    "completed_at": "2026-11-05T17:33:55.761936",
+    "duration_seconds": 16.85,
     "status": "PASS",
     "error": null
   },
@@ -27,9 +27,9 @@
     },
     {
       "assertion_index": 2,
-      "name": "Follower Trigger (80276.28) Replicated",
-      "expected": "80276.28",
-      "actual": "80276.28",
+      "name": "Follower Trigger (80138.31) Replicated",
+      "expected": "80138.31",
+      "actual": "80138.31",
       "passed": true,
       "notes": ""
     },
@@ -47,7 +47,7 @@
       "expected": true,
       "actual": true,
       "passed": true,
-      "notes": "Order auto-closed in 8.5s without manual close."
+      "notes": "Order auto-closed in 8.7s without manual close."
     },
     {
       "assertion_index": 5,
@@ -61,26 +61,30 @@
   "execution_steps": [
     {
       "step_index": 1,
-      "timestamp": "2026-11-05T17:15:05.421949",
+      "timestamp": "2026-11-05T17:33:41.066129",
       "name": "Master Limit BUY Placement (1.00 Lot)",
       "action": "POST /trade/placeorder.php?type=limit",
       "endpoint": "",
       "method": "",
       "latency_ms": 0.0,
       "request": {
-        "trigger": "80276.28",
-        "sl": "80271.28",
-        "tp": "80283.28"
+        "lot": 1.0,
+        "levels": {
+          "trigger": "80138.31",
+          "sl": "80130.31",
+          "tp": "80146.31",
+          "price": "80139.81"
+        }
       },
       "response": {
         "status": "success",
         "message": "Order Placed Successfully",
         "data": {
-          "orderId": 58732,
-          "time": 0.06499791145324707
+          "orderId": 59105,
+          "time": 1.3782470226287842
         },
-        "_duration_ms": 268.19,
-        "_request_url": "https://stage.wavexone.com/trade/placeorder.php?type=limit&bs=buy&lot=1.00&sl=80271.28&target=80283.28&trigger=80276.28&symbol=X:BTCUSD&token=UHZIKS5BXD&clicked=yes&fingerprint=060d191b0e0707726a777e74726273641f45415621_1229"
+        "_duration_ms": 1564.57,
+        "_request_url": "https://stage.wavexone.com/trade/placeorder.php?type=limit&bs=buy&lot=1.00&sl=80130.31&target=80146.31&trigger=80138.31&symbol=X:BTCUSD&token=UHZIKS5BXD&clicked=yes&fingerprint=060d191b0e0707726a777e74726273641f45415621_1337"
       },
       "extra": {}
     }

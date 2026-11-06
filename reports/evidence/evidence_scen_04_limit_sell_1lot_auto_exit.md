@@ -1,19 +1,17 @@
 # Evidence Report: Copy Trading: Limit SELL 1.00 Lot with Easy-to-Hit Trigger, TP/SL & Automatic Exit (❌ FAIL)
 
 **Test Identifier:** `evidence_scen_04_limit_sell_1lot_auto_exit`  
-**Objective:** Master places 1.00 whole lot Limit SELL with trigger 2.0 pts above CMP. Follower replicates 3.00 lots pending. When filled, auto-exits via TP/SL.  
+**Objective:** Master places 1.00 whole lot Limit SELL with trigger 1.5 pts above CMP. Follower replicates 3.00 lots pending. When filled, auto-exits via TP/SL.  
 **Target Staging Engine:** `https://stage.wavexone.com`  
-**Execution Timestamp:** `2026-11-05T17:15:20.972483` $\rightarrow$ `2026-11-05T17:16:25.742832` (64.77s)  
+**Execution Timestamp:** `2026-11-05T17:30:04.721794` $\rightarrow$ `2026-11-05T17:30:27.051306` (22.33s)  
 **Overall Verification Status:** **❌ FAIL**  
 
 ---
 
-## 📊 Verification Assertions (2/2 Passed)
+## 📊 Verification Assertions (0/0 Passed)
 
 | # | Assertion Check | Expected Value | Actual Value Observed | Result | Notes |
 | :-: | :--- | :--- | :--- | :---: | :--- |
-| 1 | **Follower Replicated 3.00 Lots Pending Limit SELL** | `3.0` | `3.0` | ✅ PASS |  |
-| 2 | **Follower Trigger (80303.94) Replicated** | `80303.94` | `80303.94` | ✅ PASS |  |
 
 ---
 
@@ -24,14 +22,11 @@
 ```json
 // Server Response:
 {
-  "status": "success",
-  "message": "Order Placed Successfully",
-  "data": {
-    "orderId": 58738,
-    "time": 0.09723782539367676
-  },
-  "_duration_ms": 284.7,
-  "_request_url": "https://stage.wavexone.com/trade/placeorder.php?type=limit&bs=sell&lot=1.00&sl=80308.94&target=80296.94&trigger=80303.94&symbol=X:BTCUSD&token=UHZIKS5BXD&clicked=yes&fingerprint=060d191b0e0707726a777e74726273641f45415621_1232"
+  "status": "fail",
+  "message": "Trading temporarily unavailable. Please try again shortly.",
+  "data": [],
+  "_duration_ms": 199.27,
+  "_request_url": "https://stage.wavexone.com/trade/placeorder.php?type=limit&bs=sell&lot=1.00&sl=80459.50&target=80443.50&trigger=80451.50&symbol=X:BTCUSD&token=UHZIKS5BXD&clicked=yes&fingerprint=060d191b0e0707726a777e74726273641f45415621_1301"
 }
 ```
 

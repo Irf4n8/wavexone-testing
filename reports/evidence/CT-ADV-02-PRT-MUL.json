@@ -1,0 +1,98 @@
+{
+  "meta": {
+    "scenario_id": "CT-ADV-02-PRT-MUL",
+    "title": "Partial Close Proportional Reduction (Multiplier Mode: 0.50 -> 0.30 => Follower 1.50 -> 0.90)",
+    "category": "Trade Management",
+    "environment": "https://stage.wavexone.com",
+    "started_at": "2026-11-06T17:35:33.378744",
+    "completed_at": "2026-11-06T17:35:45.120763",
+    "duration_seconds": 11.74,
+    "status": "PASS",
+    "error": null
+  },
+  "summary": {
+    "total_steps": 1,
+    "total_assertions": 7,
+    "passed_assertions": 7,
+    "failed_assertions": 0
+  },
+  "assertions": [
+    {
+      "assertion_index": 1,
+      "name": "Initial Replicated Lots == 1.50 across all 5 followers",
+      "expected": 1.5,
+      "actual": 1.5,
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 2,
+      "name": "Master Remaining Lot == 0.30",
+      "expected": 0.3,
+      "actual": 0.3,
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 3,
+      "name": "ctf1 Proportional Remaining Lot == 0.90",
+      "expected": 0.9,
+      "actual": 0.9,
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 4,
+      "name": "ctf2 Proportional Remaining Lot == 0.90",
+      "expected": 0.9,
+      "actual": 0.9,
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 5,
+      "name": "ctf3 Proportional Remaining Lot == 0.90",
+      "expected": 0.9,
+      "actual": 0.9,
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 6,
+      "name": "ctf4 Proportional Remaining Lot == 0.90",
+      "expected": 0.9,
+      "actual": 0.9,
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "assertion_index": 7,
+      "name": "ctf5 Proportional Remaining Lot == 0.90",
+      "expected": 0.9,
+      "actual": 0.9,
+      "passed": true,
+      "notes": ""
+    }
+  ],
+  "execution_steps": [
+    {
+      "step_index": 1,
+      "timestamp": "2026-11-06T17:35:38.830097",
+      "name": "Master Partial Close 0.20 Lots",
+      "action": "GET /book/squareoff.php?id=77712&close_mode=partial&partial_lot=0.20",
+      "endpoint": "",
+      "method": "",
+      "latency_ms": 0.0,
+      "request": {},
+      "response": {},
+      "extra": {
+        "status": "success",
+        "message": "Order ID - 77712  Sent to for Closing",
+        "data": {
+          "exitMsg": "Exited 'BTCUSD' , 0.20 Lots transit"
+        },
+        "_duration_ms": 258.35
+      }
+    }
+  ]
+}

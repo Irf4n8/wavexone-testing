@@ -1,0 +1,21 @@
+{
+  "meta": {
+    "test_id": "evidence_scen_18_eq_limit_sell_1lot_auto_exit",
+    "title": "Equity Mode: Limit SELL 1.00 Lot (Pending & Auto-Exit, Guarded)",
+    "description": "Master places 1.00 whole lot Limit SELL under Equity mode with Inconclusive guard.",
+    "environment": "https://stage.wavexone.com",
+    "started_at": "2026-11-05T18:33:45.890571",
+    "completed_at": "2026-11-05T18:33:48.048662",
+    "duration_seconds": 2.16,
+    "status": "FAIL",
+    "error": null
+  },
+  "summary": {
+    "total_steps": 0,
+    "total_assertions": 0,
+    "passed_assertions": 0,
+    "failed_assertions": 0
+  },
+  "assertions": [],
+  "execution_steps": []
+}

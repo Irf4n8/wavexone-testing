@@ -1,0 +1,21 @@
+{
+  "meta": {
+    "test_id": "evidence_scen_15_eq_market_buy_1lot_auto_exit",
+    "title": "Equity Mode: Market BUY 1.00 Lot (Auto-Exit, Guarded)",
+    "description": "Master places 1.00 whole lot Market BUY with tight TP/SL under Equity mode with Inconclusive guard.",
+    "environment": "https://stage.wavexone.com",
+    "started_at": "2026-11-05T18:33:15.495415",
+    "completed_at": "2026-11-05T18:33:23.035015",
+    "duration_seconds": 7.54,
+    "status": "FAIL",
+    "error": null
+  },
+  "summary": {
+    "total_steps": 0,
+    "total_assertions": 0,
+    "passed_assertions": 0,
+    "failed_assertions": 0
+  },
+  "assertions": [],
+  "execution_steps": []
+}

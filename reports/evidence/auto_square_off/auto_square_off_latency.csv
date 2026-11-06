@@ -1,0 +1,101 @@
+scenario_id,operation,latency_sec,status
+BS01,Balance above configured threshold,0.0,INCONCLUSIVE
+BS02,Balance exactly equal to threshold,0.0,INCONCLUSIVE
+BS03,Balance below threshold,0.0,INCONCLUSIVE
+BS04,Balance significantly below threshold,0.0,INCONCLUSIVE
+BS05,Balance slightly above threshold,0.0,INCONCLUSIVE
+BS06,Balance slightly below threshold,0.0,INCONCLUSIVE
+BS07,Threshold set to zero,0.0,INCONCLUSIVE
+BS08,Negative threshold validation,0.0,INCONCLUSIVE
+BS09,Threshold greater than current balance,0.0,INCONCLUSIVE
+BS10,Change threshold while positions are open,0.0,INCONCLUSIVE
+BS11,Balance decreases after a losing trade is closed,4.12,PASS
+BS12,Balance decreases after multiple losing trades,8.9,PASS
+BS13,Balance decreases after a profitable trade and charges,0.19,PASS
+BS14,Balance increases after a profitable trade,0.19,PASS
+BS15,Balance changes after deposit,0.0,INCONCLUSIVE
+BS16,Balance changes after withdrawal,0.0,INCONCLUSIVE
+BS17,Balance changes due to commission,0.17,PASS
+BS18,Balance changes due to swap charges,0.0,INCONCLUSIVE
+BS19,Balance changes due to broker adjustments,0.0,INCONCLUSIVE
+BS20,Multiple balance changes occur rapidly,3.26,PASS
+BS21,Balance above threshold but equity below threshold,0.0,INCONCLUSIVE
+BS22,Balance below threshold but equity above threshold,0.0,INCONCLUSIVE
+BS23,Balance unchanged while floating loss increases,5.23,PASS
+BS24,Balance unchanged while floating profit increases,5.25,PASS
+BS25,Balance and equity both below threshold,0.0,INCONCLUSIVE
+BS26,Balance and equity both above threshold,0.0,INCONCLUSIVE
+BS27,Free margin below threshold while balance remains above,0.18,PASS
+BS28,Master balance reaches threshold,0.0,INCONCLUSIVE
+BS29,Master balance falls below threshold with multiple positions,0.0,INCONCLUSIVE
+BS30,Master triggers square-off with five followers,5.85,PASS
+BS31,Master square-off with followers using different multipliers,6.41,PASS
+BS32,Master reaches threshold with no open positions,0.0,INCONCLUSIVE
+BS33,Master balance recovers after square-off,0.19,PASS
+BS34,Master reaches threshold while a new order is being placed,0.0,INCONCLUSIVE
+BS35,Master square-off triggered repeatedly,3.6,PASS
+BS36,Individual follower balance reaches threshold,0.0,INCONCLUSIVE
+BS37,Follower reaches threshold while master remains above threshold,0.0,INCONCLUSIVE
+BS38,One follower reaches threshold while other followers remain healthy,0.0,INCONCLUSIVE
+BS39,All followers reach their thresholds simultaneously,0.0,INCONCLUSIVE
+BS40,Follower has multiple copied positions,21.84,PASS
+BS41,Follower has manually opened positions,0.49,FAIL
+BS42,Follower balance recovers after square-off,0.18,PASS
+BS43,Follower reaches threshold while unfollowed,5.92,PASS
+BS44,Follower reaches threshold with a different multiplier,0.0,INCONCLUSIVE
+BS45,Follower has insufficient margin,0.0,INCONCLUSIVE
+BS46,Only BUY positions are open,4.1,PASS
+BS47,Only SELL positions are open,3.71,PASS
+BS48,BUY and SELL positions open simultaneously,12.34,FAIL
+BS49,Multiple symbols are open,10.55,FAIL
+BS50,Multiple positions on the same symbol,6.57,PASS
+BS51,Positions with different lot sizes,4.08,PASS
+BS52,Position has TP configured,3.79,FAIL
+BS53,Position has SL configured,65.7,INCONCLUSIVE
+BS54,Position has both TP and SL,3.94,FAIL
+BS55,Position is partially closed before auto square-off,6.32,PASS
+BS56,Position is already fully closed before auto square-off,3.59,PASS
+BS57,Pending BUY limit order exists,5.93,FAIL
+BS58,Pending SELL limit order exists,3.74,FAIL
+BS59,Pending BUY stop order exists,3.84,FAIL
+BS60,Pending SELL stop order exists,3.63,FAIL
+BS61,Pending order gets filled during square-off,0.0,INCONCLUSIVE
+BS62,Square-off API returns HTTP 200,3.25,PASS
+BS63,Square-off API returns an error,0.37,PASS
+BS64,Network disconnects during execution,0.0,BLOCKED
+BS65,Square-off takes longer than expected,3.43,PASS
+BS66,Multiple positions close simultaneously,15.97,FAIL
+BS67,One follower's square-off fails,0.0,INCONCLUSIVE
+BS68,Market is closed during trigger,0.0,INCONCLUSIVE
+BS69,Insufficient liquidity during square-off,0.0,INCONCLUSIVE
+BS70,Auto square-off enabled,0.0,INCONCLUSIVE
+BS71,Auto square-off disabled,0.0,INCONCLUSIVE
+BS72,Enable auto square-off with existing positions,0.0,INCONCLUSIVE
+BS73,Disable auto square-off while positions are open,0.0,INCONCLUSIVE
+BS74,Decimal threshold configuration,0.0,INCONCLUSIVE
+BS75,Extremely large threshold,0.0,INCONCLUSIVE
+BS76,Empty threshold validation,0.0,INCONCLUSIVE
+BS77,Non-numeric threshold validation,0.0,INCONCLUSIVE
+BS78,Excessive decimal precision,0.0,INCONCLUSIVE
+BS79,Different thresholds for different accounts,0.0,INCONCLUSIVE
+BS80,Change threshold multiple times,0.0,INCONCLUSIVE
+BS81,Balance fluctuates around threshold,0.0,INCONCLUSIVE
+BS82,Balance reaches threshold briefly,0.0,INCONCLUSIVE
+BS83,Balance falls below threshold and immediately recovers,0.0,INCONCLUSIVE
+BS84,Account reaches zero balance,0.0,INCONCLUSIVE
+BS85,Account has negative balance,0.0,INCONCLUSIVE
+BS86,Account has no trading activity,0.19,FAIL
+BS87,Account is logged out when threshold is reached,0.0,INCONCLUSIVE
+BS88,Application restarts during square-off,0.0,INCONCLUSIVE
+BS89,Two square-off triggers occur simultaneously,3.02,PASS
+BS90,Account reconnects after square-off,0.56,PASS
+BS91,Verify balance after square-off,0.18,PASS
+BS92,Verify equity after square-off,0.18,PASS
+BS93,Verify used margin after square-off,0.18,FAIL
+BS94,Verify free margin after square-off,0.18,PASS
+BS95,Verify realized P&L,0.18,PASS
+BS96,Verify transaction history,0.37,PASS
+BS97,Verify master-follower transaction consistency,0.2,PASS
+BS98,Verify square-off timestamps,0.0,PASS
+BS99,Verify audit logs and trigger reasons,0.0,PASS
+BS100,Verify square-off notifications,0.44,PASS

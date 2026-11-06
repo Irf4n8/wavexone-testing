@@ -1,0 +1,224 @@
+{
+  "meta": {
+    "title": "WavexOne Copy Trading Phase 1 (P0) Pre-Flight Validation",
+    "environment": "https://stage.wavexone.com",
+    "started_at": "2026-11-06T10:27:23.019254",
+    "status": "PASS",
+    "completed_at": "2026-11-06T10:27:31.871894",
+    "duration_seconds": 8.85
+  },
+  "environment_check": {
+    "base_url": "https://stage.wavexone.com",
+    "is_staging": true
+  },
+  "accounts_validation": {
+    "master": {
+      "name": "ctmaster",
+      "uid": "1060",
+      "expected_account_id": "11060",
+      "live_account_id": "11060",
+      "authenticated": true,
+      "fingerprint_available": true
+    },
+    "ctf1": {
+      "name": "ctf1",
+      "uid": "1041",
+      "expected_account_id": "11041",
+      "live_account_id": "11041",
+      "authenticated": true,
+      "fingerprint_available": true
+    },
+    "ctf2": {
+      "name": "ctf2",
+      "uid": "1043",
+      "expected_account_id": "11043",
+      "live_account_id": "11043",
+      "authenticated": true,
+      "fingerprint_available": true
+    },
+    "ctf3": {
+      "name": "ctf3",
+      "uid": "1045",
+      "expected_account_id": "11045",
+      "live_account_id": "11045",
+      "authenticated": true,
+      "fingerprint_available": true
+    },
+    "ctf4": {
+      "name": "ctf4",
+      "uid": "1048",
+      "expected_account_id": "11048",
+      "live_account_id": "11048",
+      "authenticated": true,
+      "fingerprint_available": true
+    },
+    "ctf5": {
+      "name": "ctf5",
+      "uid": "1050",
+      "expected_account_id": "11050",
+      "live_account_id": "11050",
+      "authenticated": true,
+      "fingerprint_available": true
+    }
+  },
+  "subscription_verification": {
+    "all_active": true,
+    "details": {
+      "ctf1": {
+        "account_id": "11041",
+        "user_id": "1041",
+        "in_master_list": true,
+        "in_follower_list": true,
+        "is_active": true
+      },
+      "ctf2": {
+        "account_id": "11043",
+        "user_id": "1043",
+        "in_master_list": true,
+        "in_follower_list": true,
+        "is_active": true
+      },
+      "ctf3": {
+        "account_id": "11045",
+        "user_id": "1045",
+        "in_master_list": true,
+        "in_follower_list": true,
+        "is_active": true
+      },
+      "ctf4": {
+        "account_id": "11048",
+        "user_id": "1048",
+        "in_master_list": true,
+        "in_follower_list": true,
+        "is_active": true
+      },
+      "ctf5": {
+        "account_id": "11050",
+        "user_id": "1050",
+        "in_master_list": true,
+        "in_follower_list": true,
+        "is_active": true
+      }
+    },
+    "total_followers_count": 5
+  },
+  "order_book_preflight": {
+    "total_active_orders": 0,
+    "account_breakdown": {
+      "ctf1": 0,
+      "ctmaster": 0,
+      "ctf5": 0,
+      "ctf3": 0,
+      "ctf4": 0,
+      "ctf2": 0
+    }
+  },
+  "balances_and_margins": {
+    "ctf3": {
+      "balance": 12113610.04,
+      "equity": 12113610.04,
+      "margin": 0.0,
+      "free_margin": 0.0
+    },
+    "ctmaster": {
+      "balance": 111229634.85,
+      "equity": 111229634.85,
+      "margin": 0.0,
+      "free_margin": 0.0
+    },
+    "ctf4": {
+      "balance": 12114523.98,
+      "equity": 12114523.98,
+      "margin": 0.0,
+      "free_margin": 0.0
+    },
+    "ctf5": {
+      "balance": 12114316.34,
+      "equity": 12114316.34,
+      "margin": 0.0,
+      "free_margin": 0.0
+    },
+    "ctf1": {
+      "balance": 12240450.3,
+      "equity": 12240450.3,
+      "margin": 0.0,
+      "free_margin": 0.0
+    },
+    "ctf2": {
+      "balance": 12213376.82,
+      "equity": 12213376.82,
+      "margin": 0.0,
+      "free_margin": 0.0
+    }
+  },
+  "assertions": [
+    {
+      "name": "Environment is Staging",
+      "expected": true,
+      "actual": true,
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "name": "Master Live Account ID Match",
+      "expected": "11060",
+      "actual": "11060",
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "name": "ctf1 Live Account ID Match",
+      "expected": "11041",
+      "actual": "11041",
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "name": "ctf2 Live Account ID Match",
+      "expected": "11043",
+      "actual": "11043",
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "name": "ctf3 Live Account ID Match",
+      "expected": "11045",
+      "actual": "11045",
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "name": "ctf4 Live Account ID Match",
+      "expected": "11048",
+      "actual": "11048",
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "name": "ctf5 Live Account ID Match",
+      "expected": "11050",
+      "actual": "11050",
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "name": "All 5 Target Followers Active in Subscriptions",
+      "expected": true,
+      "actual": true,
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "name": "Initial Open/Pending Orders Count == 0",
+      "expected": 0,
+      "actual": 0,
+      "passed": true,
+      "notes": ""
+    }
+  ],
+  "summary": {
+    "total_assertions": 9,
+    "passed_assertions": 9,
+    "failed_assertions": 0
+  }
+}
